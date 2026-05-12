@@ -1,0 +1,8 @@
+body { font-family: system-ui, sans-serif; margin:0; background:#0b0f14; color:#e6e6e6; line-height: 1.5; }
+header { padding:20px; text-align:center; border-bottom:1px solid #1f2a35; background: #121821; }
+main { max-width:800px; margin:0 auto; padding:20px; }
+.card { background:#121821; padding:16px; margin:16px 0; border-radius:10px; border:1px solid #1f2a35; }
+textarea { width:100%; height:140px; background:#0b0f14; color:#e6e6e6; border:1px solid #1f2a35; padding:12px; border-radius:8px; font-family: monospace; }
+button { margin-top:12px; padding:10px 14px; background:#1f6feb; color:white; border:none; border-radius:8px; cursor:pointer; font-weight:bold; }
+button:hover { background:#388bfd; }
+pre { margin-top:12px; background:#000000; padding:12px; border-radius:8px; border:1px solid #1f2a35; overflow-x:auto; color:#39ff14; }

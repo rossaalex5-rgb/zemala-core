@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zemala | System-Audit V1.4.2</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #ffffff; color: #1a1a1a; font-family: sans-serif; line-height: 1.6; }
+        .hero-section { padding: 40px 20px; max-width: 800px; margin: 0 auto; }
+        .kicker { color: #0b6efd; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        .audit-box { background: #f8f9fa; border-left: 5px solid #1a1a1a; padding: 15px; border-radius: 4px; margin-bottom: 25px; }
+        .seal-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 8px; background: #f0f7ff; border: 1px solid #d0e3ff; margin-top: 15px; }
+        .seal-hash { font-family: monospace; font-size: 0.75rem; color: #6c757d; word-break: break-all; margin-top: 5px; }
+        #verify-result { margin-top: 20px; padding: 10px; border-radius: 8px; background: #fffcf0; border: 1px solid #ffeeba; display: none; }
+    </style>
+</head>
+<body>
+<div class="hero-section">
+    <div class="kicker">Zemala Intelligence</div>
+    <h1 class="fw-bold">Audit-Snapshot.</h1>
+    <p class="text-muted">Deterministische Erfassung im lokalen Ledger.</p>
+
+    <div class="audit-box">
+        <small class="text-uppercase fw-bold">System Status</small><br>
+        <strong>Marker 12.1 (Crystallized)</strong><br>
+        <span class="text-muted small">Aktive Einträge: <span id="ledger-count" class="text-primary fw-bold">0</span></span>
+    </div>
+
+    <textarea id="inputArea" class="form-control mb-3" rows="3" placeholder="Ereignis-Inhalt eingeben..."></textarea>
+
+    <div class="d-flex gap-2 flex-wrap">
+        <button class="btn btn-dark" onclick="processEvent()">✓ Erfassen</button>
+        <button class="btn btn-outline-primary" onclick="exportLedger()">JSON Export</button>
+        <button class="btn btn-outline-success" onclick="verifyLedger()">Ledger prüfen</button>
+        <button class="btn btn-outline-danger btn-sm" onclick="clearLedger()">Reset</button>
+    </div>
+
+    <div id="output-area"></div>
+    <div id="verify-result"></div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

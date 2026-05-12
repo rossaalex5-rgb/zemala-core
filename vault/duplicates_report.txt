@@ -1,0 +1,47 @@
+DUP:zemala.sh
+19e3da6e62e2c54a38aba07fd3b9e87556f6048ca13156a041c657e9e4f8869b imports/core_neu/zemala.sh
+----
+DUP:verify.sh
+06b362364b43692c93478df60d4084869995f596d66d1906a277f4b3468484c9 imports/core_neu/scripts/verify.sh
+12ad5c18afbaf0bba356753c139deb06f75edc71e0226ae3852c417cc81f5995 imports/core_neu/core/verify.sh
+----
+DUP:event.json
+e5aac808927116cbeb6e4a89435dc63ed8b15f57a96adc64f51db52b22475172 imports/core_neu/core/contracts/event.json
+----
+DUP:manifesto_v2-1.json
+097d489341bf00bc2da1cf9f425511329a7837dd2dbfad7f0071536e9288f36a imports/core_neu/vault/manifesto_v2-1.json
+----
+DUP:replay.sh
+3e224868e645eae53cdcb808f88cef7e517957dd7aebc6377115cace348c6219 imports/core_neu/scripts/replay.sh
+----
+DUP:check_resources.sh
+00b07fde6ac70f6aad553683f05be69be019a1305fc0215ecca529542c5bb306 imports/core_neu/scripts/check_resources.sh
+----
+DUP:event_router.sh
+7f561bee6577b66d0bed7c1fd5d5119db4938709dd40eaa98843a876ba9ea01f imports/core_neu/scripts/event_router.sh
+----
+DUP:app.js
+c98c651edcdb0066a02cb12a0a228e9fcd8a0f4739ce562afc0bd78cbd931e4c imports/core_neu/docs/app.js
+c98c651edcdb0066a02cb12a0a228e9fcd8a0f4739ce562afc0bd78cbd931e4c imports/core_neu/web/app.js
+----
+DUP:thermomix_bridge.sh
+7dffb778eeb4e3e034e5f9d983833caf1d69bc7cdd4bf5030dfec18429605860 imports/core_neu/scripts/thermomix_bridge.sh
+----
+DUP:lock_emit.sh
+d30c46d6fcd70208c760028abc134191d3a816d850bcae4b2c69e95b5799dd19 imports/core_neu/scripts/lock_emit.sh
+----
+DUP:hasher.js
+4de2094eb193c8e08051c3caaf0483e1a55957a4c9f269125206ad09fd993413 imports/core_neu/core/engine/hasher.js
+----
+DUP:deploy.sh
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 imports/core_neu/scripts/deploy.sh
+----
+DUP:canonical.js
+2f022fa791f5e733f2cd83d90ce4da2830985a77f37236132e200b96e2163c69 imports/core_neu/core/engine/canonical.js
+----
+DUP:live_loop.sh
+4d79f1aac7d5aef625ea04cf48a2650d209b4034b5821f1a89749779a2cf76e6 imports/core_neu/scripts/live_loop.sh
+----
+DUP:emit_event.sh
+8d850de1c2098d9855a6b8bb98b36e05d1f3c89f53b30f041c8d5e673b5fa550 imports/core_neu/scripts/emit_event.sh
+----
