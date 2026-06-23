@@ -1,0 +1,26 @@
+[
+  {
+    "node": "1",
+    "type": "INTENTION",
+    "desc": "System-Souveränität initialisiert – Deterministische Brücke aktiv",
+    "expected_hash": "adf05d9c"
+  },
+  {
+    "node": "2",
+    "type": "KONDENSATION",
+    "desc": "IFR-Rauschfilter aktiv – KI-Output mathematisch normalisiert",
+    "expected_hash": "29478aad"
+  },
+  {
+    "node": "3",
+    "type": "MANIFESTATION",
+    "desc": "Shell Execution Layer verifiziert (master_control.sh + verify.sh)",
+    "expected_hash": "440e36f6"
+  },
+  {
+    "node": "4",
+    "type": "AUDIT",
+    "desc": "Deterministischer Replay-Schnitt versiegelt – Append-Only confirmed",
+    "expected_hash": "d804e45b"
+  }
+]
