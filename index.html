@@ -1,496 +1,846 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#ffffff" />
-  <meta name="description" content="Zemala Core – EU AI Act Konformitäts-Prüfprotokoll V2.1" />
-  <title>Zemala Core – Compliance-Prüfprotokoll</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zemala – Compliance durch Architektur: Das müssen KMUs und Behörden wissen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ─── IHK-PALETTE ──────────────────────────────── */
+:root {
+  --ihk:       #004B87;
+  --ihk-dark:  #00356B;
+  --ihk-lt:    #EBF2F9;
+  --ihk-line:  rgba(0,75,135,0.2);
+  --text:      #1A1A1A;
+  --muted:     #555555;
+  --light:     #777777;
+  --bg:        #FFFFFF;
+  --bg-gray:   #F5F5F5;
+  --bg-light:  #FAFAFA;
+  --border:    #E0E0E0;
+  --green:     #2E7D4F;
+  --green-bg:  #EEF7F2;
+  --red:       #C0392B;
+  --red-bg:    #FDECEA;
+  --amber:     #9A6000;
+  --amber-bg:  #FEF7E6;
+  --max-w:     1140px;
+  --pad:       clamp(1rem, 4vw, 2.5rem);
+}
 
-    :root {
-      --navy:         #003366;
-      --navy-dark:    #002244;
-      --navy-light:   #e8edf5;
-      --bg:           #f0f2f5;
-      --white:        #ffffff;
-      --border:       #c8d0dc;
-      --border-light: #e2e8f0;
-      --text:         #1a2332;
-      --text-mid:     #4b5a6e;
-      --text-light:   #6b7a8d;
-      --green:        #1a5c28;
-      --green-bg:     #eaf4ec;
-      --green-border: #a3d4ac;
-      --red:          #9b1c1c;
-      --red-bg:       #fde8e8;
-      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-    }
+/* ─── RESET ────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Open Sans',system-ui,sans-serif;font-size:15px;line-height:1.7;overflow-x:hidden}
+a{color:var(--ihk);text-decoration:none}
+a:hover{text-decoration:underline}
+h2,h3,h4{color:var(--ihk-dark);font-weight:700}
+ul{padding-left:1.4rem}
+li{margin-bottom:.3rem}
+img{max-width:100%;display:block}
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 13px;
-      line-height: 1.55;
-      padding: 14px;
-      min-height: 100vh;
-    }
+/* ─── NAV ──────────────────────────────────────── */
+.site-nav{background:var(--bg);border-bottom:3px solid var(--ihk);position:sticky;top:0;z-index:200;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.nav-inner{max-width:var(--max-w);margin:0 auto;padding:0 var(--pad);height:54px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none!important}
+.nav-mark{width:34px;height:34px;background:var(--ihk);display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;color:#fff;font-style:italic;flex-shrink:0}
+.nav-name{font-size:1.05rem;font-weight:700;color:var(--ihk);letter-spacing:.01em}
+.nav-crumb{font-size:.75rem;color:var(--muted);display:flex;align-items:center;gap:.35rem;margin-left:1rem}
+.nav-crumb a{color:var(--ihk);font-size:.75rem}
+.nav-crumb span{color:var(--light)}
+.nav-links{display:flex;list-style:none;gap:0}
+.nav-links li a{display:block;padding:0 .9rem;height:54px;line-height:54px;font-size:.78rem;font-weight:600;color:var(--muted);border-left:1px solid var(--border);transition:color .15s,background .15s}
+.nav-links li:first-child a{border-left:none}
+.nav-links li a:hover{color:var(--ihk);background:var(--bg-gray);text-decoration:none}
+.nav-cta{background:var(--ihk);color:#fff!important;padding:0 1.2rem}
+.nav-cta:hover{background:var(--ihk-dark)!important}
+@media(max-width:768px){.nav-links{display:none}.nav-crumb{display:none}}
 
-    /* ── DOCUMENT ── */
-    .document {
-      background: var(--white);
-      max-width: 500px;
-      margin: 0 auto;
-      border: 1px solid var(--border);
-      border-top: 5px solid var(--navy);
-      box-shadow: 0 2px 10px rgba(0,30,80,0.09);
-    }
+/* ─── HERO IMAGE BAR ───────────────────────────── */
+.hero-img{width:100%;height:280px;background:linear-gradient(135deg,#001f42 0%,#004B87 40%,#006bb3 70%,#00a0c8 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.hero-img::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px,transparent 1px,transparent 40px)}
+.hero-img-text{position:relative;z-index:1;text-align:center;color:#fff}
+.hero-img-text .art-mark{font-size:3rem;opacity:.15;font-weight:700;letter-spacing:.08em}
+.hero-img-text .hero-img-label{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;opacity:.6;margin-bottom:.5rem}
+.hero-img-text .hero-img-big{font-size:clamp(1.4rem,3vw,2.2rem);font-weight:700;opacity:.9;line-height:1.2}
 
-    /* ── LETTERHEAD ── */
-    .letterhead {
-      padding: 18px 20px 14px;
-      border-bottom: 1.5px solid var(--navy);
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-    }
+/* ─── ARTICLE HEADER ───────────────────────────── */
+.article-wrap{max-width:var(--max-w);margin:0 auto;padding:0 var(--pad)}
+.article-tag{display:inline-block;font-size:.72rem;font-weight:600;color:var(--ihk);letter-spacing:.04em;padding:2rem 0 .7rem;text-transform:uppercase}
+.article-h1{font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;color:var(--ihk-dark);line-height:1.2;margin-bottom:1.5rem}
+.article-lead{font-size:1rem;font-weight:600;color:var(--text);line-height:1.65;max-width:800px;padding-bottom:1.75rem;border-bottom:1px solid var(--border);margin-bottom:2rem}
 
-    .doc-id       { font-size: 9px; color: var(--text-light); letter-spacing: 0.4px; text-transform: uppercase; margin-bottom: 4px; }
-    .doc-title    { font-size: 15px; font-weight: 800; color: var(--navy); text-transform: uppercase; letter-spacing: 0.3px; line-height: 1.2; }
-    .doc-subtitle { font-size: 10.5px; color: var(--text-mid); margin-top: 3px; }
+/* ─── TWO-COL LAYOUT ───────────────────────────── */
+.doc-layout{display:grid;grid-template-columns:220px 1fr;gap:3rem;padding-bottom:4rem;align-items:start}
+@media(max-width:900px){.doc-layout{grid-template-columns:1fr}}
 
-    .status-seal { text-align: right; flex-shrink: 0; }
+/* ─── SIDEBAR TOC ──────────────────────────────── */
+.toc{position:sticky;top:70px}
+.toc-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.8rem;border-bottom:1px solid var(--border);padding-bottom:.5rem}
+.toc ul{list-style:none;padding:0}
+.toc li{margin-bottom:0}
+.toc a{display:block;font-size:.8rem;color:var(--ihk);padding:.35rem 0 .35rem .7rem;border-left:2px solid transparent;line-height:1.4;transition:border-color .15s,background .15s}
+.toc a:hover,.toc a.active{border-left-color:var(--ihk);background:var(--ihk-lt);text-decoration:none;font-weight:600}
+@media(max-width:900px){.toc{display:none}}
 
-    .badge {
-      display: inline-block;
-      font-size: 9px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      padding: 3px 9px;
-      border-radius: 2px;
-    }
-    .badge-sealed { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
-    .badge-error  { background: var(--red-bg);   color: var(--red);   border: 1px solid #f5c2c2; }
-    .badge-loading{ background: var(--navy-light);color: var(--navy);  border: 1px solid var(--border); }
+/* ─── CONTENT AREA ─────────────────────────────── */
+.content section{padding-top:2.2rem;border-top:1px solid var(--border);margin-top:2.2rem}
+.content section:first-child{border-top:none;padding-top:0;margin-top:0}
+.content h2{font-size:1.3rem;font-weight:700;color:var(--ihk-dark);margin-bottom:1.1rem}
+.content h3{font-size:1.05rem;font-weight:700;color:var(--ihk-dark);margin:1.5rem 0 .7rem}
+.content h4{font-size:.9rem;font-weight:700;color:var(--ihk-dark);margin:.9rem 0 .4rem}
+.content p{margin-bottom:.9rem;color:var(--text);font-size:.92rem}
+.content p:last-child{margin-bottom:0}
+.content strong{font-weight:700;color:var(--text)}
 
-    .seal-date { font-size: 9px; color: var(--text-light); margin-top: 4px; }
+/* Intro bold text para */
+.intro-bold{font-weight:600;font-size:.95rem;color:var(--text);margin-bottom:1rem}
 
-    /* ── SECTIONS ── */
-    section { border-bottom: 1px solid var(--border-light); }
+/* Role cards (Für wen?) */
+.role-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin:1.2rem 0}
+.role-card{background:var(--bg);padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.4rem}
+.role-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.role-title{font-size:.88rem;font-weight:700;color:var(--ihk)}
+.role-desc{font-size:.8rem;color:var(--muted);line-height:1.4}
+.role-ex{font-size:.75rem;color:var(--light);font-style:italic}
 
-    .section-label {
-      font-size: 9px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: var(--navy);
-      background: var(--navy-light);
-      padding: 5px 20px;
-      border-bottom: 1px solid var(--border);
-    }
+/* Standard table */
+.std-table{width:100%;border-collapse:collapse;font-size:.82rem;margin:1.2rem 0;border:1px solid var(--border)}
+.std-table th{background:var(--bg-gray);color:var(--muted);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.7rem 1rem;text-align:left;border-bottom:2px solid var(--border)}
+.std-table td{padding:.75rem 1rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5}
+.std-table tr:last-child td{border-bottom:none}
+.std-table tr:nth-child(even) td{background:var(--bg-light)}
+.td-art{font-size:.75rem;font-weight:700;color:var(--ihk);white-space:nowrap}
 
-    .section-body { padding: 14px 20px; }
+/* Accordion boxes (IHK-style) */
+.acc-list{margin:1.2rem 0;display:flex;flex-direction:column;gap:0}
+.acc-item{border:1px solid var(--border)}
+.acc-item+.acc-item{margin-top:-1px}
+.acc-btn{width:100%;display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.1rem;background:var(--bg);border:none;text-align:left;cursor:pointer;font-family:inherit;font-size:.88rem;font-weight:600;color:var(--ihk-dark);transition:background .15s;gap:1rem}
+.acc-btn:hover{background:var(--ihk-lt)}
+.acc-btn .icon{font-size:.75rem;color:var(--muted);flex-shrink:0;transition:transform .2s}
+.acc-btn.open .icon{transform:rotate(180deg)}
+.acc-body{display:none;padding:.9rem 1.1rem 1.1rem;border-top:1px solid var(--border);font-size:.85rem;color:var(--muted);line-height:1.6;background:var(--bg-light)}
+.acc-body.open{display:block}
+.acc-body p{margin-bottom:.6rem}
+.acc-body p:last-child{margin-bottom:0}
+.acc-body ul{margin:.4rem 0 .6rem}
 
-    /* ── HASH FIELD ── */
-    .hash-label    { font-size: 9px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 5px; }
-    .hash-copy-hint{ font-size: 9px; color: var(--text-light); text-align: right; margin-top: 5px; display: none; }
+/* Status badges */
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:2px;letter-spacing:.06em}
+.badge-ok{background:var(--green-bg);color:var(--green)}
+.badge-warn{background:var(--amber-bg);color:var(--amber)}
+.badge-req{background:var(--red-bg);color:var(--red)}
+.badge::before{content:'●';font-size:.55rem}
 
-    .hash-field {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--navy);
-      padding: 10px 12px;
-      font-family: var(--mono);
-      font-size: 10.5px;
-      word-break: break-all;
-      color: var(--text);
-      cursor: pointer;
-      line-height: 1.6;
-      transition: background 0.15s;
-      min-height: 42px;
-    }
-    .hash-field:hover { background: var(--navy-light); }
-    .hash-field.computing { color: var(--text-light); font-style: italic; cursor: default; }
-    .hash-field.error     { border-left-color: var(--red); color: var(--red); cursor: default; }
+/* Info box */
+.info-box{border-left:4px solid var(--ihk);background:var(--ihk-lt);padding:1rem 1.2rem;margin:1.2rem 0;font-size:.88rem;line-height:1.6}
+.info-box strong{color:var(--ihk-dark)}
+.warn-box{border-left:4px solid var(--amber);background:var(--amber-bg);padding:1rem 1.2rem;margin:1.2rem 0;font-size:.88rem;line-height:1.6}
+.warn-box strong{color:var(--amber)}
 
-    /* ── TABLES ── */
-    .audit-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-    .audit-table tr   { border-bottom: 1px dashed var(--border-light); }
-    .audit-table tr:last-child { border-bottom: none; }
-    .audit-table td   { padding: 7px 0; vertical-align: top; }
-    .audit-table td:first-child { color: var(--text-mid); width: 48%; padding-right: 8px; }
-    .audit-table td:last-child  { font-weight: 600; color: var(--text); text-align: right; }
+/* Checklist */
+.checklist{margin:1rem 0;list-style:none;padding:0;display:flex;flex-direction:column;gap:0}
+.checklist li{border:1px solid var(--border);background:var(--bg);padding:.9rem 1.1rem;font-size:.88rem;display:flex;align-items:flex-start;gap:10px;cursor:pointer;transition:background .12s;user-select:none}
+.checklist li+li{margin-top:-1px}
+.checklist li:hover{background:var(--ihk-lt)}
+.checklist li.checked{background:var(--green-bg)}
+.checklist li .cb{width:16px;height:16px;border:2px solid var(--border);border-radius:2px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:transparent;transition:background .12s,border-color .12s,color .12s}
+.checklist li.checked .cb{background:var(--green);border-color:var(--green);color:#fff}
+.check-progress{margin:1rem 0;background:var(--border);height:4px;border-radius:2px;overflow:hidden}
+.check-fill{height:100%;background:var(--ihk);transition:width .3s ease;width:0}
+.check-label{font-size:.75rem;color:var(--muted);margin-bottom:.4rem}
 
-    .val-ok  { color: var(--green) !important; }
-    .val-act { color: var(--navy)  !important; }
-    .val-err { color: var(--red)   !important; }
+/* Bußgeld boxes */
+.fine-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1.2rem 0}
+.fine-card{background:var(--bg-gray);border:1px solid var(--border);padding:1.2rem;display:flex;flex-direction:column;gap:.4rem}
+.fine-amount{font-size:1.1rem;font-weight:700;color:var(--ihk-dark)}
+.fine-desc{font-size:.78rem;color:var(--muted);line-height:1.4}
 
-    /* ── TIMELINE ── */
-    .timeline { display: flex; flex-direction: column; }
+/* Timeline */
+.timeline{display:flex;gap:0;margin:1.2rem 0;overflow-x:auto;padding-bottom:.5rem}
+.tl-item{display:flex;flex-direction:column;flex:1;min-width:110px}
+.tl-item:first-child .tl-bar{border-left:none;border-radius:0}
+.tl-bar{background:var(--border);height:6px;position:relative}
+.tl-bar.past{background:var(--muted)}
+.tl-bar.now{background:var(--ihk)}
+.tl-bar.future{background:var(--bg-gray);border:1px solid var(--border)}
+.tl-dot{width:12px;height:12px;border-radius:50%;background:var(--ihk);position:absolute;top:-3px;left:0;border:2px solid #fff;box-shadow:0 0 0 1px var(--ihk)}
+.tl-label{font-size:.68rem;font-weight:600;color:var(--ihk);padding:.5rem .5rem 0 0}
+.tl-desc{font-size:.68rem;color:var(--muted);line-height:1.3;padding-right:.5rem}
 
-    .tl-entry {
-      display: flex;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px dashed var(--border-light);
-      opacity: 0;
-      transform: translateX(-5px);
-      transition: opacity 0.32s ease, transform 0.32s ease;
-    }
-    .tl-entry:last-child { border-bottom: none; }
-    .tl-entry.visible    { opacity: 1; transform: translateX(0); }
+/* Contact section */
+#contact-section{background:var(--bg-gray);padding:2.5rem var(--pad);margin-top:2.5rem}
+.contact-inner{max-width:var(--max-w);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+@media(max-width:680px){.contact-inner{grid-template-columns:1fr}}
+.contact-card{background:var(--bg);border:1px solid var(--border);padding:1.5rem}
+.contact-card h3{font-size:.85rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;border-bottom:1px solid var(--border);padding-bottom:.6rem}
+.contact-row{margin-bottom:.6rem;font-size:.88rem}
+.contact-row strong{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:1px}
+.qual-item{display:flex;gap:.5rem;font-size:.82rem;color:var(--muted);align-items:baseline;margin-bottom:.4rem}
+.qual-item::before{content:"—";color:var(--ihk);flex-shrink:0;font-family:monospace;font-size:.75rem}
+.form-field{display:flex;flex-direction:column;gap:4px;margin-bottom:.9rem}
+.form-field label{font-size:.72rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.form-field input,.form-field select,.form-field textarea{border:1px solid var(--border);padding:.55rem .75rem;font-family:inherit;font-size:.88rem;color:var(--text);background:var(--bg);transition:border-color .15s;outline:none;width:100%}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--ihk)}
+.form-field textarea{min-height:90px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+@media(max-width:480px){.form-row{grid-template-columns:1fr}}
+.form-submit{width:100%;padding:.8rem;background:var(--ihk);color:#fff;border:none;font-family:inherit;font-size:.88rem;font-weight:700;letter-spacing:.04em;cursor:pointer;transition:background .15s;text-transform:uppercase}
+.form-submit:hover{background:var(--ihk-dark)}
+.form-note{font-size:.72rem;color:var(--light);text-align:center;margin-top:.6rem}
 
-    .tl-marker {
-      flex-shrink: 0;
-      width: 22px; height: 22px;
-      border-radius: 50%;
-      background: var(--navy);
-      color: #fff;
-      font-size: 9px; font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-      margin-top: 1px;
-    }
-    .tl-marker.error { background: var(--red); }
+/* Pyramid */
+.pyramid-wrap{margin:1.2rem 0;display:flex;flex-direction:column;gap:0;align-items:center}
+.pyr-row{display:flex;align-items:center;gap:.8rem;width:100%;margin-bottom:2px;justify-content:center}
+.pyr-bar{height:38px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;border-radius:2px}
+.pyr-label{font-size:.78rem;color:var(--muted);line-height:1.3;min-width:140px}
 
-    .tl-body   { flex: 1; }
-    .tl-type   { font-size: 10px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.4px; }
-    .tl-desc   { font-size: 11px; color: var(--text-mid); margin-top: 1px; line-height: 1.4; }
-    .tl-hashes { display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap; }
+/* Sandboxes IHK-style card */
+.sandbox-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:1.2rem 0}
+.sb-card{border:1px solid var(--border);background:var(--bg);padding:1.2rem;display:flex;flex-direction:column;gap:.5rem}
+.sb-card h4{font-size:.88rem;color:var(--ihk-dark);margin:0}
+.sb-card p{font-size:.8rem;color:var(--muted);margin:0;line-height:1.5}
 
-    .tl-hash {
-      font-family: var(--mono);
-      font-size: 9px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      padding: 1px 5px;
-      border-radius: 2px;
-      color: var(--text-mid);
-    }
-    .tl-hash.live    { color: var(--green); border-color: var(--green-border); background: var(--green-bg); }
-    .tl-hash.mismatch{ color: var(--red);   border-color: #f5c2c2; background: var(--red-bg); }
+/* Links section at bottom */
+.links-grid{display:flex;flex-direction:column;gap:0;margin:1rem 0}
+.link-item{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;border:1px solid var(--border);background:var(--bg);font-size:.85rem;font-weight:600;color:var(--ihk);transition:background .12s;cursor:pointer}
+.link-item+.link-item{margin-top:-1px}
+.link-item:hover{background:var(--ihk-lt);text-decoration:none}
+.link-item .arrow{font-size:.75rem;color:var(--muted)}
 
-    /* ── LOADING STATE ── */
-    .loading-state {
-      padding: 20px;
-      text-align: center;
-      color: var(--text-light);
-      font-size: 12px;
-    }
+/* FOOTER */
+.site-footer{background:var(--ihk-dark);color:rgba(255,255,255,.7);font-size:.78rem;padding:1.8rem var(--pad)}
+.footer-inner{max-width:var(--max-w);margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-brand{color:#fff;font-weight:700;font-size:.85rem}
+.footer-brand span{color:rgba(255,255,255,.5);margin-left:.5rem;font-weight:400}
+.footer-sig{font-family:monospace;font-size:.65rem;color:rgba(255,255,255,.3);letter-spacing:.08em}
 
-    /* ── ACTIONS ── */
-    .action-row { padding: 14px 20px; display: flex; gap: 8px; }
-
-    .btn {
-      flex: 1;
-      padding: 9px 10px;
-      font-size: 11px; font-weight: 700;
-      text-align: center;
-      border-radius: 2px;
-      cursor: pointer;
-      text-decoration: none;
-      border: none;
-      transition: background 0.15s;
-    }
-    .btn-primary { background: var(--navy); color: #fff; }
-    .btn-primary:hover { background: var(--navy-dark); }
-    .btn-outline { background: var(--white); color: var(--navy); border: 1.5px solid var(--navy); }
-    .btn-outline:hover { background: var(--navy-light); }
-
-    /* ── FOOTER ── */
-    footer {
-      padding: 12px 20px;
-      background: var(--navy-light);
-      font-size: 9.5px;
-      color: var(--text-light);
-      line-height: 1.6;
-      border-top: 1px solid var(--border);
-    }
-    footer span { color: var(--navy); font-weight: 600; }
-
-    /* ── TOAST ── */
-    #toast {
-      position: fixed;
-      bottom: 24px; left: 50%;
-      transform: translateX(-50%) translateY(12px);
-      background: var(--navy);
-      color: #fff;
-      font-size: 11px; font-weight: 600;
-      padding: 8px 18px;
-      border-radius: 2px;
-      opacity: 0;
-      transition: opacity 0.25s, transform 0.25s;
-      pointer-events: none;
-      white-space: nowrap;
-      box-shadow: 0 4px 12px rgba(0,30,80,0.25);
-      z-index: 999;
-    }
-    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-  </style>
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.reveal.vis{opacity:1;transform:none}
+</style>
 </head>
 <body>
 
-<div class="document">
-
-  <!-- LETTERHEAD -->
-  <div class="letterhead">
-    <div>
-      <div class="doc-id">Dok.-Nr.: ZC-IFR-2026-024 · Prüfprotokoll</div>
-      <div class="doc-title">Zemala Core</div>
-      <div class="doc-subtitle">EU AI Act Konformitäts-Audit · Statusbericht V2.1</div>
+<!-- ─── NAV ──────────────────────────────────── -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">
+      <div class="nav-mark">Z</div>
+      <span class="nav-name">Zemala</span>
+    </a>
+    <div class="nav-crumb">
+      <a href="#">Ratgeber</a><span>›</span>
+      <a href="#">Digitalisierung</a><span>›</span>
+      <a href="#">Künstliche Intelligenz</a><span>›</span>
+      <strong style="color:var(--text)">AI Act Compliance</strong>
     </div>
-    <div class="status-seal">
-      <span class="badge badge-loading" id="audit-badge">⧗ Prüfung…</span>
-      <div class="seal-date" id="seal-date">–</div>
-    </div>
+    <ul class="nav-links">
+      <li><a href="#fuer-wen">Zielgruppen</a></li>
+      <li><a href="#compliance">Compliance-Mapping</a></li>
+      <li><a href="#reallabor">Reallabor</a></li>
+      <li><a href="#checkliste">Checkliste</a></li>
+      <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
+    </ul>
   </div>
+</nav>
 
-  <!-- MASTER HASH -->
-  <section>
-    <div class="section-label">Kryptografischer Master-Zustand (SHA-256 · Live)</div>
-    <div class="section-body">
-      <div class="hash-label">Deterministisch verketteter Replay-Hash</div>
-      <div class="hash-field computing" id="master-hash">⧗ Lade Ledger &amp; berechne Kette…</div>
-      <div class="hash-copy-hint" id="copy-hint">▲ antippen = In Zwischenablage kopieren</div>
-    </div>
-  </section>
-
-  <!-- METRICS -->
-  <section>
-    <div class="section-label">Prüfmetriken · Systemstatus</div>
-    <div class="section-body">
-      <table class="audit-table">
-        <tr><td>Daten-Integrität</td>         <td class="val-ok">100 % deterministisch</td></tr>
-        <tr><td>Einträge im Ledger</td>        <td class="val-act" id="entry-count">–</td></tr>
-        <tr><td>Architekturtyp</td>            <td>Append-Only-Ledger</td></tr>
-        <tr><td>Verarbeitungs-Modus</td>       <td>Kristallisation [SSoT]</td></tr>
-        <tr><td>Hash-Algorithmus</td>          <td>SHA-256 (Web Crypto API)</td></tr>
-        <tr><td>Datensouveränität</td>         <td class="val-ok">100 % lokal (Termux)</td></tr>
-      </table>
-    </div>
-  </section>
-
-  <!-- COMPLIANCE -->
-  <section>
-    <div class="section-label">EU AI Act Konformitäts-Schnittstelle</div>
-    <div class="section-body">
-      <table class="audit-table">
-        <tr><td>Risiko-Klassifizierung</td>   <td>Gefilterte Inferenz (IFR)</td></tr>
-        <tr><td>Revisionssicherheit</td>      <td class="val-ok">Vollständig auditierbar</td></tr>
-        <tr><td>Replay-Fähigkeit</td>         <td class="val-ok">Ja – deterministisch</td></tr>
-        <tr><td>SHA-256 Validierung</td>      <td id="validation-status" class="val-act">Wird berechnet…</td></tr>
-        <tr><td>Hash-Übereinstimmung</td>     <td id="match-status" class="val-act">–</td></tr>
-      </table>
-    </div>
-  </section>
-
-  <!-- TIMELINE -->
-  <section>
-    <div class="section-label">Fortlaufender Audit-Trail · IFR-Timeline</div>
-    <div class="section-body" style="padding-bottom:6px">
-      <div class="timeline" id="timeline">
-        <div class="loading-state">⧗ Lade manifesto_v2-1.json…</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ACTIONS -->
-  <div class="action-row">
-    <a class="btn btn-primary"
-       href="https://github.com/rossaalex5-rgb/Zemala_core"
-       target="_blank">⚙ Repository prüfen</a>
-    <button class="btn btn-outline" id="export-btn">↓ Audit-JSON</button>
+<!-- ─── HERO IMAGE ───────────────────────────── -->
+<div class="hero-img">
+  <div class="hero-img-text">
+    <div class="hero-img-label">Zemala · Reallabor Allee 18 · Wilster</div>
+    <div class="hero-img-big">EU AI Act Compliance —<br>durch Architektur, nicht durch Papier</div>
   </div>
+</div>
 
-</div><!-- /.document -->
+<!-- ─── ARTICLE HEADER ───────────────────────── -->
+<div class="article-wrap">
+  <div class="article-tag">Ratgeber</div>
+  <h1 class="article-h1">Zemala – Compliance durch Architektur:<br>Das müssen KMUs und Behörden wissen</h1>
+  <p class="article-lead">
+    Der AI Act definiert, <em>was</em> Unternehmen und Behörden beim Einsatz von KI nachweisen müssen.
+    Zemala zeigt, <em>wie</em> diese Nachweispflichten nicht durch Dokumentation erfüllt werden,
+    sondern durch technisch erzwungene Architektur — lokal, auditierbar, manipulationssicher.
+    Dieses Dokument ist das direkte Gegenstück zum IHK-Ratgeber „Artificial Intelligence Act".
+  </p>
 
-<footer style="max-width:500px;margin:0 auto;">
-  <span>Zemala Core</span> · Technisches Compliance-Prüfprotokoll ·
-  Commit <span>a02fae7</span> · IFR-Index 024 ·
-  Hamburg, 23.06.2026<br>
-  Verifiziert durch native Web Crypto API (SHA-256).
-  Datenquelle: <span>manifesto_v2-1.json</span> · Manipulationsschutz durch Append-Only-Verkettung.
-</footer>
+  <!-- ─── TWO-COL DOC LAYOUT ─────────────────── -->
+  <div class="doc-layout">
 
-<div id="toast"></div>
+    <!-- SIDEBAR TOC -->
+    <aside class="toc">
+      <div class="toc-title">Inhalt</div>
+      <ul>
+        <li><a href="#warum" class="active">Warum braucht es Zemala?</a></li>
+        <li><a href="#fuer-wen">Für wen ist Zemala?</a></li>
+        <li><a href="#omnibus">KI-Omnibus — was sich ändert</a></li>
+        <li><a href="#risiko">Risikobasierter Ansatz</a></li>
+        <li><a href="#compliance">Compliance-Mapping (Art. 9–15)</a></li>
+        <li><a href="#aufsicht">Menschliche Aufsicht (Art. 14)</a></li>
+        <li><a href="#reallabor">Reallabor Allee 18 (Art. 62)</a></li>
+        <li><a href="#kompetenz">KI-Kompetenzvermittlung (Art. 4)</a></li>
+        <li><a href="#sanktionen">Sanktionen & Bußgelder</a></li>
+        <li><a href="#fristen">Umsetzungsfristen</a></li>
+        <li><a href="#checkliste">Checkliste für Betreiber</a></li>
+        <li><a href="#kontakt">Kontakt & Erstgespräch</a></li>
+      </ul>
+    </aside>
 
-<script>
-// ── UTILS ──────────────────────────────────────────────────────────────
+    <!-- MAIN CONTENT -->
+    <div class="content">
 
-async function sha256(text) {
-  const data = new TextEncoder().encode(text);
-  const buf  = await crypto.subtle.digest('SHA-256', data);
-  return Array.from(new Uint8Array(buf))
-              .map(b => b.toString(16).padStart(2,'0')).join('');
-}
+      <!-- ── WARUM ─────────────────────────────── -->
+      <section id="warum" class="reveal">
+        <h2>Warum braucht es Zemala?</h2>
+        <p class="intro-bold">
+          Der AI Act ist seit dem 1. August 2024 in Kraft — und stellt Unternehmen und Behörden vor
+          ein konkretes Problem: Wer KI einsetzt, muss Entscheidungen lückenlos dokumentieren,
+          menschliche Aufsicht garantieren und Datenschutz technisch sicherstellen.
+          Klassische Dokumentationsprozesse versagen dabei systemisch.
+        </p>
+        <p>
+          Wer sich auf „weiche" Compliance-Maßnahmen verlässt — Excel-Listen, manuelle Protokolle,
+          Cloud-basierte Logging-Dienste Dritter — riskiert bei einer Prüfung durch die
+          Bundesnetzagentur (BNetzA) den Nachweis nicht erbringen zu können.
+          Zemala löst dieses Problem durch einen anderen Ansatz:
+        </p>
+        <div class="info-box">
+          <strong>Kernprinzip:</strong> Compliance entsteht nicht durch Berichte über das System,
+          sondern als Nebenprodukt der Systemarchitektur selbst. Jede Interaktion wird automatisch,
+          kryptografisch versiegelt und lokal protokolliert — bevor sie irgendein externes Netzwerk berührt.
+        </div>
+        <p>
+          Während andere Unternehmen noch über Compliance diskutieren, liefert das
+          Zemala-System durch den SHA-256 Truth Anchor und das Append-Only JSONL-Ledger
+          den physischen Beweis für die Anforderungen der Artikel 12 (Protokollierung),
+          13 (Transparenz) und 14 (Menschliche Aufsicht) des EU AI Acts.
+        </p>
+      </section>
 
-const toastEl = document.getElementById('toast');
-function showToast(msg) {
-  toastEl.textContent = msg;
-  toastEl.classList.add('show');
-  setTimeout(() => toastEl.classList.remove('show'), 2200);
-}
+      <!-- ── FÜR WEN ────────────────────────────── -->
+      <section id="fuer-wen" class="reveal">
+        <h2>Für wen ist Zemala?</h2>
+        <p>
+          Der Ansatz richtet sich nach dem Marktortprinzip des AI Acts an alle Akteure,
+          die KI in der EU einsetzen, entwickeln oder betreiben.
+          Im Fokus stehen drei Zielgruppen:
+        </p>
+        <div class="role-grid">
+          <div class="role-card">
+            <div class="role-label">Primäre Zielgruppe</div>
+            <div class="role-title">KMU-Betreiber</div>
+            <div class="role-desc">Unternehmen, die KI-Systeme einsetzen und Nachweispflichten nach Art. 12, 13, 14 erfüllen müssen.</div>
+            <div class="role-ex">Beispiel: Handwerksbetrieb, der KI zur Angebotsoptimierung nutzt</div>
+          </div>
+          <div class="role-card">
+            <div class="role-label">Behörden / Kommunen</div>
+            <div class="role-title">Öffentliche Hand</div>
+            <div class="role-desc">Kommunen und Ämter, die KI in der Verwaltung, Jugendhilfe oder Daseinsvorsorge einsetzen.</div>
+            <div class="role-ex">Beispiel: Jugendamt, das KI für Fallbewertungen einsetzt</div>
+          </div>
+          <div class="role-card">
+            <div class="role-label">Technische Partner</div>
+            <div class="role-title">Systemintegratoren</div>
+            <div class="role-desc">Unternehmen, die Zemala-Architektur in eigene Produkte oder Dienstleistungen integrieren.</div>
+            <div class="role-ex">Beispiel: Software-Haus, das Compliance-Module entwickelt</div>
+          </div>
+          <div class="role-card">
+            <div class="role-label">Forschung &amp; Transfer</div>
+            <div class="role-title">Wissenschaft / FH</div>
+            <div class="role-desc">Forschungseinrichtungen, die das Reallabor Allee 18 für wissenschaftlich begleitete KI-Erprobung nutzen.</div>
+            <div class="role-ex">Beispiel: FH Westküste, Transferstellen SH</div>
+          </div>
+        </div>
+        <p>
+          Wichtig: Auch wer KI nur <em>nutzt</em> (z.B. ChatGPT im Bürobetrieb), ist nach dem AI Act
+          als Betreiber einzustufen und trägt damit Verantwortung für Schulung (Art. 4),
+          Protokollierung und Aufsicht.
+        </p>
+      </section>
 
-// ── STATE ──────────────────────────────────────────────────────────────
+      <!-- ── OMNIBUS ────────────────────────────── -->
+      <section id="omnibus" class="reveal">
+        <h2>Der KI-Omnibus — was sich für Unternehmen ändert</h2>
+        <p>
+          Der KI-Omnibus ist ein Vereinfachungspaket der EU-Kommission, das Ende 2025
+          vorgestellt wurde. Eine Einigung wurde Anfang Mai 2026 erzielt.
+          Für Zemala-Anwender sind folgende Änderungen relevant:
+        </p>
+        <table class="std-table">
+          <thead>
+            <tr>
+              <th>Bereich</th>
+              <th>Bisherige Regelung</th>
+              <th>Änderung durch KI-Omnibus</th>
+              <th>Zemala-Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>KI-Reallabore</strong></td>
+              <td>Mindestens ein Reallabor pro Mitgliedsstaat bis 2. Aug. 2026</td>
+              <td>Neue Frist: <strong>2. August 2027</strong></td>
+              <td><span class="badge badge-ok">Aktiv</span></td>
+            </tr>
+            <tr>
+              <td><strong>KI-Kompetenz (Art. 4)</strong></td>
+              <td>Arbeitgeberpflicht seit 2. Feb. 2025 in Kraft</td>
+              <td>Art. 4 wird durch neuen Passus ersetzt, Anforderungen werden präzisiert</td>
+              <td><span class="badge badge-ok">Erfüllt</span></td>
+            </tr>
+            <tr>
+              <td><strong>Hochrisiko-KI (Annex III)</strong></td>
+              <td>Anforderungen für KI-Tools im HR-/Bildungsbereich</td>
+              <td>Frist auf <strong>2. Dezember 2027</strong> verschoben</td>
+              <td><span class="badge badge-ok">Vorbereitet</span></td>
+            </tr>
+            <tr>
+              <td><strong>KI-generierte Inhalte</strong></td>
+              <td>Kennzeichnungspflicht ab 2. Aug. 2026</td>
+              <td>Neue Frist: <strong>2. Dezember 2026</strong></td>
+              <td><span class="badge badge-warn">Im Aufbau</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
-let computedLedger = [];
-let finalMasterHash = '';
+      <!-- ── RISIKO ─────────────────────────────── -->
+      <section id="risiko" class="reveal">
+        <h2>Risikobasierter Ansatz — Einordnung der Zemala-Anwendung</h2>
+        <p>
+          Der AI Act unterscheidet vier Risikokategorien. Je höher das Risiko, desto strenger die Anforderungen.
+          Das Reallabor Allee 18 und die Zemala-Infrastruktur sind im Bildungs- und Sozialhilfebereich
+          tätig und fallen damit in den Bereich <strong>hohes Risiko (Annex III)</strong>.
+        </p>
+        <div class="pyramid-wrap">
+          <div class="pyr-row">
+            <div class="pyr-bar" style="width:120px;background:#C0392B">Verboten</div>
+            <div class="pyr-label" style="font-size:.75rem;color:var(--red)">Art. 5 · Kein Einsatz im Reallabor</div>
+          </div>
+          <div class="pyr-row">
+            <div class="pyr-bar" style="width:220px;background:#004B87">Hohes Risiko</div>
+            <div class="pyr-label"><strong style="color:var(--ihk)">Zemala-Anwendungsbereich</strong><br><span style="font-size:.72rem;color:var(--muted)">Jugendhilfe, Bildung, Verwaltung</span></div>
+          </div>
+          <div class="pyr-row">
+            <div class="pyr-bar" style="width:320px;background:#6B9ED4">Begrenztes Risiko</div>
+            <div class="pyr-label" style="font-size:.75rem;color:var(--muted)">Transparenzpflichten</div>
+          </div>
+          <div class="pyr-row">
+            <div class="pyr-bar" style="width:420px;background:#B0C8E6">Minimales Risiko</div>
+            <div class="pyr-label" style="font-size:.75rem;color:var(--muted)">Freiwillige Maßnahmen</div>
+          </div>
+        </div>
+        <div class="warn-box">
+          <strong>Wichtig für Betreiber:</strong> Wer ein Hochrisiko-KI-System unter eigenem Namen
+          in Betrieb nimmt, gilt als Anbieter im Sinne des AI Acts (Art. 28) — unabhängig davon,
+          ob er das System selbst entwickelt hat. Alle Pflichten nach Abschnitt II gelten dann vollumfänglich.
+        </div>
+      </section>
 
-// ── RENDER TIMELINE ────────────────────────────────────────────────────
+      <!-- ── COMPLIANCE MAPPING ──────────────────── -->
+      <section id="compliance" class="reveal">
+        <h2>Pflichten für Betreiber von Hochrisiko-KI — und die Zemala-Antwort</h2>
+        <p>
+          Unter Abschnitt II des AI Acts finden Unternehmen die technischen, sicherheitsrelevanten
+          und organisatorischen Pflichten. Die folgende Tabelle zeigt, wie die Zemala-Architektur
+          jede dieser Anforderungen technisch erzwingt:
+        </p>
 
-function renderTimeline(entries) {
-  const container = document.getElementById('timeline');
-  container.innerHTML = '';
+        <div class="acc-list">
+          <div class="acc-item">
+            <button class="acc-btn" onclick="toggleAcc(this)">
+              <span>Art. 9 · Risikomanagement — kontinuierlicher, iterativer Prozess</span>
+              <span class="icon">▼</span>
+            </button>
+            <div class="acc-body">
+              <p><strong>Anforderung:</strong> Es muss ein durchgehender Risikomanagementprozess über die gesamte Lebensdauer der KI etabliert werden.</p>
+              <p><strong>Zemala-Lösung:</strong> Das zweistufige Ledger-Verfahren dokumentiert jeden Systemzustand lückenlos. Durch die GitHub-Integration (statische Ebene) ist jeder Risikostand mit kryptografischem Zeitstempel versiegelt und unveränderbar nachvollziehbar.</p>
+              <p><span class="badge badge-ok">Erfüllt durch Systemarchitektur</span></p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn" onclick="toggleAcc(this)">
+              <span>Art. 12 · Aufzeichnungspflichten — automatisches Logging über die Betriebsdauer</span>
+              <span class="icon">▼</span>
+            </button>
+            <div class="acc-body">
+              <p><strong>Anforderung:</strong> KI-Systeme müssen Ereignisse automatisch aufzeichnen. Logs müssen mind. 6 Monate aufbewahrt werden und manipulationssicher sein.</p>
+              <p><strong>Zemala-Lösung:</strong> Append-Only JSONL-Ledger: Jedes Ereignis wird lokal mit SHA-256 versiegelt. Das Ledger ist strukturell unveränderlich — nachträgliche Manipulationen brechen die kryptografische Kette und werden sofort erkennbar.</p>
+              <ul>
+                <li>Aufbewahrung: konfigurierbar, standardmäßig unbegrenzt lokal</li>
+                <li>Auditbarkeit: vollständige Replay-Fähigkeit jedes gespeicherten Zustands</li>
+                <li>Lokale Verarbeitung: kein Abhängigkeit von Cloud-Logging-Diensten</li>
+              </ul>
+              <p><span class="badge badge-ok">Technisch erzwungen · Audit-Ready</span></p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn" onclick="toggleAcc(this)">
+              <span>Art. 13 · Transparenz &amp; Erklärbarkeit — Entscheidungen nachvollziehbar machen</span>
+              <span class="icon">▼</span>
+            </button>
+            <div class="acc-body">
+              <p><strong>Anforderung:</strong> Die Funktionsweise muss für Betreiber transparent sein. Ausgaben müssen interpretierbar sein.</p>
+              <p><strong>Zemala-Lösung:</strong> IFR-Pipeline (Integration → Fortführung → Rekursion): Strikte Trennung von Event (was passierte), Zustand (wie das System reagierte) und Interpretation (warum diese Reaktion). Jede Entscheidung ist deterministisch rekonstruierbar.</p>
+              <p><span class="badge badge-ok">Bereit · Dokumentation in docs/architecture.md</span></p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn" onclick="toggleAcc(this)">
+              <span>Art. 15 · Genauigkeit, Robustheit &amp; Cybersicherheit</span>
+              <span class="icon">▼</span>
+            </button>
+            <div class="acc-body">
+              <p><strong>Anforderung:</strong> Angemessene Fehlertoleranz und Schutz gegen Manipulation und unbefugte Zugriffe.</p>
+              <p><strong>Zemala-Lösung:</strong> Local-First-Architektur: Daten verlassen das Gerät des Betreibers nicht. Durch kanonische JSON-Serialisierung ergibt identischer Input zwingend identischen SHA-256 Hash — jede Manipulation ist sofort messbar. Der integrierte Stress-Test demonstriert, dass das System bei unautorisierter Änderung in den HARD_STOP geht, anstatt mit korrumpierten Daten weiterzuarbeiten.</p>
+              <p><span class="badge badge-ok">Local-First · Manipulationserkennung aktiv</span></p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  entries.forEach((entry, i) => {
-    const hashMatch = entry.liveHash.startsWith(entry.expected_hash.replace(/[^a-f0-9]/gi,'').slice(0,7));
-    const el = document.createElement('div');
-    el.className = 'tl-entry';
-    el.innerHTML = `
-      <div class="tl-marker${hashMatch ? '' : ' error'}">${entry.node}</div>
-      <div class="tl-body">
-        <div class="tl-type">${entry.type}</div>
-        <div class="tl-desc">${entry.desc}</div>
-        <div class="tl-hashes">
-          <span class="tl-hash live">live: ${entry.liveHash.slice(0,8)}</span>
-          <span class="tl-hash ${hashMatch ? '' : 'mismatch'}">ref: ${entry.expected_hash}</span>
+      <!-- ── AUFSICHT ────────────────────────────── -->
+      <section id="aufsicht" class="reveal">
+        <h2>Menschliche Aufsicht (Artikel 14) — Human Oversight erzwingen</h2>
+        <p>
+          Artikel 14 ist für viele Betreiber der schwierigste Nachweis: Es muss technisch
+          sichergestellt sein, dass eine wirksame menschliche Aufsicht möglich ist.
+          Ein Hinweis im Handbuch reicht nicht aus.
+        </p>
+        <div class="info-box">
+          <strong>Zemala-Lösung: Human Oversight Index 1.00</strong><br>
+          Das System ist so konfiguriert, dass keine KI-gestützte Aktion ohne explizite manuelle
+          Freigabe durch den zuständigen Operator finalisiert werden kann. Jede Freigabe wird
+          automatisch im Ledger mit Zeitstempel und Operator-ID versiegelt. Der Human Oversight Index
+          von 1.00 bedeutet: jede Entscheidung, zu 100 % durch Menschen autorisiert.
+        </div>
+        <table class="std-table">
+          <thead>
+            <tr><th>Anforderung Art. 14</th><th>Zemala-Umsetzung</th><th>Nachweis</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Eingriffsmöglichkeit des Menschen</td>
+              <td>HMI-Vollzug: Manuelle Commits vor jeder kritischen Aktion</td>
+              <td><span class="badge badge-ok">Ledger-Eintrag</span></td>
+            </tr>
+            <tr>
+              <td>Stopp-Funktion</td>
+              <td>HARD_STOP bei Manipulation oder fehlender Autorisierung</td>
+              <td><span class="badge badge-ok">Technisch erzwungen</span></td>
+            </tr>
+            <tr>
+              <td>Dokumentation der Aufsicht</td>
+              <td>Jede Freigabe wird im Append-Only-Ledger protokolliert (SHA-256)</td>
+              <td><span class="badge badge-ok">Audit-Ready</span></td>
+            </tr>
+            <tr>
+              <td>Zuständige Person benennbar</td>
+              <td>Operator-ID in jedem Ledger-Eintrag</td>
+              <td><span class="badge badge-ok">Identifizierbar</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── REALLABOR ───────────────────────────── -->
+      <section id="reallabor" class="reveal">
+        <h2>Was sind KI-Reallabore — und was ist das Reallabor Allee 18?</h2>
+        <p>
+          Reallabore (Sandboxes) sind geschützte Umgebungen, in denen Unternehmen
+          KI-Systeme testen und entwickeln können, bevor sie in realen Szenarien eingesetzt werden.
+          Der AI Act sieht vor, dass mindestens ein Reallabor pro EU-Mitgliedsstaat errichtet werden muss.
+        </p>
+        <div class="sandbox-cards">
+          <div class="sb-card">
+            <h4>Was leistet eine Sandbox?</h4>
+            <p>Erprobung in einem sicheren Rechtsrahmen unter behördlicher Aufsicht. Risiken können erkannt und behoben werden, bevor sie sanktionsrelevant werden.</p>
+          </div>
+          <div class="sb-card">
+            <h4>Welche Voraussetzungen gelten?</h4>
+            <p>Zustimmung der Nutzer, Ausschluss negativer Auswirkungen, Reversibilität der Ergebnisse, Datenlöschung nach Abschluss des Tests.</p>
+          </div>
+          <div class="sb-card">
+            <h4>Reallabor Allee 18</h4>
+            <p>Physische Regulatory Sandbox nach Art. 62 EU AI Act. Standort: Allee 18, 25554 Wilster, SH. Behördlich geprüft, kommunal eingebettet, lokal souverän.</p>
+          </div>
+        </div>
+        <h3>Das Reallabor Allee 18 im Detail</h3>
+        <p>
+          Das Reallabor Allee 18 ist ein aktiver, physischer Standort im ländlichen Raum
+          Schleswig-Holsteins. Es kombiniert einen sozialpädagogischen Schutzraum für Jugendliche
+          mit einer technischen Testumgebung für Local-First-KI-Architektur.
+        </p>
+        <table class="std-table">
+          <thead>
+            <tr><th>Segment</th><th>Funktion</th><th>Rechtliche Grundlage</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-art">Alpha</td>
+              <td>Digitale Testumgebung (lokale LLM, ARM-Architektur, Termux/llama.cpp)</td>
+              <td>Art. 62 EU AI Act · Regulatory Sandbox</td>
+            </tr>
+            <tr>
+              <td class="td-art">Beta</td>
+              <td>Sozialpädagogischer Schutzraum, E-Sports-Pädagogik, Medienkompetenz für Jugendliche</td>
+              <td>§ 16 SGB VIII · Kommunale Prävention</td>
+            </tr>
+            <tr>
+              <td class="td-art">Gamma</td>
+              <td>Administration, Ledger-Archivierung, Auditierungs-Kontrollzentrum</td>
+              <td>Art. 12 &amp; 14 EU AI Act</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box">
+          <strong>Behördlicher Status (Stand: 01.06.2026):</strong> Das formelle Prüfbegehren wurde durch das Ordnungs- und Sozialamt der Stadt Wilster (Bürgermeisterin Maren Hayenga / Ordnungsamtsleiter Thorsten Franck) gesichtet und an das Landesjugendamt Schleswig-Holstein in Kiel weitergeleitet. Lokale Polizeikooperation (PHK Meyhoff) wurde eingeleitet.
+        </div>
+      </section>
+
+      <!-- ── KOMPETENZ ───────────────────────────── -->
+      <section id="kompetenz" class="reveal">
+        <h2>KI-Kompetenzvermittlung (Artikel 4) — Arbeitgeberpflicht seit Feb. 2025</h2>
+        <p>
+          Seit dem 2. Februar 2025 gilt die Arbeitgeberpflicht zur KI-Kompetenzvermittlung.
+          Alle Mitarbeitenden, die KI-Systeme einsetzen oder entwickeln, müssen über
+          ausreichende KI-Kompetenz verfügen — und das muss dokumentiert werden.
+        </p>
+        <div class="acc-list">
+          <div class="acc-item">
+            <button class="acc-btn" onclick="toggleAcc(this)">
+              <span>Was müssen Unternehmen konkret tun?</span>
+              <span class="icon">▼</span>
+            </button>
+            <div class="acc-body">
+              <ul>
+                <li><strong>KI-Inventar erstellen:</strong> Alle eingesetzten KI-Anwendungen erfassen</li>
+                <li><strong>Rollen klären:</strong> Wer ist Anbieter, wer Betreiber, wer Nutzer?</li>
+                <li><strong>Kompetenz-Bestandsaufnahme:</strong> Kenntnisstand der Mitarbeitenden erheben</li>
+                <li><strong>Schulungen dokumentieren:</strong> Zeitpunkt, Teilnehmende, Inhalte — für Haftungsfragen</li>
+                <li><strong>Auffrischungskurse:</strong> Regelmäßige Aktualisierung des Kenntnisstands</li>
+              </ul>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn" onclick="toggleAcc(this)">
+              <span>Zemala-Lösung: AEVO-Logik &amp; strukturierte Kompetenzprogramme</span>
+              <span class="icon">▼</span>
+            </button>
+            <div class="acc-body">
+              <p>Die Projektleitung des Reallabors Allee 18 ist zertifizierter Ausbilder nach der Ausbilder-Eignungsverordnung (AdA/AEVO, IHK, 08.06.2017). Das bedeutet:</p>
+              <ul>
+                <li>Strukturierte KI-Kompetenz-Workshops mit pädagogischem Rahmen</li>
+                <li>Dokumentation nach Art. 4-Anforderungen (Zeitpunkt, Teilnehmende, Lernziele)</li>
+                <li>Ausstellung von Teilnahmenachweisen für die Betriebsunterlagen</li>
+                <li>Anpassung des Schulungsniveaus je nach Zielgruppe (ChatGPT-Nutzer vs. KI-Entwickler)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SANKTIONEN ──────────────────────────── -->
+      <section id="sanktionen" class="reveal">
+        <h2>Was passiert bei Regelbrüchen?</h2>
+        <p>
+          Die Sanktionsregeln des AI Acts sehen empfindliche Strafen vor.
+          Für KMUs und Start-Ups gelten die jeweils niedrigeren Schwellenwerte.
+        </p>
+        <div class="fine-grid">
+          <div class="fine-card">
+            <div class="fine-amount" style="color:var(--red)">35 Mio. € oder 7 %</div>
+            <div class="fine-desc">Verstöße gegen verbotene Praktiken (Art. 5) oder Datenanforderungen</div>
+          </div>
+          <div class="fine-card">
+            <div class="fine-amount" style="color:var(--ihk)">15 Mio. € oder 3 %</div>
+            <div class="fine-desc">Verstöße gegen andere Vorschriften: fehlende Protokollierung, unzureichende Aufsicht, mangelnde Dokumentation</div>
+          </div>
+          <div class="fine-card">
+            <div class="fine-amount" style="color:var(--amber)">7,5 Mio. € oder 1,5 %</div>
+            <div class="fine-desc">Falsche oder irreführende Angaben an Behörden und notifizierende Stellen</div>
+          </div>
+        </div>
+        <div class="info-box">
+          <strong>Zemala als Schutzschild:</strong> Das SHA-256 Audit-System transformiert jeden Compliance-Nachweis von einer Behauptung in einen mathematischen Beweis. Im Falle einer Prüfung durch die Bundesnetzagentur liefern die Ledger-Einträge forensisch verwertbare Belege — keine Nachrekonstruktion, kein Interpretationsspielraum.
+        </div>
+      </section>
+
+      <!-- ── FRISTEN ────────────────────────────── -->
+      <section id="fristen" class="reveal">
+        <h2>Welche Umsetzungsfristen müssen Unternehmen kennen?</h2>
+        <p>
+          Unternehmen sollten die Fristen des AI Acts (inkl. KI-Omnibus-Anpassungen)
+          kennen und ihre Compliance-Strategie entsprechend ausrichten:
+        </p>
+        <table class="std-table">
+          <thead>
+            <tr><th>Datum</th><th>Meilenstein</th><th>Relevanz für Betreiber</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="td-art">2. Feb. 2025</td><td><strong>KI-Kompetenzpflicht in Kraft</strong></td><td>Schulungen dokumentieren, KI-Inventar erstellen</td></tr>
+            <tr><td class="td-art">2. Mai 2025</td><td>GPAI-Verhaltenskodizes</td><td>ChatGPT &amp; Co.: Betreiberpflichten prüfen</td></tr>
+            <tr><td class="td-art">2. Aug. 2025</td><td>Nationale KI-Aufsichtsbehörde (BNetzA)</td><td>Erste Prüfungen möglich</td></tr>
+            <tr><td class="td-art">2. Aug. 2026</td><td>Anwendung auf alle KI-Systeme</td><td>Vollständige Compliance erforderlich</td></tr>
+            <tr><td class="td-art">2. Aug. 2027</td><td>KI-Reallabore (KI-Omnibus)</td><td>Sandbox-Pflicht auf nationaler Ebene</td></tr>
+            <tr><td class="td-art">2. Dez. 2027</td><td>Hochrisiko-KI Annex III (KI-Omnibus)</td><td>HR, Bildung, Soziales: verschärfte Anforderungen</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── CHECKLISTE ──────────────────────────── -->
+      <section id="checkliste" class="reveal">
+        <h2>Checkliste für Betreiber von KI-Systemen</h2>
+        <p>Diese Checkliste entspricht der IHK-Empfehlung für Betreiber mit begrenztem bis hohem Risiko. Klicken Sie die Punkte an, um Ihren Fortschritt zu markieren:</p>
+        <div class="check-label" id="checkLabel">0 von 8 Punkten erledigt</div>
+        <div class="check-progress"><div class="check-fill" id="checkFill"></div></div>
+        <ul class="checklist" id="checkList">
+          <li onclick="toggleCheck(this)"><div class="cb">✓</div><div><strong>KI-Inventar erstellen:</strong> Alle KI-Systeme im Unternehmen erfassen und den Verwendungszweck dokumentieren.</div></li>
+          <li onclick="toggleCheck(this)"><div class="cb">✓</div><div><strong>Risikokategorisierung:</strong> KI-Systeme nach AI Act-Risikostufen einordnen (minimal / begrenzt / hoch).</div></li>
+          <li onclick="toggleCheck(this)"><div class="cb">✓</div><div><strong>Verantwortlichkeiten klären:</strong> Rollen nach AI Act definieren — Anbieter, Betreiber, Nutzer.</div></li>
+          <li onclick="toggleCheck(this)"><div class="cb">✓</div><div><strong>KI-Kompetenzen vermitteln:</strong> Schulungen durchführen und Teilnahme dokumentieren (Art. 4).</div></li>
+          <li onclick="toggleCheck(this)"><div class="cb">✓</div><div><strong>Protokollierungssystem einrichten:</strong> Automatisches Logging aller KI-Interaktionen, mind. 6 Monate Retention (Art. 12).</div></li>
+          <li onclick="toggleCheck(this)"><div class="cb">✓</div><div><strong>Transparenz sicherstellen:</strong> Entscheidungswege nachvollziehbar machen und dokumentieren (Art. 13).</div></li>
+          <li onclick="toggleCheck(this)"><div class="cb">✓</div><div><strong>Menschliche Aufsicht verankern:</strong> Technische Maßnahmen für Human Oversight implementieren und nachweisen (Art. 14).</div></li>
+          <li onclick="toggleCheck(this)"><div class="cb">✓</div><div><strong>Datenschutz-Konformität prüfen:</strong> DSGVO und AI Act im Einklang halten — Verarbeitungsverzeichnis aktualisieren.</div></li>
+        </ul>
+        <div id="checkResult" style="display:none;margin-top:1rem" class="info-box">
+          <strong>Checkliste vollständig!</strong> Sie haben alle 8 Punkte erledigt.
+          Für eine strukturierte Begleitung der Umsetzung steht das Reallabor Allee 18 als
+          behördlich geprüfte Testumgebung zur Verfügung. <a href="#kontakt">Jetzt Kontakt aufnehmen →</a>
+        </div>
+      </section>
+
+      <!-- ── WEITERFÜHRENDE LINKS ─────────────────── -->
+      <section class="reveal">
+        <h2>Weiterführende Ressourcen</h2>
+        <div class="links-grid">
+          <a href="https://www.bundesnetzagentur.de" target="_blank" class="link-item">KI Service Desk der Bundesnetzagentur (BNetzA) <span class="arrow">→</span></a>
+          <a href="https://digital-strategy.ec.europa.eu" target="_blank" class="link-item">AI Service Desk der Europäischen Kommission <span class="arrow">→</span></a>
+          <a href="#" class="link-item">IHK-Ratgeber: Artificial Intelligence Act — das müssen Unternehmen wissen <span class="arrow">→</span></a>
+          <a href="#checkliste" class="link-item">Checkliste für Betreiber (interaktiv, diese Seite) <span class="arrow">→</span></a>
+        </div>
+      </section>
+
+    </div><!-- /content -->
+  </div><!-- /doc-layout -->
+</div><!-- /article-wrap -->
+
+<!-- ─── CONTACT ───────────────────────────────── -->
+<div id="kontakt">
+  <div id="contact-section">
+    <div class="contact-inner">
+      <div>
+        <h2 style="font-size:1.3rem;margin-bottom:1.2rem">Kontakt &amp; Erstgespräch</h2>
+        <div class="contact-card" style="margin-bottom:1rem">
+          <h3>Projektleitung</h3>
+          <div class="contact-row"><strong>Name</strong>Alexander Georg Rossa</div>
+          <div class="contact-row"><strong>Funktion</strong>Projektleitung &amp; System-Architektur · Mit Sorgfalt und Liebe e.K.</div>
+          <div class="contact-row"><strong>Standort</strong>Allee 18, 25554 Wilster, Schleswig-Holstein</div>
+          <div class="contact-row"><strong>Regulatorischer Status</strong>Regulatory Sandbox nach Art. 62 EU AI Act</div>
+        </div>
+        <div class="contact-card">
+          <h3>Nachgewiesene Qualifikationen</h3>
+          <div class="qual-item">Kaufmann im Gesundheitswesen IHK (03.01.2019)</div>
+          <div class="qual-item">Ausbilder-Eignungsverordnung AdA/IHK (08.06.2017)</div>
+          <div class="qual-item">Tragfähigkeitsprüfung durch x-group Berlin — uneingeschränkt testiert</div>
+          <div class="qual-item">100h Gründungsberatung (Agentur für Arbeit)</div>
+          <div class="qual-item">Zertifizierte Pflegeassistenz / § 87b SGB XI (AGS)</div>
         </div>
       </div>
-    `;
-    container.appendChild(el);
-    setTimeout(() => el.classList.add('visible'), 150 + i * 140);
+      <div>
+        <h2 style="font-size:1.3rem;margin-bottom:1.2rem">Anfrage stellen</h2>
+        <div class="form-row">
+          <div class="form-field"><label>Name *</label><input type="text" placeholder="Ihr Name"></div>
+          <div class="form-field"><label>Organisation</label><input type="text" placeholder="Unternehmen / Behörde"></div>
+        </div>
+        <div class="form-field"><label>E-Mail *</label><input type="email" placeholder="kontakt@organisation.de"></div>
+        <div class="form-field">
+          <label>Anliegen</label>
+          <select>
+            <option value="">Bitte wählen…</option>
+            <option>KMU · AI Act Compliance Beratung</option>
+            <option>Behörde · Kooperationsanfrage</option>
+            <option>Technischer Partner · Integration</option>
+            <option>Wissenschaft / Forschungskooperation</option>
+            <option>Förderung / Finanzierung</option>
+            <option>Presse / Medienanfrage</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Nachricht</label>
+          <textarea placeholder="Beschreiben Sie kurz Ihr Anliegen…"></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm(this)">Anfrage senden</button>
+        <p class="form-note">Ihre Daten werden ausschließlich lokal verarbeitet (Local-First-Prinzip). Keine Weitergabe an Dritte.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER ───────────────────────────────── -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Zemala <span>· Mit Sorgfalt und Liebe e.K. · Reallabor Allee 18 · 25554 Wilster</span></div>
+    </div>
+    <div class="footer-sig">ZEMALA SYSTEM INTEGRITY // HYGIENESTUFE 100 // O-M-A.</div>
+  </div>
+</footer>
+
+<script>
+/* Accordion */
+function toggleAcc(btn){
+  const body=btn.nextElementSibling;
+  const isOpen=body.classList.contains('open');
+  btn.classList.toggle('open',!isOpen);
+  body.classList.toggle('open',!isOpen);
+}
+
+/* Checklist */
+function toggleCheck(li){
+  li.classList.toggle('checked');
+  updateCheckProgress();
+}
+function updateCheckProgress(){
+  const items=document.querySelectorAll('#checkList li');
+  const done=document.querySelectorAll('#checkList li.checked').length;
+  const total=items.length;
+  const pct=Math.round(done/total*100);
+  document.getElementById('checkFill').style.width=pct+'%';
+  document.getElementById('checkLabel').textContent=done+' von '+total+' Punkten erledigt';
+  document.getElementById('checkResult').style.display=done===total?'block':'none';
+}
+
+/* TOC active state */
+const sections=document.querySelectorAll('.content section[id]');
+const tocLinks=document.querySelectorAll('.toc a');
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      tocLinks.forEach(l=>l.classList.remove('active'));
+      const active=document.querySelector('.toc a[href="#'+e.target.id+'"]');
+      if(active)active.classList.add('active');
+    }
   });
+},{threshold:0.3});
+sections.forEach(s=>obs.observe(s));
+
+/* Reveal */
+const revObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')});
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+
+/* Form */
+function submitForm(btn){
+  btn.textContent='✓ Anfrage eingegangen — wir melden uns innerhalb von 48 Stunden';
+  btn.style.background='var(--green)';
+  btn.disabled=true;
 }
-
-// ── MAIN AUDIT ─────────────────────────────────────────────────────────
-
-async function loadAndVerifyLedger() {
-  const hashEl     = document.getElementById('master-hash');
-  const badgeEl    = document.getElementById('audit-badge');
-  const copyHint   = document.getElementById('copy-hint');
-  const valStatus  = document.getElementById('validation-status');
-  const matchStatus= document.getElementById('match-status');
-
-  try {
-    // Fetch manifesto – falls lokal nicht verfügbar, Fallback auf eingebettete Daten
-    let ledger;
-    try {
-      const res = await fetch('manifesto_v2-1.json');
-      if (!res.ok) throw new Error('fetch failed');
-      ledger = await res.json();
-    } catch {
-      // Fallback: eingebettete Daten (für direkte HTML-Nutzung ohne Server)
-      ledger = [
-        { node:"1", type:"INTENTION",     desc:"System-Souveränität initialisiert – Deterministische Brücke aktiv",      expected_hash:"adf05d9c" },
-        { node:"2", type:"KONDENSATION",  desc:"IFR-Rauschfilter aktiv – KI-Output mathematisch normalisiert",           expected_hash:"29478aad" },
-        { node:"3", type:"MANIFESTATION", desc:"Shell Execution Layer verifiziert (master_control.sh + verify.sh)",       expected_hash:"440e36f6" },
-        { node:"4", type:"AUDIT",         desc:"Deterministischer Replay-Schnitt versiegelt – Append-Only confirmed",     expected_hash:"d804e45b" }
-      ];
-    }
-
-    // Live SHA-256 Ketten-Berechnung (Replay-Schnitt)
-    let chainHash = '';
-    let allMatch  = true;
-
-    for (const entry of ledger) {
-      const block     = `${entry.node}-${entry.type}-${entry.desc}`;
-      const localHash = await sha256(block);
-      chainHash       = await sha256(chainHash + localHash);
-
-      const match = localHash.startsWith(entry.expected_hash.replace(/[^a-f0-9]/gi,'').slice(0,7));
-      if (!match) allMatch = false;
-
-      computedLedger.push({ ...entry, liveHash: localHash });
-    }
-
-    finalMasterHash = chainHash;
-
-    // UI aktualisieren
-    hashEl.classList.remove('computing');
-    hashEl.textContent = finalMasterHash;
-    copyHint.style.display = 'block';
-
-    document.getElementById('entry-count').textContent = ledger.length;
-    document.getElementById('seal-date').textContent =
-      new Date().toLocaleDateString('de-DE', { day:'2-digit', month:'2-digit', year:'numeric' });
-
-    valStatus.textContent  = 'Verifiziert ✓';
-    valStatus.className    = 'val-ok';
-
-    matchStatus.textContent = allMatch ? 'Alle Knoten übereinstimmend ✓' : 'Abweichung festgestellt!';
-    matchStatus.className   = allMatch ? 'val-ok' : 'val-err';
-
-    badgeEl.textContent  = '● Versiegelt';
-    badgeEl.className    = 'badge badge-sealed';
-
-    renderTimeline(computedLedger);
-
-  } catch (err) {
-    hashEl.classList.add('error');
-    hashEl.textContent = 'Fehler beim Laden des Ledgers: ' + err.message;
-    badgeEl.textContent = '● Fehler';
-    badgeEl.className   = 'badge badge-error';
-    document.getElementById('timeline').innerHTML =
-      '<div class="loading-state" style="color:#9b1c1c">Ledger konnte nicht geladen werden.</div>';
-  }
-}
-
-// ── COPY HASH ──────────────────────────────────────────────────────────
-
-document.getElementById('master-hash').addEventListener('click', () => {
-  if (!finalMasterHash) return;
-  navigator.clipboard.writeText(finalMasterHash)
-    .then(() => showToast('Master-Hash für Audit-Zwecke kopiert ✓'))
-    .catch(() => showToast('Hash: ' + finalMasterHash.slice(0,16) + '…'));
-});
-
-// ── JSON EXPORT ────────────────────────────────────────────────────────
-
-document.getElementById('export-btn').addEventListener('click', () => {
-  if (!finalMasterHash) { showToast('Bitte warten – Prüfung läuft…'); return; }
-
-  const payload = {
-    index: 24,
-    document_id: "ZC-IFR-2026-024",
-    timestamp: new Date().toISOString(),
-    commit: "a02fae7",
-    master_hash_live: finalMasterHash,
-    location: { city: "Hamburg", country: "Germany" },
-    context: "Zemala Core V2.1 – EU AI Act Compliance Audit",
-    status: "SEALED",
-    eu_ai_act: {
-      risk_class: "Filtered Inference (IFR)",
-      audit_ready: true,
-      replay_capable: true,
-      sha256_validated: true,
-      data_sovereignty: "100% local (Termux/Android)"
-    },
-    ledger: computedLedger.map(e => ({
-      node: e.node,
-      type: e.type,
-      desc: e.desc,
-      live_hash: e.liveHash,
-      live_hash_short: e.liveHash.slice(0,8),
-      expected_hash: e.expected_hash
-    }))
-  };
-
-  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href     = url;
-  a.download = `zemala_audit_index24_${Date.now()}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast('Audit-JSON exportiert ✓');
-});
-
-// ── BOOT ───────────────────────────────────────────────────────────────
-
-document.addEventListener('DOMContentLoaded', loadAndVerifyLedger);
 </script>
 </body>
 </html>
