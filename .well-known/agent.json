@@ -1,0 +1,80 @@
+{
+  "name": "Zemala Core",
+  "description": "Lokales Nachweis-Werkzeug für AI-Compliance, Fristen und Notizen. Räumt den Dreck hinter fliegenden Agenten weg – 100% lokal, 100% nachweisbar. Andockbar über A2A als Compliance-Guardrail.",
+  "url": "https://github.com/rossaalex5-rgb/zemala-core",
+  "provider": {
+    "organization": "Zemala Systems",
+    "url": "https://rossaalex5-rgb.github.io/zemala-core/"
+  },
+  "version": "0.1.0",
+  "protocolVersion": "0.2",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": true
+  },
+  "defaultInputModes": [
+    "text",
+    "data"
+  ],
+  "defaultOutputModes": [
+    "text",
+    "data"
+  ],
+  "skills": [
+    {
+      "id": "eu-ai-act-checkliste",
+      "name": "EU AI Act Act-Checkliste & Nachweis",
+      "description": "Prüft lokal gespeicherte KI-Inventar, KI-Kompetenz (Art.4), Protokolle (Art.12), menschliche Aufsicht (Art.14), Transparenz (Art.13/50), Daten-Governance (Art.10). Liefert Status für Betreiber-Check. Alles bleibt auf dem Gerät.",
+      "tags": [
+        "EU-AI-Act",
+        "Compliance",
+        "Audit",
+        "Art.12",
+        "Art.13",
+        "Art.14",
+        "Art.17"
+      ],
+      "examples": [
+        "Prüfe mein lokales KI-Inventar nach Art. 49",
+        "Erzeuge EU AI Act Nachweis-Export aus localStorage"
+      ]
+    },
+    {
+      "id": "evidence-hash",
+      "name": "Manipulationssicheres Evidence Hashing",
+      "description": "Erzeugt SHA-256 Fingerprint eines Textes/Protokolls lokal im Browser. Kein Upload, kein Server. Nachweisbar dass Dokument zu Zeitpunkt X existierte. Passt zu zemala-evidence v0.1",
+      "tags": [
+        "Evidence",
+        "SHA-256",
+        "Nachweis",
+        "Audit-Log"
+      ],
+      "examples": [
+        "Hashe dieses Protokoll lokal und gib Timestamp",
+        "Beweise dass diese Entscheidung so getroffen wurde"
+      ]
+    },
+    {
+      "id": "governance-leitplanken",
+      "name": "Governance Leitplanken – NEIN sagen",
+      "description": "Technische Instanz die prüft wo KI innerhalb von Richtlinien agieren darf. Sagt technisch NEIN wenn außerhalb. Verhindert verantwortungsloses Serverfahren mit Dreck dahinter.",
+      "tags": [
+        "Governance",
+        "Guardrails",
+        "A2A",
+        "Agentic"
+      ],
+      "examples": [
+        "Darf dieser Agent autonome Ausnahmebehandlung ausführen?",
+        "Prüfe ob Agenten-Plan compliant vor Ausführung"
+      ]
+    }
+  ],
+  "authentication": {
+    "schemes": [
+      "none"
+    ]
+  }
+}
+
