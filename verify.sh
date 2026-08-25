@@ -9,5 +9,5 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "[ZEMALA Verify] Starte kryptografische Integritätsprüfung..."
-sha256sum ledger.json1 zemala_bridge.py sync.sh test_core.py agent_loop.py
+sha256sum ledger.jsonl zemala_bridge.py sync.sh test_core.py agent_loop.py
 echo "[ZEMALA Verify] Integritätsprüfung erfolgreich abgeschlossen. System intakt."
