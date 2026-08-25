@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 ZEMALA Core - Autonomous Agent Loop mit lokalem LLM (Stufe 100)
-Verbindet den Event-Stream direkt mit dem lokalen llama.cpp-Server.
+Verbindet den Event-Stream direkt mit dem OpenAI-kompatiblen llama-server.
 """
 
 import time
@@ -10,13 +10,14 @@ import urllib.request
 from datetime import datetime, timezone
 from zemala_bridge import emit_event
 
-# Lokaler Endpoint von llama.cpp (Standard-Kompatibilität)
-LLAMA_URL = "http://127.0.0.1:8080/completion"
+# OpenAI-kompatibles Endpoint von llama-server
+LLAMA_URL = "http://127.0.0.1:8080/v1/completions"
 
 def query_local_llm(prompt_text):
     payload = {
+        "model": "small.gguf",
         "prompt": prompt_text,
-        "n_predict": 100,
+        "max_tokens": 100,
         "temperature": 0.7
     }
     req = urllib.request.Request(
@@ -27,9 +28,11 @@ def query_local_llm(prompt_text):
     try:
         with urllib.request.urlopen(req, timeout=10) as response:
             result = json.loads(response.read().decode('utf-8'))
-            return result.get("content", "Keine Antwort erhalten.")
+            # OpenAI Format extrahieren
+            text = result.get("choices", [{}])[0].get("text", "Keine Antwort im Choice-Stream.")
+            return text
     except Exception as e:
-        return f"[ZEMALA Offline-Modus] llama.cpp Server nicht aktiv ({e}). Verwende Fallback."
+        return f"[ZEMALA Offline-Modus] llama-server nicht erreichbar ({e}). Fallback aktiv."
 
 def run_agent_cycle():
     emit_event("Agenten-Loop mit lokalem LLM-Stream gestartet.")
