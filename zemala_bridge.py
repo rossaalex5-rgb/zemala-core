@@ -1,33 +1,29 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# ZEMALA Core - Universal System Bridge & Telemetry Aggregator [Stufe 100]
+"""
+ZEMALA Core - Agent Bridge (Stufe 100)
+Verwaltet den lokalen Ereignis-Strom und die Interaktion mit dem Ledger.
+"""
 
 import os
 import json
 from datetime import datetime, timezone
 
-def aggregate_telemetry():
-    print("[*] Aggregating Cross-Repository Telemetry...")
-    timestamp = datetime.now(timezone.utc).isoformat()
-    
-    telemetry_data = {
+LEDGER_FILE = "ledger.jsonl"
+
+def emit_event(payload_text):
+    timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+    event = {
         "timestamp": timestamp,
-        "frequency": "3.47s",
-        "compliance": "SECURE (§ 203 StGB / EU AI Act)",
-        "state": "NOMINAL / ZERO LATENCY",
-        "repositories": [
-            "zemala-core",
-            "zemala-event-cockpit",
-            "zemala-srl-evidence-v0.1",
-            "marie-zemala-master"
-        ],
-        "active_status": "100% SECURE / ZERO LEAKS"
+        "level": "100",
+        "payload": payload_text
     }
     
-    with open("telemetry.json", "w", encoding="utf-8") as f:
-        json.dump(telemetry_data, f, indent=2)
+    # In Ledger schreiben (Append-Only)
+    with open(LEDGER_FILE, "a", encoding="utf-8") as f:
+        f.write(json.dumps(event) + "\n")
         
-    print("[+] Telemetry Aggregated and Exported to telemetry.json")
+    print(f"[ZEMALA Bridge] Event registriert: {timestamp} -> {payload_text}")
 
 if __name__ == "__main__":
-    aggregate_telemetry()
+    print("[ZEMALA Bridge] Initialisiert. Stufe 100 aktiv.")
+    emit_event("ZEMALA Bridge erfolgreich initialisiert und verbunden.")
