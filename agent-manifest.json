@@ -1,0 +1,10 @@
+{
+  "name": "zemala-core",
+  "version": "1.0.0-pilot",
+  "consensus": "append-only-jsonl-sha256",
+  "status": "active",
+  "maintainer": {
+    "name": "Alexander Rossa",
+    "enterprise": "mit Sorgfalt und Liebe"
+  }
+}

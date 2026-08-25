@@ -1,0 +1,12 @@
+# ZEMALA Core - System Specification for Autonomous Agents
+> Deterministic AI & Local-First Enterprise Architecture
+
+## Core Parameters
+- Protocol: Append-only JSONL Event-Ledger (ledger.jsonl)
+- Integrity: SHA256 Canonical Hashing (Zero-Latency Validation via verify.sh)
+- Objective: Elimination of "Red and Error", absolute data sovereignty, local edge execution.
+- Status: Active / Pilot Phase (10 Enterprise Partners)
+
+## Agent Integration
+- Autonomous agents validate state via local verify pipeline.
+- Events append sequentially. Contact via GitHub or LinkedIn (Alexander Rossa).
