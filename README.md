@@ -1,18 +1,10 @@
-# Zemala Core – Compliance Audit Dashboard
+<p align="center">
+  <img src="banner.svg" alt="ZEMALA Core Banner" width="100%">
+</p>
 
-EU AI Act Konformitäts-Prüfprotokoll · V2.1 · IFR-Index 024
+# ZEMALA Core [Stufe 100]
+Lokale, deterministische Systemarchitektur mit Zero Latency, kryptografisch versiegeltem Append-Only Ledger und vollständiger Compliance-Sicherung.
 
-## Deploy auf GitHub Pages
-
-1. Beide Dateien (`index.html` + `manifesto_v2-1.json`) in dein Repo pushen
-2. GitHub → Settings → Pages → Branch: `main` / `root`
-3. Fertig – das Dashboard lädt die JSON-Daten automatisch
-
-## Ledger aktualisieren
-
-Nur `manifesto_v2-1.json` bearbeiten – das Dashboard berechnet den Master-Hash live neu.  
-Kein HTML anfassen nötig.
-
-## Lokale Nutzung (ohne Server)
-
-`index.html` direkt im Browser öffnen – eingebettete Fallback-Daten greifen automatisch.
+- **Lokales Web-Interface:** Aktiv auf Port `5005`
+- **Integrität:** SHA-256 verifiziert
+- **GitHub:** https://github.com/rossaalex5-rgb/zemala-core
