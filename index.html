@@ -14,22 +14,41 @@
 <body>
     <header>
         <h1>ZEMALA CORE // LOCAL INTERFACE</h1>
-        <p>Operational Frequency: 3.47s | Compliance: SECURE (§ 203 StGB / EU AI Act)</p>
+        <p>Operational Frequency: <span id="sys-freq">Loading...</span> | Compliance: <span id="sys-compliance">Loading...</span></p>
     </header>
     
     <div class="card">
         <h3>System Telemetry</h3>
-        <p>State: <span class="status">NOMINAL / ZERO LATENCY</span></p>
+        <p>State: <span id="sys-state" class="status">SYNCING...</span></p>
         <p>Ledger Integrity: <span class="status">CRYPTOGRAPHICALLY SEALED</span></p>
     </div>
 
     <div class="card">
         <h3>Active Modules</h3>
-        <ul>
-            <li>Zemala-Core Event Ledger</li>
-            <li>SRL Evidence Verification</li>
-            <li>Event Cockpit Real-Time Monitor</li>
+        <ul id="repo-list">
+            <li>Loading Repositories...</li>
         </ul>
     </div>
+
+    <script>
+        fetch('telemetry.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('sys-freq').innerText = data.frequency;
+                document.getElementById('sys-compliance').innerText = data.compliance;
+                document.getElementById('sys-state').innerText = data.state;
+                
+                const repoList = document.getElementById('repo-list');
+                repoList.innerHTML = '';
+                data.repositories.forEach(repo => {
+                    const li = document.createElement('li');
+                    li.innerText = repo;
+                    repoList.appendChild(li);
+                });
+            })
+            .catch(err => {
+                document.getElementById('sys-state').innerText = "OFFLINE / LOCAL FALLBACK";
+            });
+    </script>
 </body>
 </html>
