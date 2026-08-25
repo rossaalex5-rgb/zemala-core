@@ -13,3 +13,5 @@
 {"timestamp": "2026-08-25 12:03:48", "level": "100", "payload": "Agenten-Loop mit lokalem LLM-Stream gestartet."}
 {"timestamp": "2026-08-25 12:03:48", "level": "100", "payload": "LLM-Response: [ZEMALA Offline-Modus] llama-server nicht erreichbar (HTTP Error 501: Unsupported method ('POST')). Fallback aktiv."}
 {"timestamp": "2026-08-25 12:03:48", "level": "100", "payload": "Agenten-Zyklus mit lokalem Modell erfolgreich abgeschlossen."}
+{"timestamp": "2026-08-25 12:04:49", "level": "100", "payload": "System-Test erfolgreich durchgef\u00fchrt. Zustand stabil."}
+{"timestamp": "2026-08-25 12:05:27", "level": "100", "payload": "System-Test erfolgreich durchgef\u00fchrt. Zustand stabil."}
