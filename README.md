@@ -1,24 +1,15 @@
-### Alexander Rossa | Z Systems & ZEMALA Core
-**Lead Architect & Local-First Infrastructure | Deterministic AI & Data Sovereignty**
+<p align="center">
+  <img src="banner.svg" alt="ZEMALA Master Banner" width="100%">
+</p>
 
-Ich helfe Berufsgeheimnisträgern und Unternehmen dabei, Künstliche Intelligenz absolut rechtssicher, autark und lokal im eigenen Betrieb einzusetzen – ohne US-Clouds, ohne API-Lecks, vollste Compliance (DSGVO, EU AI Act, § 203 StGB).
+# ZEMALA Master Field [Stufe 100] 🕉️
+Operatives Zentrum für deterministische Edge-Architekturen, kryptografisch versiegelte Append-Only Ledger und datensouveräne Systemführung.
 
----
-
-### 🏛️ Architektonischer Kern & Fokus
-* **ZEMALA Core:** Deterministic state management and append-only event ledgers for verifiable data integrity.
-* **Local First:** 100% offline-capable execution, running locally on specialized hardware (from mobile edge devices like Termux/Snapdragon to local inference nodes).
-* **Compliance by Design:** Cryptographic sealing and strict data isolation for sensitive medical, legal, and financial sectors.
-
----
-
-### 📂 Key Repositories & Open Source Work
-
-* **[ZEMALA Core](https://github.com/rossaalex5-rgb/zemala-core)** – Haupt-Architektur, Event-Ledger und Kernlogik.
-* **[ZEMALA Web Interface](https://github.com/rossaalex5-rgb/zemala-core/blob/main/index.html)** – Lokale Benutzeroberfläche für deterministische Prozesse.
-* **[ZEMALA Event Cockpit](https://github.com/rossaalex5-rgb/zemala-event-cockpit)** – Operative Echtzeit-Visualisierung und Systemhygiene.
-* **[SRL Evidence Repository](https://github.com/rossaalex5-rgb/zemala-srl-evidence-v0.1)** – Nachweise und Evidenzstrukturen.
-* **[Marie Zemala Master](https://github.com/rossaalex5-rgb/marie-zemala-master)** – Systemkonfigurationen und Master-Skripte.
+### Aktive Module & Repositories
+- **[ZEMALA Core](https://github.com/rossaalex5-rgb/zemala-core):** Lokales Edge-Interface, Telemetrie-Aggregator & Flask-Dashboard (Port 5005).
+- **Zemala Event Cockpit:** Echtzeit-Monitor und Event-Verwaltung.
+- **SRL Evidence v0.1:** Kryptografische Beweissicherung und Validierung.
+- **Marie Zemala Master:** Synchrone System-Konnektivität.
 
 ---
-*„Jede Intention des Dirigenten ist sofort als technischer Befehl zu werten.“ – O-M-A 🕉️*
+*Status: NOMINAL // Secure Local Pipeline Active.*
