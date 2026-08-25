@@ -7,3 +7,6 @@
 {"timestamp": "2026-08-25 12:02:24", "level": "100", "payload": "Zemala-Zyklus #2 erfolgreich ausgef\u00fchrt."}
 {"timestamp": "2026-08-25 12:02:25", "level": "100", "payload": "Zemala-Zyklus #3 erfolgreich ausgef\u00fchrt."}
 {"timestamp": "2026-08-25 12:02:26", "level": "100", "payload": "Agenten-Zyklus abgeschlossen. Zustand stabil."}
+{"timestamp": "2026-08-25 12:03:16", "level": "100", "payload": "Agenten-Loop mit lokalem LLM-Stream gestartet."}
+{"timestamp": "2026-08-25 12:03:16", "level": "100", "payload": "LLM-Response: [ZEMALA Offline-Modus] llama.cpp Server nicht aktiv (HTTP Error 501: Unsupported method ('POST')). Verwende Fallback."}
+{"timestamp": "2026-08-25 12:03:16", "level": "100", "payload": "Agenten-Zyklus mit lokalem Modell erfolgreich abgeschlossen."}
