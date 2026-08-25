@@ -2,7 +2,7 @@ import time
 import subprocess
 from datetime import datetime
 
-print("[ZEMALA Master-Daemon] Vollständige Kaskade inklusive Telemetrie aktiv. Drücke Ctrl+C zum Stoppen.")
+print("[ZEMALA Master-Daemon] Vollständige Kaskade inklusive Lofowelt-Metadaten aktiv. Drücke Ctrl+C zum Stoppen.")
 while True:
     try:
         subprocess.run(["python3", "pulse.py"], check=True)
@@ -12,9 +12,10 @@ while True:
         subprocess.run(["python3", "inference_hook.py"], check=True)
         subprocess.run(["python3", "agent_loop.py"], check=True)
         subprocess.run(["python3", "telemetry.py"], check=True)
+        subprocess.run(["python3", "metadata_optimizer.py"], check=True)
         subprocess.run(["python3", "renderer.py"], check=True)
         subprocess.run(["./sync.sh"], check=True)
-        print(f"[ZEMALA Master-Daemon] Voller Takt & Telemetrie vollzogen: {datetime.utcnow().isoformat()}Z")
+        print(f"[ZEMALA Master-Daemon] Voller Takt & Lofowelt-Amplifikation vollzogen: {datetime.utcnow().isoformat()}Z")
         time.sleep(60)
     except KeyboardInterrupt:
         print("\n[ZEMALA Master-Daemon] Daemon angehalten.")
