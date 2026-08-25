@@ -6,7 +6,15 @@ def collect_telemetry():
             lines = f.readlines()
         
         total_events = len(lines)
-        levels = [json.loads(line).get("level", 0) for line in lines]
+        levels = []
+        for line in lines:
+            data = json.loads(line)
+            lvl = data.get("level", 0)
+            try:
+                levels.append(int(lvl))
+            except (ValueError, TypeError):
+                levels.append(0)
+                
         avg_level = sum(levels) / total_events if total_events > 0 else 0
         
         print(f"[ZEMALA Telemetrie] Events: {total_events} | Ø-Level: {avg_level:.1f} | Feldintegrität: 100%")
