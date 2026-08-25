@@ -7,14 +7,13 @@ def render_status():
             lines = f.readlines()
         
         total_events = len(lines)
-        last_event = json.loads(lines[-1]) if lines else {}
         
         html_content = f"""<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZEMALA Core - Live Status</title>
+    <title>ZEMALA Core - Live Dashboard</title>
     <style>
         body {{ background-color: #0b0f19; color: #f8fafc; font-family: monospace; padding: 20px; margin: 0; }}
         .card {{ background: #1e293b; padding: 20px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5); max-width: 600px; margin: auto; border: 1px solid #334155; }}
@@ -26,17 +25,34 @@ def render_status():
 <body>
     <div class="card">
         <h1>⚡ ZEMALA Live-Feld</h1>
-        <div class="metric">System-Status: <span class="highlight">Stufe 100 (Aktiv)</span></div>
-        <div class="metric">Gesamt-Events im Ledger: <span class="highlight">{total_events}</span></div>
-        <div class="metric">Letzter Takt: <span class="highlight">{datetime.utcnow().isoformat()}Z</span></div>
-        <div class="metric">Letztes Event: {last_event.get('message', 'N/A')}</div>
+        <div class="metric">System-Status: <span id="status" class="highlight">Lade...</span></div>
+        <div class="metric">Gesamt-Events im Ledger: <span id="events" class="highlight">{total_events}</span></div>
+        <div class="metric">Feldintegrität: <span id="integrity" class="highlight">100%</span></div>
+        <div class="metric">Letztes Event: <span id="last_msg">Verbinde mit API...</span></div>
     </div>
+
+    <script>
+        async function updateStatus() {{
+            try {{
+                let response = await fetch('http://localhost:8082/status');
+                let data = await response.json();
+                document.getElementById('status').innerText = data.status;
+                document.getElementById('events').innerText = data.total_events;
+                document.getElementById('integrity').innerText = data.field_integrity;
+                document.getElementById('last_msg').innerText = data.last_event.payload || 'N/A';
+            }} catch (e) {{
+                console.log('API-Verbindung wartet...', e);
+            }}
+        }}
+        setInterval(updateStatus, 3000);
+        updateStatus();
+    </script>
 </body>
 </html>
 """
         with open("index.html", "w") as f:
             f.write(html_content)
-        print("[ZEMALA Renderer] index.html erfolgreich für den Browser aktualisiert.")
+        print("[ZEMALA Renderer] Dynamisches index.html erfolgreich aktualisiert.")
     except Exception as e:
         print(f"[ZEMALA Renderer] Fehler beim Rendern: {e}")
 
