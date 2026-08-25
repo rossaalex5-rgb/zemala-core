@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="banner.svg" alt="ZEMALA Master Banner" width="100%">
+  <img src="banner.jpg" alt="ZEMALA Master Banner" width="100%">
 </p>
 
 # ZEMALA Master Field [Stufe 100] 🕉️
