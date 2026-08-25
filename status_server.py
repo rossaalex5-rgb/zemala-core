@@ -45,7 +45,7 @@ HTML_TEMPLATE = """
             }
         }
         fetchStatus();
-        setInterval(fetchStatus, 3470); // Im 3.47s Takt aktualisieren
+        setInterval(fetchStatus, 3470);
     </script>
 </body>
 </html>
@@ -76,6 +76,7 @@ class ZemalaHandler(http.server.SimpleHTTPRequestHandler):
             super().do_GET()
 
 if __name__ == "__main__":
+    socketserver.TCPServer.allow_reuse_address = True
     with socketserver.TCPServer(("", PORT), ZemalaHandler) as httpd:
         print(f"[ZEMALA Server] Live-Dashboard & Status-API aktiv auf Port {PORT}...")
         httpd.serve_forever()
