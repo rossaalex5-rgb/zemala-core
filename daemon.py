@@ -3,10 +3,14 @@ import subprocess
 import os
 from datetime import datetime
 
+print("[ZEMALA Master-Daemon] Bereinige alte Status-Server Instanzen...")
+subprocess.run(["pkill", "-f", "status_server.py"], stderr=subprocess.DEVNULL)
+time.sleep(1)
+
 print("[ZEMALA Master-Daemon] Starte Status-API im Hintergrund auf Port 8080...")
 server_process = subprocess.Popen(["python3", "status_server.py"])
 
-print("[ZEMALA Master-Daemon] Vollständige Kaskade inklusive Notifier aktiv. Drücke Ctrl+C zum Stoppen.")
+print("[ZEMALA Master-Daemon] Vollständige Kaskade inklusive Auditor, Healer & Notifier aktiv. Drücke Ctrl+C zum Stoppen.")
 while True:
     try:
         subprocess.run(["python3", "pulse.py"], check=True)
