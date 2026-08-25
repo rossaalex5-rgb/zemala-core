@@ -6,7 +6,7 @@ from datetime import datetime
 print("[ZEMALA Master-Daemon] Starte Status-API im Hintergrund auf Port 8080...")
 server_process = subprocess.Popen(["python3", "status_server.py"])
 
-print("[ZEMALA Master-Daemon] Vollständige Kaskade inklusive Status-API aktiv. Drücke Ctrl+C zum Stoppen.")
+print("[ZEMALA Master-Daemon] Vollständige Kaskade inklusive Auditor aktiv. Drücke Ctrl+C zum Stoppen.")
 while True:
     try:
         subprocess.run(["python3", "pulse.py"], check=True)
@@ -18,11 +18,12 @@ while True:
         subprocess.run(["python3", "telemetry.py"], check=True)
         subprocess.run(["python3", "metadata_optimizer.py"], check=True)
         subprocess.run(["python3", "ledger_analytics.py"], check=True)
+        subprocess.run(["python3", "auditor.py"], check=True)
         subprocess.run(["python3", "sealer.py"], check=True)
         subprocess.run(["python3", "backup.py"], check=True)
         subprocess.run(["python3", "renderer.py"], check=True)
         subprocess.run(["./sync.sh"], check=True)
-        print(f"[ZEMALA Master-Daemon] Voller Takt, API-Dienst & Backup vollzogen: {datetime.utcnow().isoformat()}Z")
+        print(f"[ZEMALA Master-Daemon] Voller Takt, Audit & Sync vollzogen: {datetime.utcnow().isoformat()}Z")
         time.sleep(60)
     except KeyboardInterrupt:
         print("\n[ZEMALA Master-Daemon] Daemon angehalten. Beende Status-Server...")
