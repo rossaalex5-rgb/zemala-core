@@ -1,6 +1,12 @@
 #!/bin/bash
-# ZEMALA - Dual-Sync-Skript (GitHub + Hugging Face)
-# Stufe 100 - Zero-Latency Vollzug
+# ZEMALA - Dual-Sync-Skript mit Integritätsprüfung (Stufe 100)
+
+echo "[ZEMALA] Starte automatische Integritätsprüfung..."
+if [ -f "./verify.sh" ]; then
+    ./verify.sh
+else
+    echo "[ZEMALA] Warnung: verify.sh nicht gefunden!"
+fi
 
 echo "[ZEMALA] Starte System-Synchronisation..."
 
@@ -15,8 +21,8 @@ git commit -m "[ZEMALA] Core Update: $TIMESTAMP [Stufe 100]"
 echo "[ZEMALA] Pushe zu GitHub (origin)..."
 git push origin main
 
-# 4. Push zu Hugging Face (hf) mit Force-Abdeckung für Remote-Init-Dateien
+# 4. Push zu Hugging Face (hf)
 echo "[ZEMALA] Pushe zu Hugging Face (hf)..."
 git push -f hf main
 
-echo "[ZEMALA] Synchronisation auf allen Kanälen abgeschlossen. Felsenfest."
+echo "[ZEMALA] Verifizierung und Synchronisation auf allen Kanälen abgeschlossen. Felsenfest."
