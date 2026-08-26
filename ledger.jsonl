@@ -6217,3 +6217,13 @@
     "operation": "verify"
   }
 }}
+{"timestamp": "2026-08-26T13:00:46Z", "status": "ACTION_COMMITTED", "intent_data": {
+  "intent": "RUN_VERIFICATION",
+  "auth": {
+    "authorized": true
+  },
+  "payload": {
+    "target": "zemala-core",
+    "operation": "verify"
+  }
+}}

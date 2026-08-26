@@ -1,1 +1,11 @@
 {"status": "BLOCKED", "source": "intent_fail.json", "timestamp": "2026-08-26T12:55:32Z"}
+{"timestamp": "2026-08-26T13:00:47Z", "status": "ACTION_NOT_EXECUTED", "reason": "INTENT_GATE_FAILED", "source_intent": {
+  "intent": "RUN_VERIFICATION",
+  "auth": {
+    "authorized": false
+  },
+  "payload": {
+    "target": "zemala-core",
+    "operation": "verify"
+  }
+}}
