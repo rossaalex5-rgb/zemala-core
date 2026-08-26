@@ -5197,4 +5197,3 @@
 {"timestamp": "2026-08-26 07:46:22", "level": "100", "payload": "System-Test erfolgreich durchgef\u00fchrt. Zustand stabil."}
 {"timestamp": "2026-08-26T07:46:31.685312Z", "level": "100", "payload": "Kaskaden-Resonanz Stufe 100: Aktiver Impuls in den Datenstrom emittiert."}
 {"timestamp": "2026-08-26T07:46:32.337848Z", "type": "NOTIFICATION_DISPATCH", "message": "[ZEMALA Notifier] System v1.0.1102 l\u00e4uft stabil auf Frequenz 3.47s.", "level": "100"}
-{"timestamp": "2026-08-26 07:46:32", "level": "100", "payload": "System-Test erfolgreich durchgef\u00fchrt. Zustand stabil."}
