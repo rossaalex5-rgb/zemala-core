@@ -1,0 +1,10 @@
+{
+  "intent": "RUN_VERIFICATION",
+  "auth": {
+    "authorized": true
+  },
+  "payload": {
+    "target": "zemala-core",
+    "operation": "verify"
+  }
+}
