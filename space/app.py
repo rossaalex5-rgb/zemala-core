@@ -1,5 +1,5 @@
 import streamlit as st
-from reader import get_observer_metrics
+from verifier import verify_observer_data
 
 st.set_page_config(
     page_title="ZEMALA CORE // OBSERVER",
@@ -8,9 +8,9 @@ st.set_page_config(
 )
 
 st.title("ZEMALA CORE // OBSERVER")
-st.caption("Read-Only Beobachtungszelle — Stufe 100 Systemhygiene")
+st.caption("Unabhängige Audit-Zelle — Read-Only (READ → VERIFY → RENDER)")
 
-metrics = get_observer_metrics()
+data = verify_observer_data()
 
 st.divider()
 
@@ -18,34 +18,32 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("STATE & INVARIANTS")
-    st.text(f"STATE:      {metrics['state']}")
-    st.text(f"INVARIANTS: {metrics['invariants']}")
-    st.text(f"TAKT:       {metrics['takt']}")
+    st.text(f"Zustand:    {data['state_status']}")
+    st.text(f"Chain:      {data['chain_status']}")
+    st.text(f"Takt:       3.47 s (Dokumentiert)")
 
 with col2:
-    st.subheader("SEAL & IDENTITY")
-    seal_status = metrics['seal']['seal_present']
-    st.text(f"SEAL:       {seal_status}")
-    if seal_status == "PASS":
-        st.json(metrics['seal']['data'], expanded=False)
-    else:
-        st.text("Seal-Daten: UNKNOWN")
+    st.subheader("SEAL & EVIDENZ")
+    st.text(f"Seal-Status: {data['seal_status']}")
+    st.text(f"Ledger:      {data['ledger_status']}")
 
 st.divider()
 
-st.subheader("LEDGER INTEGRITY METADATA")
-ledger = metrics['ledger']
-st.text(f"  readable:     {ledger['readable']}")
-st.text(f"  tail_valid:   {ledger['tail_valid']}")
-st.text(f"  chain_status: {ledger['chain_status']}")
-st.text(f"  Total Lines:  {ledger.get('total_lines', 'UNKNOWN')}")
+st.subheader("ZUSTANDS-ANKER (ZEMALA_STATE.md)")
+st.code(data['state_content'], language="markdown")
 
-st.markdown("### LEDGER TAIL (Letzte Events)")
-if ledger['last_lines']:
-    for line in ledger['last_lines']:
+st.subheader("KRYPTOGRAFISCHES SEAL")
+if data['seal_status'] == "PASS" and data['seal_data']:
+    st.json(data['seal_data'], expanded=False)
+else:
+    st.warning("Seal-Evidenz nicht vollständig oder UNKNOWN.")
+
+st.subheader("LEDGER-TAIL (Letzte Events)")
+if data['ledger_tail']:
+    for line in data['ledger_tail']:
         st.code(line, language="json")
 else:
-    st.warning("Keine Ledger-Events verfügbar oder Status UNKNOWN.")
+    st.warning("Keine Ledger-Events verfügbar oder Evidenz fehlt (UNKNOWN).")
 
 st.divider()
-st.caption("ZEMALA Observer Zelle v1.0 — Request-Driven Read-Only Pipeline. O-M-A. 🕉️")
+st.caption("ZEMALA Observer v1.0 — Keine Schreibrechte, keine Ausführung. O-M-A. 🕉️")

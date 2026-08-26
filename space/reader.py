@@ -1,5 +1,4 @@
 import json
-import os
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
@@ -8,49 +7,36 @@ def read_system_state():
     state_path = ROOT_DIR / "ZEMALA_STATE.md"
     if state_path.exists():
         content = state_path.read_text(encoding="utf-8")
-        return content.splitlines()[0] if content else "UNKNOWN"
-    return "UNKNOWN"
+        return content.splitlines()[0] if content else None
+    return None
 
-def verify_ledger():
+def read_ledger_tail(n=5):
     ledger_path = ROOT_DIR / "ledger.jsonl"
     if not ledger_path.exists():
-        return {"readable": "FAIL", "tail_valid": "UNKNOWN", "chain_status": "UNKNOWN", "last_lines": []}
-    
+        return []
     try:
         with open(ledger_path, "r", encoding="utf-8") as f:
-            all_lines = f.readlines()
-            tail_lines = [line.strip() for line in all_lines[-5:] if line.strip()]
-        
-        readable = "PASS" if len(all_lines) > 0 else "FAIL"
-        tail_valid = "PASS" if tail_lines else "UNKNOWN"
-        chain_status = "VERIFIED" if readable == "PASS" and tail_valid == "PASS" else "UNKNOWN"
-        
-        return {
-            "readable": readable,
-            "tail_valid": tail_valid,
-            "chain_status": chain_status,
-            "total_lines": len(all_lines),
-            "last_lines": tail_lines
-        }
+            all_lines = [line.strip() for line in f if line.strip()]
+        return all_lines[-n:] if all_lines else []
     except Exception:
-        return {"readable": "FAIL", "tail_valid": "FAIL", "chain_status": "UNKNOWN", "last_lines": []}
+        return []
 
-def verify_seal():
+def read_seal():
     seal_path = ROOT_DIR / "ledger_seal.json"
     if not seal_path.exists():
-        return {"seal_present": "FAIL", "data": None}
+        return None
     try:
         with open(seal_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        return {"seal_present": "PASS", "data": data}
+            return json.load(f)
     except Exception:
-        return {"seal_present": "FAIL", "data": None}
+        return None
 
-def get_observer_metrics():
+def get_raw_data():
     return {
-        "state": read_system_state(),
-        "ledger": verify_ledger(),
-        "seal": verify_seal(),
-        "takt": "3.47 s (Dokumentiert)",
-        "invariants": "PASS"
+        "state_content": read_system_state(),
+        "ledger_tail": read_ledger_tail(),
+        "seal_data": read_seal(),
+        "ledger_exists": (ROOT_DIR / "ledger.jsonl").exists(),
+        "state_exists": (ROOT_DIR / "ZEMALA_STATE.md").exists(),
+        "seal_exists": (ROOT_DIR / "ledger_seal.json").exists()
     }
