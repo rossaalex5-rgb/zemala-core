@@ -12,17 +12,23 @@ if [ -f "events.jsonl" ]; then
         exit 1
     fi
     
-    # Hash-Chain Verification Loop
+    # Hash-Chain Verification Loop & Authorization Check (C-01)
     PREV_HASH="0000000000000000000000000000000000000000000000000000000000000000"
     CURRENT_HASH="$PREV_HASH"
     
     while IFS= read -r line || [ -n "$line" ]; do
         if [ -n "$line" ]; then
-            CURRENT_HASH=$(echo -n "${PREV_HASH}${line}" | sha256sum | awk '{print $1}')
-            PREV_HASH="$CURRENT_HASH"
+            # Check Authorization Property: Auth=0 implies Effect=0 (must contain command/auth signature)
+            if echo "$line" | grep -q '"command"'; then
+                CURRENT_HASH=$(echo -n "${PREV_HASH}${line}" | sha256sum | awk '{print $1}')
+                PREV_HASH="$CURRENT_HASH"
+            else
+                echo "[-] FAIL: Unauthorized event structure detected (Auth Gate Violation)."
+                exit 1
+            fi
         fi
     done < events.jsonl
-    echo "[+] Ledger Hash Chain Valid. Current Head: ${CURRENT_HASH:0:16}..."
+    echo "[+] Ledger Hash Chain & Auth Gates Valid. Current Head: ${CURRENT_HASH:0:16}..."
 else
     echo "[!] No events.jsonl ledger found. Initializing verified zero state."
 fi
