@@ -2,3 +2,4 @@ logs/
 node_modules/
 imports/
 vault/archive/
+.env
