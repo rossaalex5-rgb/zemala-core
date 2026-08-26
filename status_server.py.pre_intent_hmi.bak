@@ -1,0 +1,160 @@
+import http.server
+import socketserver
+import json
+import os
+import hashlib
+from datetime import datetime
+
+PORT = 5005
+SEAL_FILE = "ledger_seal.json"
+
+HTML_TEMPLATE = """<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>ZEMALA Core // Audit-Zelle V2.3</title>
+    <style>
+        body { background-color: #0b0b07; color: #00ffcc; font-family: monospace; padding: 20px; }
+        h1 { border-bottom: 2px solid #00ffcc; padding-bottom: 10px; }
+        .card { background: #12121a; border: 1px solid #41a2e; padding: 20px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,255,204,0.1); }
+        .metric { font-size: 1.5em; color: #FFCC00; }
+        .status-optimal { color: #00TT66; font-weight: bold; }
+        input[type="text"] { background: #1a1a24; border: 1px solid #00ffcc; color: #00ffcc; padding: 10px; width: 70%; font-family: monospace; }
+        button { background: #FFCC00; color: #0b0b07; border: none; padding: 11px 20px; font-weight: bold; cursor: pointer; }
+        button:hover { background: #ffdd33; }
+        pre { background: #050508; padding: 10px; border: 1px solid #222; overflow-x: auto; color: #00ffcc; }
+    </style>
+</head>
+<body>
+    <h1>ZEMALA Core // Stufe 100 // Audit-Zelle V2.3</h1>
+    <div class="card">
+        <h3>System-Status</h3>
+        <p>Zustand: <span id="stat" class="status-optimal">Laden...</span></p>
+        <p>FeldIntegrität: <span id="integrity" class="metric">Laden...</span></p>
+        <p>Aktives Level: <span id="level">Laden...</span></p>
+    </div>
+    <div class="card">
+        <h3>Ereignis-Impuls versiegeln</h3>
+        <form id="sealForm" onsubmit="submitSeal(event)">
+            <input type="text" id="impulse" placeholder="Ereignis-Impuls eingeben..." required>
+            <button type="submit">VERSIEGELN</button>
+        </form>
+    </div>
+    <div class="card">
+        <h3>Letztes Krypto-Siegel</h3>
+        <pre id="seal">Laden...</pre>
+    </div>
+<script>
+async function fetchStatus() {
+    try {
+        let response = await fetch('/status');
+        let data = await response.json();
+        document.getElementById('stat').innerText = data.status;
+        document.getElementById('integrity').innerText = data.field_integrity;
+        document.getElementById('level').innerText = data.level;
+        document.getElementById('seal').innerText = JSON.stringify(data.latest_seal || {}, null, 2);
+    } catch (e) {
+        document.getElementById('stat').innerText = "Verbindungsfehler";
+    }
+}
+async function submitSeal(event) {
+    event.preventDefault();
+    let val = document.getElementById('impulse').value;
+    let res = await fetch('/seal', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ impulse: val })
+    });
+    let result = await res.json();
+    if(result.success) {
+        document.getElementById('impulse').value = '';
+        fetchStatus();
+    } else {
+        alert("Fehler beim Versiegeln!");
+    }
+}
+fetchStatus();
+setInterval(fetchStatus, 3470);
+</script>
+</body>
+</html>
+"""
+
+class ZemalaHandler(http.server.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        if self.path == "/" or self.path == "/dashboard":
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html")
+            self.end_headers()
+            self.wfile.write(HTML_TEMPLATE.encode())
+        elif self.path == "/status":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            
+            latest_seal = None
+            if os.path.exists(SEAL_FILE):
+                with open(SEAL_FILE, "r") as f:
+                    try:
+                        latest_seal = json.load(f)
+                    except:
+                        pass
+            
+            status = {
+                "system": "ZEMALA Core",
+                "status": "Stable (Audit-Ready)",
+                "level": "100",
+                "field_integrity": "100%",
+                "latest_seal": latest_seal
+            }
+            self.wfile.write(json.dumps(status, indent=2).encode())
+        else:
+            super().do_GET()
+
+    def do_POST(self):
+        if self.path == "/seal":
+            content_length = int(self.headers.get('Content-Length', 0))
+            post_data = self.rfile.read(content_length)
+            try:
+                data = json.loads(post_data.decode('utf-8'))
+                impulse = data.get("impulse", "DEFAULT_PULSE")
+                
+                # Zähler / Sequenz aus bisherigem Siegel ermitteln oder bei 5401 starten
+                seq = 5401
+                if os.path.exists(SEAL_FILE):
+                    with open(SEAL_FILE, "r") as f:
+                        old_data = json.load(f)
+                        seq = old_data.get("sequence", 5400) + 1
+                
+                timestamp = datetime.utcnow().isoformat() + "Z"
+                raw_string = f"{seq}:{timestamp}:{impulse}"
+                signature = hashlib.sha256(raw_string.encode()).hexdigest()
+                
+                new_seal = {
+                    "sequence": seq,
+                    "timestamp": timestamp,
+                    "impulse": impulse,
+                    "signature": signature
+                }
+                
+                with open(SEAL_FILE, "w") as f:
+                    json.dump(new_seal, f, indent=2)
+                
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": True, "sequence": seq}).encode())
+            except Exception as e:
+                self.send_response(400)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode())
+        else:
+            self.send_response(404)
+            self.end_headers()
+
+if __name__ == "__main__":
+    socketserver.TCPServer.allow_reuse_address = True
+    with socketserver.TCPServer(("", PORT), ZemalaHandler) as httpd:
+        print(f"[ZEMALA ZELLE] Live-Dashboard & Versiegelungs-API aktiv auf Port {PORT}...")
+        httpd.serve_forever()

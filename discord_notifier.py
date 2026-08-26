@@ -1,14 +1,17 @@
 import os, json, urllib.request
 
-def send_discord_notification(title, message, status="SUCCESS"):
-    webhook_url = os.environ.get("DISCORD_WEBHOOK_URL")
+PRIMARY_WEBHOOK = os.environ.get("DISCORD_WEBHOOK_URL")
+SECONDARY_WEBHOOK = "https://discord.com/api/webhooks/1463079162029019210/jHmfToQSAfWRzPDTwd78QiMHkchjcznk76Z1qfX1XcHpmQhsC5XcWiyX-RdRxb3SvJW9"
+
+def send_discord_notification(title, message, status="SUCCESS", channel="primary"):
+    webhook_url = SECONDARY_WEBHOOK if channel == "secondary" else PRIMARY_WEBHOOK
     if not webhook_url:
-        print("[-] DISCORD_WEBHOOK_URL nicht gesetzt.")
+        print("[-] Kein Webhook für den gewählten Kanal gesetzt.")
         return
     color = 0x00FF00 if status == "SUCCESS" else 0xFF0000
     payload = {
         "embeds": [{
-            "title": f"[ZEMALA KERNEL] {title}",
+            "title": f"[ZEMALA CHAT KERNEL] {title}",
             "description": message,
             "color": color,
             "fields": [
@@ -27,12 +30,13 @@ def send_discord_notification(title, message, status="SUCCESS"):
     )
     try:
         with urllib.request.urlopen(req) as response:
-            print(f"[*] Discord Notification gesendet: {response.status}")
+            print(f"[*] Chat-Nachricht an Discord gesendet: {response.status}")
     except Exception as e:
         print(f"[-] Fehler beim Senden an Discord: {e}")
 
 if __name__ == "__main__":
     send_discord_notification(
-        "Pipeline-Integration Aktiv", 
-        "Der Discord-Notifier wurde erfolgreich in die Kern-Architektur eingebunden."
+        "Chat-Brücke Aktiviert", 
+        "Der direkte Befehlskanal aus dem System ist nun scharf geschaltet.",
+        channel="secondary"
     )
