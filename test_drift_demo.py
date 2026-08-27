@@ -12,11 +12,11 @@ def get_file_bytes(filepath):
     with open(filepath, "rb") as f:
         return f.read()
 
-def run_verify_seal():
-    if not os.path.exists("verify_seal.py"):
-        print("  [ERROR] verify_seal.py nicht gefunden!")
+def run_system_verify():
+    if not os.path.exists("verify.sh"):
+        print("  [ERROR] verify.sh nicht gefunden!")
         return 1
-    result = subprocess.run([sys.executable, "verify_seal.py"], capture_output=True, text=True)
+    result = subprocess.run(["./verify.sh"], capture_output=True, text=True)
     return result.returncode
 
 def trigger_action(allowed: bool):
@@ -25,10 +25,10 @@ def trigger_action(allowed: bool):
     else:
         print("→ NO ACTION")
 
-print("=== ZEMALA M7.4 // HUMAN-OBSERVABLE DRIFT DEMO ===")
+print("=== ZEMALA M7.4 // HUMAN-OBSERVABLE DRIFT DEMO ==.")
 
 if not os.path.exists(LEDGER_FILE):
-    print(f"[FATAL] {LEDGER_FILE} existiert nicht. Keine Baseline möglich.")
+    print(f"[FATAL] {LEDGER_FILE} existiert nicht.")
     sys.exit(1)
 
 original_bytes = get_file_bytes(LEDGER_FILE)
@@ -37,8 +37,8 @@ with open(BACKUP_FILE, "wb") as f:
 
 # [1] BASELINE
 print("\nBASELINE")
-rc_base = run_verify_seal()
-print(f"verify_seal RC={rc_base}")
+rc_base = run_system_verify()
+print(f"verify.sh RC={rc_base}")
 if rc_base == 0:
     print("→ VERIFIED")
     trigger_action(allowed=True)
@@ -56,8 +56,8 @@ print("\nSEMANTIC DRIFT")
 with open(LEDGER_FILE, "ab") as f:
     f.write(b'{"tampered": true}\n')
 
-rc_drift = run_verify_seal()
-print(f"verify_seal RC={rc_drift}")
+rc_drift = run_system_verify()
+print(f"verify.sh RC={rc_drift}")
 if rc_drift != 0:
     print("→ FAIL")
     print("→ BLOCKED")
@@ -81,8 +81,8 @@ restored_bytes = get_file_bytes(LEDGER_FILE)
 bytes_match = (original_bytes == restored_bytes)
 print(f"original bytes == restored bytes: {bytes_match}")
 
-rc_restore = run_verify_seal()
-print(f"verify_seal RC={rc_restore}")
+rc_restore = run_system_verify()
+print(f"verify.sh RC={rc_restore}")
 if rc_restore == 0 and bytes_match:
     print("→ VERIFIED")
     trigger_action(allowed=True)
