@@ -1,0 +1,23 @@
+{
+  "zemala_master": "rossaalex5-rgb/rossaalex5-rgb",
+  "operational_core": "rossaalex5-rgb/zemala-core",
+  "canonical_branch": "main",
+  "ingress": {
+    "host": "127.0.0.1",
+    "port": 8847,
+    "protocol": "http"
+  },
+  "active_protocols": [
+    "READ",
+    "RECONSTRUCT",
+    "WORK",
+    "DISCOVER",
+    "RETURN"
+  ],
+  "return_schema_enforced": true,
+  "port_policy": {
+    "bind_localhost_only": true,
+    "collision_policy": "BLOCKED",
+    "restart_policy": "NO_RESTART_STORM"
+  }
+}
