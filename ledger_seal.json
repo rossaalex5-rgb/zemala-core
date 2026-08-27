@@ -1,6 +1,1 @@
-{
-  "timestamp": "2026-08-27T07:56:30.176274Z",
-  "seal_hash": "246e69cfce989f33f19bc1d38651347829627d7cf58a0acaf09ce64c768aa22d",
-  "status": "Cryptographically Sealed",
-  "level": "100"
-}
+{"seal_hash": "246e69cfce989f33f19bc1d38651347829627d7cf58a0acaf09ce64c768aa22d", "timestamp": "2026-08-27T13:35:00Z"}

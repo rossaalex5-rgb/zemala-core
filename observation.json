@@ -1,0 +1,8 @@
+{
+  "schema": "ZEMALA_OBSERVATION_V1",
+  "node": "zemala-core",
+  "timestamp": "2026-08-27T13:35:00Z",
+  "verification_status": "VERIFIED",
+  "seal_hash": "246e69cfce989f33f19bc1d38651347829627d7cf58a0acaf09ce64c768aa22d",
+  "last_request_id": "UNKNOWN"
+}

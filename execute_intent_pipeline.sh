@@ -1,17 +1,14 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/usr/bin/env bash
+# ZEMALA MASTER EXECUTION PIPELINE (TAKT 4 + M2 ATOMIC COMMIT + SEAL)
 set -u
-
-# ZEMALA MASTER EXECUTION PIPELINE (TAKT 4)
-# INTENT_RECEIVED -> VERIFY -> (COMMITTED | BLOCKED_EVIDENCE)
 
 INTENT_FILE="${1:-intent.json}"
 LEDGER_FILE="ledger.jsonl"
-EVIDENCE_FILE="ledger_blocked.log"
 TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 
-echo "=== {ZEMALA CORE} PIPELINE TAKT 4 ==="
+echo "=== (ZEMALA CORE) PIPELINE TAKT 4 ==="
 
-# 1. Roh-Evidenz: Intent ist eingegangen
+# 1. Roh-Evidenz einlesen
 echo "[*] Phase 1: Intent received from $INTENT_FILE"
 INTENT_RAW=$(cat "$INTENT_FILE")
 
@@ -19,22 +16,32 @@ INTENT_RAW=$(cat "$INTENT_FILE")
 ./verify_intent.sh "$INTENT_FILE"
 GATE_RC=$?
 
-if [ "$GATE_RC" -ne 0 ]; then
+if [ $GATE_RC -ne 0 ]; then
     echo "[-] Phase 2: Intent REJECTED by Gate."
-    echo "[-] Phase 3: Action BLOCKED. Writing blocked evidence..."
-    
-    # Protokollierung als blockierte Evidenz (Keine Aktion im Haupt-Ledger!)
-    echo "{\"timestamp\": \"$TIMESTAMP\", \"status\": \"ACTION_NOT_EXECUTED\", \"reason\": \"INTENT_GATE_FAILED\", \"source_intent\": $INTENT_RAW}" >> "$EVIDENCE_FILE"
-    
-    echo "[-] PIPELINE HALTED. EVIDENCE COMMITTED TO BLOCKED LOG."
     exit 1
 fi
 
 echo "[+] Phase 2: Intent ADMISSIBLE."
-echo "[+] Phase 3: EXECUTING ACTION..."
 
-# 3. Tatsächliche Aktion nur bei erfolgreicher Admissibilität
-echo "{\"timestamp\": \"$TIMESTAMP\", \"status\": \"ACTION_COMMITTED\", \"intent_data\": $INTENT_RAW}" >> "$LEDGER_FILE"
+# 3. Atomarer Commit über atomic_commit.py (M2 Invariante)
+python3 atomic_commit.py < "$INTENT_FILE"
+COMMIT_RC=$?
 
-echo "[+] PIPELINE COMPLETE: ACTION COMMITTED TO LEDGER."
+if [ $COMMIT_RC -ne 0 ]; then
+    echo "[-] Phase 3: Intent BLOCKED (Replay/Duplicate detected)."
+    exit 1
+fi
+
+echo "[+] Phase 3: ACTION COMMITTED TO LEDGER."
+
+# 4. Nachgelagerter Sealing-Schritt (Nur bei erfolgreichem Commit)
+python3 sealer.py
+SEAL_RC=$?
+
+if [ $SEAL_RC -ne 0 ]; then
+    echo "[-] Phase 4: SEAL FAILED."
+    exit 1
+fi
+
+echo "[+] PIPELINE COMPLETE: COMMIT + SEALED."
 exit 0

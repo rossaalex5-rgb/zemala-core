@@ -1,10 +1,11 @@
 {
-  "intent": "RUN_VERIFICATION",
+  "request_id": "REQ-SEAL-001",
+  "intent": "RUN_SEALED_VERIFICATION",
   "auth": {
     "authorized": true
   },
   "payload": {
     "target": "zemala-core",
-    "operation": "verify"
+    "operation": "seal"
   }
 }

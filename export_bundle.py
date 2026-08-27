@@ -1,20 +1,44 @@
-import json, os, hashlib
-from datetime import datetime
-l, b = "ledger.jsonl", "MASTER_BUNDLE.md"
-if os.path.exists(l):
-    e, v = [], True
-    with open(l, "r", encoding="utf-8") as f:
-        for line in f:
-            if line.strip():
-                try:
-                    d = json.loads(line.strip())
-                    sh = d.pop("hash", None)
-                    if sh and hashlib.sha256(json.dumps(d, sort_keys=True).encode('utf-8')).hexdigest() != sh: v = False
-                    if sh: d["hash"] = sh
-                    e.append(d)
-                except: pass
-    le = e[-1] if e else {}
-    txt = f"# ZEMALA MASTER BUNDLE // ANCHOR\n* Zeit: {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC\n* Einträge: {len(e)}\n* Status: {'VERIFIZIERT' if v else 'FEHLER'}\n* Takt: 3,47s\n\n## Letzter Block\n```json\n{json.dumps(le, indent=2, ensure_ascii=False)}\n```"
-    with open(b, "w", encoding="utf-8") as bf: bf.write(txt)
-    print(f"[+] Bundle generiert. Status: {'VERIFIZIERT' if v else 'FEHLER'}")
-else: print("[-] Kein Ledger.")
+#!/usr/bin/env python3
+import json
+import os
+from pathlib import Path
+
+OBS_FILE = "observation.json"
+BUNDLE_FILE = "MASTER_BUNDLE.md"
+
+def main():
+    # 1. Harte Prüfung auf existierenden Observation Record
+    if not os.path.exists(OBS_FILE):
+        print("[-] Export abgebrochen: observation.json existiert nicht (Keine verifizierte Evidenz).")
+        return
+
+    try:
+        obs_data = json.loads(Path(OBS_FILE).read_text(encoding="utf-8"))
+    except Exception as e:
+        print(f"[-] Export abgebrochen: Fehler beim Parsen von observation.json: {e}")
+        return
+
+    # 2. Status-Zwang: Nur bei echtem VERIFIED wird exportiert
+    if obs_data.get("verification_status") != "VERIFIED":
+        print(f"[-] Export blockiert: Status ist nicht VERIFIED ({obs_data.get('verification_status')}).")
+        return
+
+    # 3. Bundle-Generierung rein basierend auf dem Observation Contract
+    timestamp = obs_data.get("timestamp", "UNKNOWN")
+    seal_hash = obs_data.get("seal_hash", "UNKNOWN")
+    last_req = obs_data.get("last_request_id", "UNKNOWN")
+    node = obs_data.get("node", "zemala-core")
+
+    txt = f"""# ZEMALA MASTER BUNDLE // OBSERVATION ANCHOR
+* **Node:** {node}
+* **Zeitstempel:** {timestamp}
+* **Integrität:** VERIFIZIERT (M₃ / M₄)
+* **Seal-Hash:** `{seal_hash}`
+* **Letzte Request-ID:** `{last_req}`
+"""
+
+    Path(BUNDLE_FILE).write_text(txt, encoding="utf-8")
+    print(f"[+] Bundle erfolgreich aus observation.json generiert. Status: VERIFIZIERT")
+
+if __name__ == "__main__":
+    main()

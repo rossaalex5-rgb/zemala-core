@@ -1,0 +1,10 @@
+{
+  "intent": "ZEMALA_E2E_HAPPY_001",
+  "auth": {
+    "authorized": true
+  },
+  "payload": {
+    "target": "zemala-core",
+    "operation": "e2e_verified_execution"
+  }
+}
