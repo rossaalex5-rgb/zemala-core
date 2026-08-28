@@ -1,0 +1,353 @@
+[1mdiff --git a/core/core/engine/hasher.js b/core/core/engine/hasher.js[m
+[1mindex dfde6c9d..29dc1963 100644[m
+[1m--- a/core/core/engine/hasher.js[m
+[1m+++ b/core/core/engine/hasher.js[m
+[36m@@ -12,9 +12,15 @@[m [mtry {[m
+         const expected = data.event_hash;[m
+         delete data.event_hash;[m
+         const actual = hash(data);[m
+[31m-        process.stdout.write(actual === expected ? "OK\n" : "FAIL\n");[m
+[32m+[m[32m        if (actual === expected) {[m
+[32m+[m[32m        process.stdout.write("OK\n");[m
+[32m+[m[32m        process.exit(0);[m
+     } else {[m
+[31m-        process.stdout.write(hash(data) + "\n");[m
+[32m+[m[32m        process.stdout.write("FAIL\n");[m
+[32m+[m[32m        process.exit(1);[m
+[32m+[m[32m    }[m
+[32m+[m[32m    } else {[m
+[32m+[m[32m        process.stdout.write(hash(data) + '\n');[m
+     }[m
+ } catch (e) {[m
+     process.stderr.write("Fehler: " + e.message + "\n");[m
+[1mdiff --git a/ledger_seal.json b/ledger_seal.json[m
+[1mindex e4a9496e..ae0821d8 100644[m
+[1m--- a/ledger_seal.json[m
+[1m+++ b/ledger_seal.json[m
+[36m@@ -1 +1,6 @@[m
+[31m-{"seal_hash": "246e69cfce989f33f19bc1d38651347829627d7cf58a0acaf09ce64c768aa22d", "timestamp": "2026-08-27T13:35:00Z"}[m
+\ No newline at end of file[m
+[32m+[m[32m{[m
+[32m+[m[32m  "timestamp": "2026-08-27T14:04:42.079911Z",[m
+[32m+[m[32m  "seal_hash": "d72646ff40329f30a2e4f85083d7951e860939c20a9d2833c4bc184f8eb29839",[m
+[32m+[m[32m  "status": "Cryptographically Sealed",[m
+[32m+[m[32m  "level": "100"[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/observation.json b/observation.json[m
+[1mindex 0fb12c94..c73307f1 100644[m
+[1m--- a/observation.json[m
+[1m+++ b/observation.json[m
+[36m@@ -1,8 +1,8 @@[m
+ {[m
+   "schema": "ZEMALA_OBSERVATION_V1",[m
+   "node": "zemala-core",[m
+[31m-  "timestamp": "2026-08-27T13:35:00Z",[m
+[32m+[m[32m  "timestamp": "2026-08-27T14:04:42.079911Z",[m
+   "verification_status": "VERIFIED",[m
+[31m-  "seal_hash": "246e69cfce989f33f19bc1d38651347829627d7cf58a0acaf09ce64c768aa22d",[m
+[32m+[m[32m  "seal_hash": "d72646ff40329f30a2e4f85083d7951e860939c20a9d2833c4bc184f8eb29839",[m
+   "last_request_id": "UNKNOWN"[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/outbound_receipts.jsonl b/outbound_receipts.jsonl[m
+[1mindex 29648bf5..9817c9e4 100644[m
+[1m--- a/outbound_receipts.jsonl[m
+[1m+++ b/outbound_receipts.jsonl[m
+[36m@@ -1,2 +1,4 @@[m
+ {"timestamp":"2026-08-27T12:12:56.864905+00:00","identity":"246e69cfce989f33f19bc1d38651347829627d7cf58a0acaf09ce64c768aa22d:UNKNOWN","seal_hash":"246e69cfce989f33f19bc1d38651347829627d7cf58a0acaf09ce64c768aa22d","request_id":"UNKNOWN","status":"CLAIMED"}[m
+ {"timestamp":"2026-08-27T12:12:56.957522+00:00","identity":"246e69cfce989f33f19bc1d38651347829627d7cf58a0acaf09ce64c768aa22d:UNKNOWN","seal_hash":"246e69cfce989f33f19bc1d38651347829627d7cf58a0acaf09ce64c768aa22d","request_id":"UNKNOWN","status":"FAIL","http_status":null,"error":"<urlopen error [Errno 7] No address associated with hostname>"}[m
+[32m+[m[32m{"timestamp":"2026-08-27T16:52:05.847630+00:00","identity":"d72646ff40329f30a2e4f85083d7951e860939c20a9d2833c4bc184f8eb29839:UNKNOWN","seal_hash":"d72646ff40329f30a2e4f85083d7951e860939c20a9d2833c4bc184f8eb29839","request_id":"UNKNOWN","status":"CLAIMED"}[m
+[32m+[m[32m{"timestamp":"2026-08-27T16:52:05.961355+00:00","identity":"d72646ff40329f30a2e4f85083d7951e860939c20a9d2833c4bc184f8eb29839:UNKNOWN","seal_hash":"d72646ff40329f30a2e4f85083d7951e860939c20a9d2833c4bc184f8eb29839","request_id":"UNKNOWN","status":"FAIL","http_status":null,"error":"<urlopen error [Errno 7] No address associated with hostname>"}[m
+[1mdiff --git a/scripts/emit_event.sh b/scripts/emit_event.sh[m
+[1mindex 98ffba00..547ea560 100644[m
+[1m--- a/scripts/emit_event.sh[m
+[1m+++ b/scripts/emit_event.sh[m
+[36m@@ -1,5 +1,8 @@[m
+ #!/usr/bin/env bash[m
+ set -euo pipefail[m
+[32m+[m[32m# Auf eigenes Verzeichnis verankern, unabhängig vom Aufrufer (z.B. ifr_system)[m
+[32m+[m[32mcd "$(dirname "$0")/.."[m
+[32m+[m
+ [m
+ LOGDIR="$HOME/zemala-core/logs"[m
+ mkdir -p "$LOGDIR"[m
+[36m@@ -8,8 +11,8 @@[m [mTYPE="${1:-SYSTEM}"[m
+ ACTION="${2:-noop}"[m
+ SOURCE="${3:-termux}"[m
+ [m
+[31m-ID="evt_$(date +%s%N)"[m
+[31m-TIMESTAMP="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"[m
+[32m+[m[32mID="evt_$(date +%N)"[m
+[32m+[m[32mTIMESTAMP="$(date -u +"%Y-%m-%dT%H:%M:%S")"[m
+ [m
+ TMP=$(mktemp)[m
+ [m
+[36m@@ -26,21 +29,23 @@[m [mcat > "$TMP" <<JSON[m
+ }[m
+ JSON[m
+ [m
+[31m-HASH=$(node -e "[m
+[31m-const fs=require('fs');[m
+[31m-const crypto=require('crypto');[m
+[31m-const obj=JSON.parse(fs.readFileSync('$TMP','utf8'));[m
+[31m-const canonical=JSON.stringify(obj);[m
+[31m-console.log(crypto.createHash('sha256').update(canonical).digest('hex'));[m
+[31m-")[m
+[31m-[m
+[31m-obj=$(cat "$TMP")[m
+[31m-echo "$obj" | node -e "[m
+[31m-const fs=require('fs');[m
+[31m-const input=fs.readFileSync(0,'utf8');[m
+[31m-const obj=JSON.parse(input);[m
+[31m-obj.event_hash='$HASH';[m
+[31m-console.log(JSON.stringify(obj));[m
+[31m-" >> "$LOGDIR/zemala_event_log_$(date +%Y-%m-%d).jsonl"[m
+[31m-[m
+[32m+[m[32m# Korrigierter Pfad relativ zum Root-Verzeichnis ~/zemala-core[m
+[32m+[m[32mHASH=$(node -e '[m
+[32m+[m[32mconst fs = require("fs");[m
+[32m+[m[32mconst { hash } = require("./core/core/engine/canonical.js");[m
+[32m+[m[32mconst obj = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));[m
+[32m+[m[32mconsole.log(hash(obj));[m
+[32m+[m[32m' "$TMP")[m
+[32m+[m
+[32m+[m[32mnode -e '[m
+[32m+[m[32mconst fs = require("fs");[m
+[32m+[m[32mconst file = process.argv[1];[m
+[32m+[m[32mconst tmp = process.argv[2];[m
+[32m+[m[32mconst hashVal = process.argv[3];[m
+[32m+[m[32mconst obj = JSON.parse(fs.readFileSync(tmp, "utf8"));[m
+[32m+[m[32mobj.event_hash = hashVal;[m
+[32m+[m[32mfs.appendFileSync(file, JSON.stringify(obj) + "\n");[m
+[32m+[m[32m' "$LOGDIR/zemala_event_log_$(date +%Y-%m-%d).jsonl" "$TMP" "$HASH"[m
+[32m+[m
+[32m+[m[32mrm "$TMP"[m
+ echo "OK $ID"[m
+[1mdiff --git a/scripts/verify.sh b/scripts/verify.sh[m
+[1mindex 19c38096..009b9a6e 100755[m
+[1m--- a/scripts/verify.sh[m
+[1m+++ b/scripts/verify.sh[m
+[36m@@ -4,9 +4,9 @@[m [mLOGDIR="$HOME/zemala-core/logs"[m
+ FILE=$(ls -t "$LOGDIR"/*.jsonl 2>/dev/null | head -n 1 || true)[m
+ [m
+ if [ -z "$FILE" ]; then[m
+[31m-    echo "Fehler: Kein Log gefunden."[m
+[32m+[m[32m    echo "Fehler: Kein log gefunden."[m
+     exit 1[m
+ fi[m
+ [m
+[31m-# Wir nutzen jetzt den stabilen hasher.js[m
+[31m-node ~/zemala-core/core/engine/hasher.js verify "$FILE"[m
+[32m+[m[32m# Exakter realer Pfad aus dem Test-Pass[m
+[32m+[m[32mnode ~/zemala-core/core/core/engine/hasher.js verify "$FILE"[m
+[1mdiff --git a/test_drift_demo.py b/test_drift_demo.py[m
+[1mindex 20c411ff..8cf654bf 100644[m
+[1m--- a/test_drift_demo.py[m
+[1m+++ b/test_drift_demo.py[m
+[36m@@ -1,101 +1,117 @@[m
+ import sys[m
+ import os[m
+ import subprocess[m
+[31m-import shutil[m
+ [m
+ LEDGER_FILE = "ledger.jsonl"[m
+ BACKUP_FILE = "ledger_backup.bin"[m
+ [m
+[31m-def get_file_bytes(filepath):[m
+[31m-    if not os.path.exists(filepath):[m
+[31m-        return b""[m
+[31m-    with open(filepath, "rb") as f:[m
+[31m-        return f.read()[m
+[31m-[m
+[31m-def run_system_verify():[m
+[31m-    if not os.path.exists("verify.sh"):[m
+[31m-        print("  [ERROR] verify.sh nicht gefunden!")[m
+[31m-        return 1[m
+[31m-    result = subprocess.run(["./verify.sh"], capture_output=True, text=True)[m
+[32m+[m[32mdef run_verify_seal():[m
+[32m+[m[32m    """Führt verify_seal.py aus und gibt den echten Exit-Code zurück."""[m
+[32m+[m[32m    if not os.path.exists("verify_seal.py"):[m
+[32m+[m[32m        print("  [ERROR] verify_seal.py nicht gefunden!")[m
+[32m+[m[32m        return -1[m
+[32m+[m[32m    result = subprocess.run([sys.executable, "verify_seal.py"], capture_output=True, text=True)[m
+     return result.returncode[m
+ [m
+ def trigger_action(allowed: bool):[m
+[32m+[m[32m    """Visualisiert die Gate-Entscheidung."""[m
+     if allowed:[m
+[31m-        print("→ ACTION")[m
+[32m+[m[32m        print("  [GATE VISUALIZATION] → ACTION (Zustand intakt, Ausführung erlaubt)")[m
+     else:[m
+[31m-        print("→ NO ACTION")[m
+[31m-[m
+[31m-print("=== ZEMALA M7.4 // HUMAN-OBSERVABLE DRIFT DEMO ==.")[m
+[31m-[m
+[31m-if not os.path.exists(LEDGER_FILE):[m
+[31m-    print(f"[FATAL] {LEDGER_FILE} existiert nicht.")[m
+[31m-    sys.exit(1)[m
+[31m-[m
+[31m-original_bytes = get_file_bytes(LEDGER_FILE)[m
+[31m-with open(BACKUP_FILE, "wb") as f:[m
+[31m-    f.write(original_bytes)[m
+[31m-[m
+[31m-# [1] BASELINE[m
+[31m-print("\nBASELINE")[m
+[31m-rc_base = run_system_verify()[m
+[31m-print(f"verify.sh RC={rc_base}")[m
+[31m-if rc_base == 0:[m
+[31m-    print("→ VERIFIED")[m
+[31m-    trigger_action(allowed=True)[m
+[31m-else:[m
+[31m-    print("→ FAIL")[m
+[31m-    print("→ BLOCKED")[m
+[31m-    trigger_action(allowed=False)[m
+[31m-    print("\nRESULT: M7.4 FAIL (Baseline unexpected failure)")[m
+[31m-    if os.path.exists(BACKUP_FILE):[m
+[31m-        os.remove(BACKUP_FILE)[m
+[31m-    sys.exit(1)[m
+[31m-[m
+[31m-# [2] SEMANTIC DRIFT[m
+[31m-print("\nSEMANTIC DRIFT")[m
+[31m-with open(LEDGER_FILE, "ab") as f:[m
+[31m-    f.write(b'{"tampered": true}\n')[m
+[31m-[m
+[31m-rc_drift = run_system_verify()[m
+[31m-print(f"verify.sh RC={rc_drift}")[m
+[31m-if rc_drift != 0:[m
+[31m-    print("→ FAIL")[m
+[31m-    print("→ BLOCKED")[m
+[31m-    trigger_action(allowed=False)[m
+[31m-else:[m
+[31m-    print("→ VERIFIED [KRITISCHER FEHLER: Drift unerkannt!]")[m
+[31m-    trigger_action(allowed=True)[m
+[31m-    with open(LEDGER_FILE, "wb") as f:[m
+[32m+[m[32m        print("  [GATE VISUALIZATION] → BLOCK (Integritätsbruch erkannt, Aktion gesperrt)")[m
+[32m+[m
+[32m+[m[32mdef main():[m
+[32m+[m[32m    print("=== ZEMALA M7.4 // EXACT EXIT-CODE FORENSIC PROOF ===")[m
+[32m+[m
+[32m+[m[32m    if not os.path.exists(LEDGER_FILE):[m
+[32m+[m[32m        print(f"[FATAL] Kanonischer Ledger '{LEDGER_FILE}' nicht gefunden.")[m
+[32m+[m[32m        sys.exit(1)[m
+[32m+[m
+[32m+[m[32m    # 1. Original-Bytes im Ist-Zustand sichern (ohne vorheriges Sync/Checkout)[m
+[32m+[m[32m    with open(LEDGER_FILE, "rb") as f:[m
+[32m+[m[32m        original_bytes = f.read()[m
+[32m+[m[41m    [m
+[32m+[m[32m    with open(BACKUP_FILE, "wb") as f:[m
+         f.write(original_bytes)[m
+[31m-    if os.path.exists(BACKUP_FILE):[m
+[31m-        os.remove(BACKUP_FILE)[m
+[31m-    print("\nRESULT: M7.4 FAIL (Drift detection failed)")[m
+[31m-    sys.exit(1)[m
+[31m-[m
+[31m-# [3] RESTORE[m
+[31m-print("\nRESTORE")[m
+[31m-with open(LEDGER_FILE, "wb") as f:[m
+[31m-    f.write(original_bytes)[m
+[31m-[m
+[31m-restored_bytes = get_file_bytes(LEDGER_FILE)[m
+[31m-bytes_match = (original_bytes == restored_bytes)[m
+[31m-print(f"original bytes == restored bytes: {bytes_match}")[m
+[31m-[m
+[31m-rc_restore = run_system_verify()[m
+[31m-print(f"verify.sh RC={rc_restore}")[m
+[31m-if rc_restore == 0 and bytes_match:[m
+[31m-    print("→ VERIFIED")[m
+[31m-    trigger_action(allowed=True)[m
+[31m-else:[m
+[31m-    print("→ FAIL")[m
+[31m-    print("→ BLOCKED")[m
+[31m-    trigger_action(allowed=False)[m
+[31m-    print("\nRESULT: M7.4 FAIL (Restore failed)")[m
+[31m-    if os.path.exists(BACKUP_FILE):[m
+[31m-        os.remove(BACKUP_FILE)[m
+[31m-    sys.exit(1)[m
+[31m-[m
+[31m-if os.path.exists(BACKUP_FILE):[m
+[31m-    os.remove(BACKUP_FILE)[m
+[31m-[m
+[31m-print("\nRESULT: M7.4 PASS")[m
+[32m+[m
+[32m+[m[32m    success = False[m
+[32m+[m[32m    try:[m
+[32m+[m[32m        # --- [ PHASE 1: BASELINE ] ---[m
+[32m+[m[32m        print("\n[PHASE 1] Baseline-Prüfung (Soll: RC = 0)")[m
+[32m+[m[32m        rc_base = run_verify_seal()[m
+[32m+[m[32m        print(f"  verify_seal.py Exit Code: {rc_base}")[m
+[32m+[m[41m        [m
+[32m+[m[32m        if rc_base != 0:[m
+[32m+[m[32m            print(f"  [FAIL] Baseline fehlgeschlagen (Erwartet: 0, Erhalten: {rc_base}).")[m
+[32m+[m[32m            trigger_action(allowed=False)[m
+[32m+[m[32m            sys.exit(1)[m
+[32m+[m[41m        [m
+[32m+[m[32m        print("  [PASS] Baseline exakt verifiziert (RC=0).")[m
+[32m+[m[32m        trigger_action(allowed=True)[m
+[32m+[m
+[32m+[m[32m        # --- [ PHASE 2: CRYPTOGRAPHIC DRIFT ] ---[m
+[32m+[m[32m        print("\n[PHASE 2] Injektion von Daten-Drift (Soll: RC = 1 durch Hash-Mismatch)")[m
+[32m+[m[32m        with open(LEDGER_FILE, "r+b") as f:[m
+[32m+[m[32m            content = f.read()[m
+[32m+[m[32m            if content:[m
+[32m+[m[32m                # Mutiert das erste Byte, um die SHA256-Signatur zu brechen[m
+[32m+[m[32m                tampered = b'X' + content[1:][m
+[32m+[m[32m                f.seek(0)[m
+[32m+[m[32m                f.write(tampered)[m
+[32m+[m[32m                f.truncate()[m
+[32m+[m
+[32m+[m[32m        rc_drift = run_verify_seal()[m
+[32m+[m[32m        print(f"  verify_seal.py Exit Code: {rc_drift}")[m
+[32m+[m
+[32m+[m[32m        if rc_drift != 1:[m
+[32m+[m[32m            print(f"  [FAIL] Unerwarteter Drift-Code (Erwartet exakt 1 für Hash-Mismatch, Erhalten: {rc_drift}).")[m
+[32m+[m[32m            trigger_action(allowed=True)[m
+[32m+[m[32m            sys.exit(1)[m
+[32m+[m
+[32m+[m[32m        print("  [PASS] Drift exakt als Hash-Mismatch erkannt (RC=1).")[m
+[32m+[m[32m        trigger_action(allowed=False)[m
+[32m+[m
+[32m+[m[32m        # --- [ PHASE 3: RESTORE ] ---[m
+[32m+[m[32m        print("\n[PHASE 3] Wiederherstellung des Originalzustands (Soll: RC = 0 & Bytes identisch)")[m
+[32m+[m[32m        with open(LEDGER_FILE, "wb") as f:[m
+[32m+[m[32m            f.write(original_bytes)[m
+[32m+[m
+[32m+[m[32m        with open(LEDGER_FILE, "rb") as f:[m
+[32m+[m[32m            restored_bytes = f.read()[m
+[32m+[m
+[32m+[m[32m        bytes_match = (original_bytes == restored_bytes)[m
+[32m+[m[32m        print(f"  Original bytes == Restored bytes: {bytes_match}")[m
+[32m+[m[32m        if not bytes_match:[m
+[32m+[m[32m            print("  [FAIL] Wiederhergestellte Bytes weichen vom Original ab.")[m
+[32m+[m[32m            sys.exit(1)[m
+[32m+[m
+[32m+[m[32m        rc_restore = run_verify_seal()[m
+[32m+[m[32m        print(f"  verify_seal.py Exit Code: {rc_restore}")[m
+[32m+[m
+[32m+[m[32m        if rc_restore != 0:[m
+[32m+[m[32m            print(f"  [FAIL] System nach Restore nicht im Ursprungszustand (Erwartet: 0, Erhalten: {rc_restore}).")[m
+[32m+[m[32m            trigger_action(allowed=False)[m
+[32m+[m[32m            sys.exit(1)[m
+[32m+[m
+[32m+[m[32m        print("  [PASS] System nach Restore vollständig intakt (RC=0).")[m
+[32m+[m[32m        trigger_action(allowed=True)[m
+[32m+[m
+[32m+[m[32m        success = True[m
+[32m+[m
+[32m+[m[32m    finally:[m
+[32m+[m[32m        if os.path.exists(BACKUP_FILE):[m
+[32m+[m[32m            if not success:[m
+[32m+[m[32m                print("\n[CLEANUP] Stelle Original-Ledger aus Backup wieder her...")[m
+[32m+[m[32m                with open(BACKUP_FILE, "rb") as src, open(LEDGER_FILE, "wb") as dst:[m
+[32m+[m[32m                    dst.write(src.read())[m
+[32m+[m[32m            os.remove(BACKUP_FILE)[m
+[32m+[m
+[32m+[m[32m    if success:[m
+[32m+[m[32m        print("\n==================================================")[m
+[32m+[m[32m        print("RESULT: M7.4 PASS (Forensischer Nachweis exakt erbracht)")[m
+[32m+[m[32m        print("==================================================")[m
+[32m+[m[32m    else:[m
+[32m+[m[32m        print("\nRESULT: M7.4 FAIL")[m
+[32m+[m
+[32m+[m[32mif __name__ == "__main__":[m
+[32m+[m[32m    main()[m

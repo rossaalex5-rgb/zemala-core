@@ -12,9 +12,15 @@ try {
         const expected = data.event_hash;
         delete data.event_hash;
         const actual = hash(data);
-        process.stdout.write(actual === expected ? "OK\n" : "FAIL\n");
+        if (actual === expected) {
+        process.stdout.write("OK\n");
+        process.exit(0);
     } else {
-        process.stdout.write(hash(data) + "\n");
+        process.stdout.write("FAIL\n");
+        process.exit(1);
+    }
+    } else {
+        process.stdout.write(hash(data) + '\n');
     }
 } catch (e) {
     process.stderr.write("Fehler: " + e.message + "\n");

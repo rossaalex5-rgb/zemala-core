@@ -1,0 +1,5 @@
+{
+  "status": "TRANSFORMED",
+  "source": "ledger.jsonl",
+  "gate": "VERIFIED"
+}

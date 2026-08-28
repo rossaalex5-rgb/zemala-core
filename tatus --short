@@ -1,0 +1,75 @@
+[1mdiff --git a/M11_EVIDENCE_GRAPH_V0.1.md b/M11_EVIDENCE_GRAPH_V0.1.md[m
+[1mnew file mode 100644[m
+[1mindex 00000000..e12237ac[m
+[1m--- /dev/null[m
+[1m+++ b/M11_EVIDENCE_GRAPH_V0.1.md[m
+[36m@@ -0,0 +1,69 @@[m
+[32m+[m[32mZEMALA — M₁₁ Evidence Graph v0.1[m
+[32m+[m
+[32m+[m[32mStatus[m
+[32m+[m[32m- M₇–M₁₀: EMPIRICALLY CLOSED[m
+[32m+[m[32m- Historischer M₁₁-Mechanismus: SOURCE-EVIDENCE BELEGT[m
+[32m+[m[32m- M₁₁ Live-Replikation: NOT EXECUTED[m
+[32m+[m[32m- M₁₁ Execution Gate: BLOCKED[m
+[32m+[m[32m- Reproduktionsclaim: NOT RELEASED[m
+[32m+[m
+[32m+[m[32mEvidence Graph[m
+[32m+[m[32m[SOURCE EVIDENCE][m
+[32m+[m[32mmaster_history.jsonl[m
+[32m+[m[32m        │[m
+[32m+[m[32m        ▼[m
+[32m+[m[32mscripts/replay.sh[m
+[32m+[m[32m        │[m
+[32m+[m[32m        └── Event-Streaming / JSON-Parsing[m
+[32m+[m[32m              [BELEGT][m
+[32m+[m[41m              [m
+[32m+[m[32mverify.sh / core/verify.sh[m
+[32m+[m[32m        │[m
+[32m+[m[32m        └── Canonical serialization / SHA-256 comparison[m
+[32m+[m[32m              [BELEGT][m
+[32m+[m
+[32m+[m[32m[EXECUTION EVIDENCE][m
+[32m+[m[32mIndependent replication context[m
+[32m+[m[32m        │[m
+[32m+[m[32m        ├── Byte invariance[m
+[32m+[m[32m        ├── RC=0 / RC=1 behavior[m
+[32m+[m[32m        ├── Exit-code propagation[m
+[32m+[m[32m        └── Output-state invariant[m
+[32m+[m[32m              [NOT EXECUTED][m
+[32m+[m
+[32m+[m[32m[CAUSAL EVIDENCE][m
+[32m+[m[32mReconstructed state[m
+[32m+[m[32m        │[m
+[32m+[m[32m        ▼[m
+[32m+[m[32mIntegrity verdict[m
+[32m+[m[32m        │[m
+[32m+[m[32m        ▼[m
+[32m+[m[32mDownstream gate[m
+[32m+[m[32m        │[m
+[32m+[m[32m        ▼[m
+[32m+[m[32mReachable / blocked output[m
+[32m+[m[32m        │[m
+[32m+[m[32m        └── M₁₁ reproduction[m
+[32m+[m[32m              [BLOCKED UNTIL EXECUTION][m
+[32m+[m
+[32m+[m[32mEpistemic Boundary[m
+[32m+[m[32m- Source-code existence and source-code semantics constitute source evidence.[m
+[32m+[m[32m- Source evidence does not constitute execution evidence.[m
+[32m+[m[32m- Execution evidence does not automatically constitute universal causal evidence.[m
+[32m+[m[32m- Therefore this document deliberately makes no claim that M₁₁ has been empirically closed.[m
+[32m+[m
+[32m+[m[32mArchitectural Principle[m
+[32m+[m[32m- The verifier is the authority for the integrity verdict.[m
+[32m+[m[32m- Downstream components consume that verdict; they do not independently determine integrity.[m
+[32m+[m[32m- The historical replay and verification mechanisms are documented as source evidence only until an independent execution reproduces the specified invariants.[m
+[32m+[m
+[32m+[m[32mRelease Boundary[m
+[32m+[m[32mThe following claim is explicitly withheld:[m
+[32m+[m[32m“M₁₁ proves universal reproducibility.”[m
+[32m+[m[32mThe currently supported claim is narrower:[m
+[32m+[m[32m“The historical ZEMALA source tree contains a documented replay and verification path whose semantics are available for independent execution validation.”[m
+[32m+[m
+[32m+[m[32mFreeze Rule[m
+[32m+[m[32m- No M₁₁ execution, new replication directory, core modification, or modification of the M₇–M₁₀ baseline is implied or authorized by this document.[m
+[32m+[m[32m- This document is an evidence projection, not a proof source.[m
+[32m+[m[32m- The authoritative evidence remains the executable artifacts and their independently observed execution results.[m

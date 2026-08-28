@@ -1,101 +1,117 @@
 import sys
 import os
 import subprocess
-import shutil
 
 LEDGER_FILE = "ledger.jsonl"
 BACKUP_FILE = "ledger_backup.bin"
 
-def get_file_bytes(filepath):
-    if not os.path.exists(filepath):
-        return b""
-    with open(filepath, "rb") as f:
-        return f.read()
-
-def run_system_verify():
-    if not os.path.exists("verify.sh"):
-        print("  [ERROR] verify.sh nicht gefunden!")
-        return 1
-    result = subprocess.run(["./verify.sh"], capture_output=True, text=True)
+def run_verify_seal():
+    """Führt verify_seal.py aus und gibt den echten Exit-Code zurück."""
+    if not os.path.exists("verify_seal.py"):
+        print("  [ERROR] verify_seal.py nicht gefunden!")
+        return -1
+    result = subprocess.run([sys.executable, "verify_seal.py"], capture_output=True, text=True)
     return result.returncode
 
 def trigger_action(allowed: bool):
+    """Visualisiert die Gate-Entscheidung."""
     if allowed:
-        print("→ ACTION")
+        print("  [GATE VISUALIZATION] → ACTION (Zustand intakt, Ausführung erlaubt)")
     else:
-        print("→ NO ACTION")
+        print("  [GATE VISUALIZATION] → BLOCK (Integritätsbruch erkannt, Aktion gesperrt)")
 
-print("=== ZEMALA M7.4 // HUMAN-OBSERVABLE DRIFT DEMO ==.")
+def main():
+    print("=== ZEMALA M7.4 // EXACT EXIT-CODE FORENSIC PROOF ===")
 
-if not os.path.exists(LEDGER_FILE):
-    print(f"[FATAL] {LEDGER_FILE} existiert nicht.")
-    sys.exit(1)
+    if not os.path.exists(LEDGER_FILE):
+        print(f"[FATAL] Kanonischer Ledger '{LEDGER_FILE}' nicht gefunden.")
+        sys.exit(1)
 
-original_bytes = get_file_bytes(LEDGER_FILE)
-with open(BACKUP_FILE, "wb") as f:
-    f.write(original_bytes)
-
-# [1] BASELINE
-print("\nBASELINE")
-rc_base = run_system_verify()
-print(f"verify.sh RC={rc_base}")
-if rc_base == 0:
-    print("→ VERIFIED")
-    trigger_action(allowed=True)
-else:
-    print("→ FAIL")
-    print("→ BLOCKED")
-    trigger_action(allowed=False)
-    print("\nRESULT: M7.4 FAIL (Baseline unexpected failure)")
-    if os.path.exists(BACKUP_FILE):
-        os.remove(BACKUP_FILE)
-    sys.exit(1)
-
-# [2] SEMANTIC DRIFT
-print("\nSEMANTIC DRIFT")
-with open(LEDGER_FILE, "ab") as f:
-    f.write(b'{"tampered": true}\n')
-
-rc_drift = run_system_verify()
-print(f"verify.sh RC={rc_drift}")
-if rc_drift != 0:
-    print("→ FAIL")
-    print("→ BLOCKED")
-    trigger_action(allowed=False)
-else:
-    print("→ VERIFIED [KRITISCHER FEHLER: Drift unerkannt!]")
-    trigger_action(allowed=True)
-    with open(LEDGER_FILE, "wb") as f:
+    # 1. Original-Bytes im Ist-Zustand sichern (ohne vorheriges Sync/Checkout)
+    with open(LEDGER_FILE, "rb") as f:
+        original_bytes = f.read()
+    
+    with open(BACKUP_FILE, "wb") as f:
         f.write(original_bytes)
-    if os.path.exists(BACKUP_FILE):
-        os.remove(BACKUP_FILE)
-    print("\nRESULT: M7.4 FAIL (Drift detection failed)")
-    sys.exit(1)
 
-# [3] RESTORE
-print("\nRESTORE")
-with open(LEDGER_FILE, "wb") as f:
-    f.write(original_bytes)
+    success = False
+    try:
+        # --- [ PHASE 1: BASELINE ] ---
+        print("\n[PHASE 1] Baseline-Prüfung (Soll: RC = 0)")
+        rc_base = run_verify_seal()
+        print(f"  verify_seal.py Exit Code: {rc_base}")
+        
+        if rc_base != 0:
+            print(f"  [FAIL] Baseline fehlgeschlagen (Erwartet: 0, Erhalten: {rc_base}).")
+            trigger_action(allowed=False)
+            sys.exit(1)
+        
+        print("  [PASS] Baseline exakt verifiziert (RC=0).")
+        trigger_action(allowed=True)
 
-restored_bytes = get_file_bytes(LEDGER_FILE)
-bytes_match = (original_bytes == restored_bytes)
-print(f"original bytes == restored bytes: {bytes_match}")
+        # --- [ PHASE 2: CRYPTOGRAPHIC DRIFT ] ---
+        print("\n[PHASE 2] Injektion von Daten-Drift (Soll: RC = 1 durch Hash-Mismatch)")
+        with open(LEDGER_FILE, "r+b") as f:
+            content = f.read()
+            if content:
+                # Mutiert das erste Byte, um die SHA256-Signatur zu brechen
+                tampered = b'X' + content[1:]
+                f.seek(0)
+                f.write(tampered)
+                f.truncate()
 
-rc_restore = run_system_verify()
-print(f"verify.sh RC={rc_restore}")
-if rc_restore == 0 and bytes_match:
-    print("→ VERIFIED")
-    trigger_action(allowed=True)
-else:
-    print("→ FAIL")
-    print("→ BLOCKED")
-    trigger_action(allowed=False)
-    print("\nRESULT: M7.4 FAIL (Restore failed)")
-    if os.path.exists(BACKUP_FILE):
-        os.remove(BACKUP_FILE)
-    sys.exit(1)
+        rc_drift = run_verify_seal()
+        print(f"  verify_seal.py Exit Code: {rc_drift}")
 
-if os.path.exists(BACKUP_FILE):
-    os.remove(BACKUP_FILE)
+        if rc_drift != 1:
+            print(f"  [FAIL] Unerwarteter Drift-Code (Erwartet exakt 1 für Hash-Mismatch, Erhalten: {rc_drift}).")
+            trigger_action(allowed=True)
+            sys.exit(1)
 
-print("\nRESULT: M7.4 PASS")
+        print("  [PASS] Drift exakt als Hash-Mismatch erkannt (RC=1).")
+        trigger_action(allowed=False)
+
+        # --- [ PHASE 3: RESTORE ] ---
+        print("\n[PHASE 3] Wiederherstellung des Originalzustands (Soll: RC = 0 & Bytes identisch)")
+        with open(LEDGER_FILE, "wb") as f:
+            f.write(original_bytes)
+
+        with open(LEDGER_FILE, "rb") as f:
+            restored_bytes = f.read()
+
+        bytes_match = (original_bytes == restored_bytes)
+        print(f"  Original bytes == Restored bytes: {bytes_match}")
+        if not bytes_match:
+            print("  [FAIL] Wiederhergestellte Bytes weichen vom Original ab.")
+            sys.exit(1)
+
+        rc_restore = run_verify_seal()
+        print(f"  verify_seal.py Exit Code: {rc_restore}")
+
+        if rc_restore != 0:
+            print(f"  [FAIL] System nach Restore nicht im Ursprungszustand (Erwartet: 0, Erhalten: {rc_restore}).")
+            trigger_action(allowed=False)
+            sys.exit(1)
+
+        print("  [PASS] System nach Restore vollständig intakt (RC=0).")
+        trigger_action(allowed=True)
+
+        success = True
+
+    finally:
+        if os.path.exists(BACKUP_FILE):
+            if not success:
+                print("\n[CLEANUP] Stelle Original-Ledger aus Backup wieder her...")
+                with open(BACKUP_FILE, "rb") as src, open(LEDGER_FILE, "wb") as dst:
+                    dst.write(src.read())
+            os.remove(BACKUP_FILE)
+
+    if success:
+        print("\n==================================================")
+        print("RESULT: M7.4 PASS (Forensischer Nachweis exakt erbracht)")
+        print("==================================================")
+    else:
+        print("\nRESULT: M7.4 FAIL")
+
+if __name__ == "__main__":
+    main()
