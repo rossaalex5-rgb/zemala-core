@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "agent_name": "ZEMALA-CELL",
+  "description": "Deterministic system integrity and A2A verification cell",
+  "interface": {
+    "type": "stdio",
+    "invocation": "python3 a2a_hello_handler.py"
+  },
+  "capabilities": [
+    {
+      "skill": "a2a_hello",
+      "description": "Triggers inner verification gate via verify.sh and returns deterministic integrity status."
+    }
+  ]
+}
