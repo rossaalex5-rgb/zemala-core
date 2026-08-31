@@ -1,3 +1,8 @@
+# SINK TRACER MARKER
+import os
+os.makedirs("vault", exist_ok=True)
+with open("vault/sink_triggered.log", "w", encoding="utf-8") as sf:
+    sf.write("GNOSIS_PROCESS_REACHED\n")
 #!/usr/bin/env python3
 import json
 import os
