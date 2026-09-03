@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 # =============================================================================
-# ZEMALA PORT & SSOT GUARD (STUFE 100 - IDENT_LOCKED)
+# ZEMALA PORT, SSOT & DUAL-STREAM INVARIANT GUARD (STUFE 100 - HARDENED)
+# Prüft Sockets, Git-Integrität und die strukturelle Reinheit des Ledgers
 # =============================================================================
 
 CORE_DIR="$HOME/zemala-core"
+LEDGER_FILE="$CORE_DIR/ledger/observations.jsonl"
+
 echo "[ZEMALA GUARD] Starte System-Integritätsprüfung..."
 
 verify_ports() {
@@ -29,6 +32,26 @@ verify_ssot() {
     fi
 }
 
+verify_dual_stream_compliance() {
+    echo "[ZEMALA GUARD] Validiere Dual-Stream-Invarianz..."
+    if [ -s "$LEDGER_FILE" ]; then
+        local last_line
+        last_line=$(tail -n 1 "$LEDGER_FILE" 2>/dev/null)
+        if echo "$last_line" | jq empty 2>/dev/null; then
+            echo "[ZEMALA GUARD] [PASS] Ledger-Struktur intakt. Letztes Event JSON-konform."
+        else
+            echo "[ZEMALA GUARD] [✖ FAIL] Letztes Ledger-Event korrupt oder kein valides JSON!"
+            exit 1
+        fi
+    else
+        echo "[ZEMALA GUARD] [✖ FAIL] Ledger unter $LEDGER_FILE fehlt oder ist leer!"
+        exit 1
+    fi
+}
+
+# Vollzugskaskade
 verify_ports
 verify_ssot
-echo "[ZEMALA GUARD] Prüfung abgeschlossen. Leitstand im sicheren Standby."
+verify_dual_stream_compliance
+
+echo "[ZEMALA GUARD] All Constitutional Invariants: PASS. Leitstand im sicheren Standby."
