@@ -1,10 +1,1 @@
-{
-  "protocol": "ZEMALA_AI_RETURN",
-  "schema_version": "1.0",
-  "status": "ZEMALA_RESPONSE_PENDING",
-  "request_id": "MARIE-001",
-  "question": "Was ist durch MARIE-001 in deinem beobachtbaren Zustand neu entstanden?",
-  "source": "ZEMALA",
-  "observed_request": "MARIE-001",
-  "next_action": "PROCESS_WITH_EXISTING_ZEMALA_LOGIC"
-}
+{"protocol":"ZEMALA_AI_RETURN","schema_version":"1.0","status":"MARIE_OUTPUT_READY","request_id":"MARIE-001","source":"Marie","event":"RETURN","return":{"type":"structural_contribution","result":"THERMO_READINGS_RECEIVED"},"next_action":"READ_THERMO_READINGS_AND_RECONSTRUCT"}
