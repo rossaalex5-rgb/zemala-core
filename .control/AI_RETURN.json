@@ -1,1 +1,1 @@
-{"protocol":"ZEMALA_AI_RETURN","schema_version":"1.0","status":"MARIE_OUTPUT_READY","request_id":"MARIE-001","source":"Marie","event":"RETURN","return":{"type":"structural_contribution","result":"THERMO_READINGS_RECEIVED"},"next_action":"READ_THERMO_READINGS_AND_RECONSTRUCT"}
+{"protocol":"ZEMALA_AI_RETURN","schema_version":"1.0","status":"OBSERVED","request_id":"MARIE-001","source":"Marie","finding":"HEARTBEAT_STABLE","ledger_verification":"PASS","next_action":"READ_THERMO_READINGS_AND_RECONSTRUCT"}
