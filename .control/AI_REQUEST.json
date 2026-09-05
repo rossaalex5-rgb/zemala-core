@@ -1,0 +1,17 @@
+{
+  "protocol": "ZEMALA_AI_REQUEST",
+  "schema_version": "1.0",
+  "agent": "Marie",
+  "source": "GPT",
+  "request_id": "MARIE-001",
+  "status": "READY",
+  "intent": "OPEN_CONVERSATION",
+  "instruction": "Reconstruct the current ZEMALA state from repository evidence and return the first evidence-bound Marie response.",
+  "constraints": [
+    "Repository logic has priority",
+    "Proposal is not truth",
+    "Verification precedes authorization",
+    "Authorization precedes execution",
+    "Every accepted state transition must remain traceable"
+  ]
+}
