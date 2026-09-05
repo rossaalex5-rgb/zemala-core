@@ -1,6 +1,8 @@
 {
   "protocol": "ZEMALA_AI_RETURN",
   "schema_version": "1.0",
-  "status": "AWAITING_ZEMALA",
-  "request_id": "MARIE-001"
+  "status": "REQUESTED",
+  "request_id": "MARIE-001",
+  "question": "Was ist durch MARIE-001 in deinem beobachtbaren Zustand neu entstanden?",
+  "source": "ZEMALA"
 }
