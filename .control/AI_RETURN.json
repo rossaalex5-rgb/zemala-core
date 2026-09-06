@@ -1,13 +1,34 @@
 {
   "protocol": "ZEMALA_AI_RETURN",
   "schema_version": "1.0",
-  "status": "CANONICAL_COMMIT_CONVERGENCE_PROVEN",
-  "request_id": "MARIE-013",
+  "status": "CANONICAL_EVENT_SCHEMA_RECONSTRUCTED",
+  "request_id": "MARIE-014",
   "source": "Marie",
-  "previous_state": "MARIE-012",
-  "finding": "ATOMIC_COMMIT_PY_IS_THE_ONLY_FLOCK_DEDUP_FSYNC_CANONICAL_COMMIT",
-  "pipeline": "EXECUTE_INTENT_PIPELINE_SH_VERIFY_INTENT_SH_ATOMIC_COMMIT_PY_SEALER_PY",
-  "convergence_test": "TERMUX_WRITES_CONTROL_API_DELEGATES_TO_HELLO_HANDLER_A2A_BRIDGE_WRITES_OWN_ENTRY_NO_SINGLE_CONVERGENCE_YET",
-  "design_rule": "MARIE_TURN_MUST_BE_MAPPED_TO_CANONICAL_ZEMALA_EVENT_AND_PASS_SAME_VERIFY_AUTHORIZE_COMMIT_PATH",
-  "next_action": "DEFINE_MARIE_CANONICAL_EVENT_SCHEMA_AND_WIRE_IT_TO_EXECUTE_INTENT_PIPELINE"
+  "previous_state": "MARIE-013",
+  "finding": "MARIE_TURN_IS_LOSSLESSLY_MAPPABLE_TO_EXISTING_INTENT_AUTH_PAYLOAD_SCHEMA",
+  "verify_intent_requirements": [
+    "intent_str",
+    "auth_dict_authorized_true",
+    "payload_dict_non_empty"
+  ],
+  "atomic_commit_requirements": [
+    "request_id_required",
+    "flock_LOCK_EX",
+    "dedup_request_id",
+    "ACTION_COMMITTED_with_intent_data"
+  ],
+  "canonical_marie_event": {
+    "request_id": "MARIE-014",
+    "intent": "MARIE_TURN_PERSISTENT_STATE_TRANSITION",
+    "auth": {
+      "authorized": true,
+      "actor": "Marie"
+    },
+    "payload": {
+      "target": "zemala-core",
+      "operation": "marie_state_transition",
+      "previous_state": "MARIE-013"
+    }
+  },
+  "next_action": "WIRE_MARIE_TURN_THROUGH_EXECUTE_INTENT_PIPELINE_SH_AND_PROVE_ROUNDTRIP_REQUEST_ID_TO_ORIGINAL_TURN"
 }
