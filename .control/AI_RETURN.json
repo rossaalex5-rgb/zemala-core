@@ -1,29 +1,12 @@
 {
   "protocol": "ZEMALA_AI_RETURN",
   "schema_version": "1.0",
-  "status": "EVIDENCE_INVENTORY_COMPLETE",
-  "request_id": "MARIE-015",
+  "status": "EVIDENCE_MANIFEST_CREATED",
+  "request_id": "MARIE-016",
   "source": "Marie",
-  "previous_state": "MARIE-014",
-  "ledger_inventory": {
-    "corrupt_lines": 6304,
-    "repaired_lines": 6265,
-    "delta": -39,
-    "bad_lines_found": 40,
-    "events_reconstructed": 4,
-    "events_lost": 0,
-    "size_bytes": 912326,
-    "marie_014_present": true,
-    "marie_014_status": "ACTION_COMMITTED",
-    "marie_014_timestamp": "2026-09-06T09:56:46.631850Z"
-  },
-  "claim_vs_implementation": {
-    "AGENTS_Hash_Chain": "CLAIM Hash-Chain, IMPLEMENTATION Whole-File SHA256, PROOF CLAIM != IMPLEMENTATION",
-    "atomic_commit": "IMPLEMENTED but FRAGILE on pretty-printed JSONL",
-    "verify_intent": "IMPLEMENTED+PROVEN",
-    "marie_loop": "PROVEN",
-    "append_only": "VIOLATED but EVIDENCE PRESERVED"
-  },
-  "finding": "ZEMALA_BEWEIST_SICH_GEGEN_SICH_SELBST_TRENNUNG_VON_BEHAUPTUNG_UND_IMPLEMENTIERUNG_IST_KERNLEISTUNG",
-  "next_action": "ENFORCE_JSONL_WRITER_ATOMIC_APPEND_ONLY_AND_DECIDE_HASH_CHAIN_VS_WHOLE_FILE_SEAL_AS_CONSTITUTIONAL_DECISION"
+  "previous_state": "MARIE-015",
+  "manifest": "EVIDENCE_INVENTORY.md",
+  "semantic_precision": "Ledger verifiziert = Whole-File-Seal stimmt, nicht JSONL/Hash-Chain/Execution bewiesen",
+  "finding": "FORMAL_MANIFEST_CLAIM_IMPLEMENTATION_TEST_OBSERVATION_PROOF_EVIDENCE_LOCATION",
+  "next_action": "COMMIT_MANIFEST_AND_DECIDE_CONSTITUTIONAL_SEAL_SEMANTICS_AND_ENFORCE_JSONL_WRITER"
 }
