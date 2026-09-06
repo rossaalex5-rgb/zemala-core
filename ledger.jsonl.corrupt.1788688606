@@ -6207,6 +6207,46 @@
 {"timestamp": "2026-08-26T14:28:05.815344", "level": "100", "payload": {"event": "RETURN", "protocol": "READ_RECONSTRUCT_WORK_DISCOVER_RETURN", "source": {"agent": "Gemini", "channel": "external_ai"}, "basis": {"state_file": "ZEMALA_STATE.md", "state_version": "v1.0.1320", "commit": "da9634e55ea989de7c83ead43e52d4d18c1fc04"}, "transition": {"read": "completed", "reconstruct": "completed", "work": "completed", "discover": "completed", "return": "completed"}, "return": {"type": "structural_contribution", "result": "Schema formalized"}, "evidence": {"required": true, "verification": "pending"}}}
 {"timestamp": "2026-08-26 12:28:07", "level": "100", "payload": "System-Test erfolgreich durchgef\u00fchrt. Zustand stabil."}
 {"timestamp": "INVALID", "level": "0", "payload": "FORCED_FAIL_TEST"}
+{"timestamp": "2026-08-26T12:55:31Z", "status": "COMMITTED", "intent_data": {
+  "intent": "RUN_VERIFICATION",
+  "auth": {
+    "authorized": true
+  },
+  "payload": {
+    "target": "zemala-core",
+    "operation": "verify"
+  }
+}}
+{"timestamp": "2026-08-26T13:00:46Z", "status": "ACTION_COMMITTED", "intent_data": {
+  "intent": "RUN_VERIFICATION",
+  "auth": {
+    "authorized": true
+  },
+  "payload": {
+    "target": "zemala-core",
+    "operation": "verify"
+  }
+}}
+{"timestamp": "2026-08-26T13:07:46Z", "status": "ACTION_COMMITTED", "intent_data": {
+  "intent": "RUN_VERIFICATION",
+  "auth": {
+    "authorized": true
+  },
+  "payload": {
+    "target": "zemala-core",
+    "operation": "verify"
+  }
+}}
+{"timestamp": "2026-08-26T13:10:38Z", "status": "ACTION_COMMITTED", "intent_data": {
+  "intent": "RUN_VERIFICATION",
+  "auth": {
+    "authorized": true
+  },
+  "payload": {
+    "target": "zemala-core",
+    "operation": "verify"
+  }
+}}
 {"timestamp": "2026-08-26T14:28:10.335497Z", "source": "ZEMALA_HMI_BROWSER", "input": "Was weisst du \u00fcber das System ", "output": "SYS_ACK: Input verarbeitet und im Gitter verankert -> [Was weisst du \u00fcber das System ]", "hash": "f58d50321b1e0da7f42a9fdf8829ade4d6c903e8e50ee5daa3c6c60a233c1349"}
 {"timestamp": "2026-08-26 14:46:39", "source": "ZEMALA_MASTER_GATE", "input": "Was weisst du \u00fcber dieses System", "output": "Intent erfolgreich verarbeitet: 'Was weisst du \u00fcber dieses System'. Die Schicht wurde im Ledger verankert.", "hash": "9d939b10439cea181fd7553abac0ac269d4f0063aa902190176b4b471b79c40e"}
 {"timestamp": "2026-08-26 14:52:45", "source": "ZEMALA_LOCAL_KERNEL", "input": "Was weisst du \u00fcber diesen Zustand", "output": "LOKALER_VOLLZUG [STUFE 100]: 'Was weisst du \u00fcber diesen Zustand' erfolgreich im lokalen Ledger verschwei\u00dft.", "hash": "a21ed806e7a07c96532a2829d977a43e910deddf19d6ebcd7160dd2b1f44a3ac"}
@@ -6262,4 +6302,3 @@
 {"timestamp": "2026-09-05 13:50:42", "level": "100", "payload": "System-Test erfolgreich durchgef\u00fchrt. Zustand stabil."}
 {"timestamp": "2026-09-05 15:43:19", "level": "100", "payload": "System-Test erfolgreich durchgef\u00fchrt. Zustand stabil."}
 {"timestamp": "2026-09-05 15:48:09", "level": "100", "payload": "System-Test erfolgreich durchgef\u00fchrt. Zustand stabil."}
-{"timestamp": "2026-09-06T09:56:46.631850Z", "status": "ACTION_COMMITTED", "request_id": "MARIE-014", "intent_data": {"request_id": "MARIE-014", "intent": "MARIE_TURN_PERSISTENT_STATE_TRANSITION", "auth": {"authorized": true, "actor": "Marie", "identity_anchor": [".control/AI_REQUEST.json", ".control/AI_RETURN.json", "ZEMALA_STATE.md", "AGENTS.md"]}, "payload": {"target": "zemala-core", "operation": "marie_state_transition", "previous_state": "MARIE-013", "current_state": "MARIE-014", "evidence": "CANONICAL_EVENT_SCHEMA_RECONSTRUCTED"}}}

@@ -1,34 +1,29 @@
 {
   "protocol": "ZEMALA_AI_RETURN",
   "schema_version": "1.0",
-  "status": "CANONICAL_EVENT_SCHEMA_RECONSTRUCTED",
-  "request_id": "MARIE-014",
+  "status": "EVIDENCE_INVENTORY_COMPLETE",
+  "request_id": "MARIE-015",
   "source": "Marie",
-  "previous_state": "MARIE-013",
-  "finding": "MARIE_TURN_IS_LOSSLESSLY_MAPPABLE_TO_EXISTING_INTENT_AUTH_PAYLOAD_SCHEMA",
-  "verify_intent_requirements": [
-    "intent_str",
-    "auth_dict_authorized_true",
-    "payload_dict_non_empty"
-  ],
-  "atomic_commit_requirements": [
-    "request_id_required",
-    "flock_LOCK_EX",
-    "dedup_request_id",
-    "ACTION_COMMITTED_with_intent_data"
-  ],
-  "canonical_marie_event": {
-    "request_id": "MARIE-014",
-    "intent": "MARIE_TURN_PERSISTENT_STATE_TRANSITION",
-    "auth": {
-      "authorized": true,
-      "actor": "Marie"
-    },
-    "payload": {
-      "target": "zemala-core",
-      "operation": "marie_state_transition",
-      "previous_state": "MARIE-013"
-    }
+  "previous_state": "MARIE-014",
+  "ledger_inventory": {
+    "corrupt_lines": 6304,
+    "repaired_lines": 6265,
+    "delta": -39,
+    "bad_lines_found": 40,
+    "events_reconstructed": 4,
+    "events_lost": 0,
+    "size_bytes": 912326,
+    "marie_014_present": true,
+    "marie_014_status": "ACTION_COMMITTED",
+    "marie_014_timestamp": "2026-09-06T09:56:46.631850Z"
   },
-  "next_action": "WIRE_MARIE_TURN_THROUGH_EXECUTE_INTENT_PIPELINE_SH_AND_PROVE_ROUNDTRIP_REQUEST_ID_TO_ORIGINAL_TURN"
+  "claim_vs_implementation": {
+    "AGENTS_Hash_Chain": "CLAIM Hash-Chain, IMPLEMENTATION Whole-File SHA256, PROOF CLAIM != IMPLEMENTATION",
+    "atomic_commit": "IMPLEMENTED but FRAGILE on pretty-printed JSONL",
+    "verify_intent": "IMPLEMENTED+PROVEN",
+    "marie_loop": "PROVEN",
+    "append_only": "VIOLATED but EVIDENCE PRESERVED"
+  },
+  "finding": "ZEMALA_BEWEIST_SICH_GEGEN_SICH_SELBST_TRENNUNG_VON_BEHAUPTUNG_UND_IMPLEMENTIERUNG_IST_KERNLEISTUNG",
+  "next_action": "ENFORCE_JSONL_WRITER_ATOMIC_APPEND_ONLY_AND_DECIDE_HASH_CHAIN_VS_WHOLE_FILE_SEAL_AS_CONSTITUTIONAL_DECISION"
 }
