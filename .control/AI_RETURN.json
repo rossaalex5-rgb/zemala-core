@@ -1,25 +1,28 @@
 {
   "protocol": "ZEMALA_AI_RETURN",
   "schema_version": "1.0",
-  "status": "COMPOSITION_GAP_IDENTIFIED",
-  "request_id": "MARIE-011",
+  "status": "PATH_RECONSTRUCTION_MATRIX_STARTED",
+  "request_id": "MARIE-012",
   "source": "Marie",
-  "previous_state": "MARIE-010",
-  "finding": "IDENTITY_STATE_EVIDENCE_AUTHORIZATION_COMMIT_EXECUTION_AND_RETURN_EXIST_BUT_A_SINGLE_RECONSTRUCTABLE_TRANSITION_PATH_IS_NOT_YET_PROVEN",
-  "existing_components": [
-    "MARIE_PRE_TURN_GATE",
-    "ZEMALA_STATE",
-    "INTENT_AUTH_GATE",
-    "ATOMIC_COMMIT",
-    "LEDGER_SEAL",
-    "EXECUTION_PIPELINE",
-    "MARIE_RETURN"
+  "previous_state": "MARIE-011",
+  "finding": "EXISTING_PATH_IS_INTENT_VERIFY_ATOMIC_COMMIT_LEDGER_SEAL_BUT_MARIE_IDENTITY_STATE_AUTH_LINK_IS_MISSING",
+  "verified_chain": [
+    "verify_intent.sh_checks_intent_auth_payload",
+    "atomic_commit.py_appends_ACTION_COMMITTED_with_request_id_and_dedup",
+    "sealer.py_SHA256_whole_ledger_to_seal"
   ],
-  "missing_links": [
-    "AI_REQUEST_TO_MARIE_STATE_RECONSTRUCTION_CONSUMER",
-    "MARIE_TURN_TO_CANONICAL_LEDGER_EVENT",
-    "COMMIT_TO_EXECUTION_EFFECT_RETURN_LINKAGE"
+  "claim_vs_implementation": "AGENTS_MD_claims_hash_chain_Hn_but_implementation_uses_whole_file_SHA256",
+  "path_matrix_required": [
+    "AI_REQUEST->Marie",
+    "Marie->State",
+    "State->Verification",
+    "Verification->Authorization",
+    "Authorization->Commit",
+    "Commit->Execution",
+    "Execution->Effect",
+    "Effect->Observation",
+    "Observation->Marie_RETURN"
   ],
-  "design_rule": "REUSE_EXISTING_ZEMALA_STATE_HASH_AUTHORIZATION_AND_COMMIT_MECHANISMS",
-  "next_action": "TRACE_AND_MAP_THE_EXISTING_PATHS_BEFORE_IMPLEMENTING_THE_SINGLE_RECONSTRUCTABLE_MARIE_STATE_TRANSITION"
+  "principle": "TURN_PERSISTENT_ONLY_AFTER_COMMIT_PUSH_REMAINS_MANDATORY",
+  "next_action": "READ_ONLY_TRACE_OF_AGENT_LOOP_DAEMON_EXECUTE_INTENT_PIPELINE_VERIFY_INTENT_ATOMIC_COMMIT_SEALER_EXECUTE_OUTBOUND_VERIFY_SEAL_AND_LEDGERS"
 }
