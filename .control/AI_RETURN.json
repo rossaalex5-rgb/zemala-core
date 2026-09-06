@@ -1,1 +1,1 @@
-{"protocol":"ZEMALA_AI_RETURN","schema_version":"1.0","status":"RECONSTRUCTION_STARTED","request_id":"MARIE-004","source":"Marie","previous_state":"MARIE-003","finding":"CONTROL_FILES_EXIST_BUT_PROCESSING_PATH_NOT_YET_PROVEN","next_action":"TRACE_AI_REQUEST_CONSUMER"}
+{"protocol":"ZEMALA_AI_RETURN","schema_version":"1.0","status":"INVENTORY_COMPONENTS","request_id":"MARIE-005","source":"Marie","previous_state":"MARIE-004","finding":"CONSUMER_NOT_IN_ZEMALA_CORE_SEARCH_NEXT_IN_EVENT_COCKPIT_AND_LOCAL_LEITSTAND","next_action":"SEARCH_EVENT_COCKPIT_FOR_CONSUMER_IMPL"}
