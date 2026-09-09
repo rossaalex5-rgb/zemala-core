@@ -1,41 +1,25 @@
-# Zemala Core
+# Zemala Core & Care-Static
 
-Zemala ist ein lokales, beobachterarmes und verifizierbares Betriebssystem-Framework, das speziell für den Einsatz in realen physischen Umgebungen entwickelt wurde.
+Zemala Core ist ein lokales, beobachterarmes und verifizierbares Betriebssystem-Framework, das speziell für den Einsatz in realen physischen Umgebungen entwickelt wurde. Das Primärziel ist die Bereitstellung und Steuerung von **Care-Static** – einer robusten Systemarchitektur zur skalierbaren Integration humanoider Roboter (wie Tesla Optimus) in den stationären und ambulanten Pflegebetrieb.
 
-Das Kernziel des Projekts ist die Entwicklung und Steuerung von Care-Statik – einem physikalisch fundierten System zur skalierbaren Integration humanoider Roboter in der Pflege.
+## 1. Das Problem: Demografischer Kollaps als Ingenicering-Herausforderung
 
-## Was ist Care-Statik?
+Care-Static betrachtet den demografischen Wandel und die steigende Old-Age-Dependency-Ratio (nahezu 60 Rentner auf 100 Erwerbsfähige) nicht als reines Sozialproblem, sondern als harte infrastrukturelle und ingenieurtechnische Aufgabe. Da menschliche Pflegekapazitäten zunehmend zur begrenzten Variable werden, schafft Care-Static die deterministische Systemgrundlage, um humanoide Robotik energieeffizient, sicher und regulatorisch konform in bestehende Pflegeeinrichtungen einzubinden.
 
-Care-Statik behandelt den demografischen Kollaps in Europa nicht als soziales, sondern als hartes ingenieurtechnisches Problem. Mit einer Old-Age-Dependency-Ratio, die auf fast 60 Rentner pro 100 Erwerbsfähige zusteuert, wird menschliche Pflegekraft zur verschwindenden Variable. 
+## 2. Kernarchitektur & Technische Säulen
 
-Care-Statik schafft dafür eine neue, stabile Systemarchitektur, in der humanoide Roboter wie Tesla Optimus zuverlässig, energieeffizient und regulatorisch konform in Pflegeheimen und ambulanten Einrichtungen eingesetzt werden können.
+* **Lokale Souveränität (Edge-First):** Vollständige Unabhängigkeit von externen Cloud-Infrastrukturen (keine US-Cloud-Abhängigkeit, DSGVO-konform).
+* **Append-Only LEDGER & SHA-256:** Alle System- und Zustandsänderungen werden fälschungssicher über deterministische JSONL-Ledger und kryptografische Versiegelung protokolliert.
+* **Infrastruktur & Energie:** Bewältigung physischer Bestandsanforderungen wie z. B. 20–30 kW paralleler Ladeleistung für Roboter-Kohorten in Pflegeimmobilien (ab ca. 300 m²).
+* **Regulatorische Compliance:** Ausrichtung auf technische Nachweispflichten im Rahmen des EU AI Acts (High-Risk-Kategorisierung, Conformity Assessment und lückenlose Protokollierung).
+* **Beobachterarme Steuerung:** Minimierung von Telemetrie und externer Einwirkung, um den Betrieb stabil und frei von unerwünschten Einflüssen zu halten.
 
-## Praktische Vorteile im Vergleich zu Smart-Home-Lösungen (Google Home, Alexa & Co.)
+## 3. Vergleich zu klassischen Smart-Home-Systemen
 
-* **1. Keine Cloud, 100% lokale Souveränität:** Während Google Home und Alexa jeden Befehl und Sensordatenstrom über externe US-Cloud-Server leiten, läuft Zemala (wie dein ZEMALA-CORE) lokal und deterministisch im Edge-Bereich. Es gibt keine Datenabflüsse und vollen Datenschutz (DSGVO-konform).
-* **2. Keine Abhängigkeit von Tech-Konzernen:** Wenn Anbieter APIs einstellen oder Produkte abwickeln, steht ein konventionelles Smart Home still. Zemala ist ein autarkes, append-only JSONL-basiertes System mit SHA-256-Versiegelung – was lokal geschrieben wird, gehört dir und bleibt dauerhaft stabil.
-* **3. Physikalische Skalierung statt Spielerei:** Klassische Smart-Home-Lösungen steuern Licht oder Heizung. Zemala löst harte physikalische und infrastrukturelle Aufgaben (z. B. Steuerung komplexer Einheiten, Einbindung von Robotik-Kohorten und massiven Lasten wie 20–30 kW Ladeinfrastruktur) völlig unabhängig von externen Servern.
-* **4. Beobachterarm statt Überwachung:** Kommerzielle Plattformen leben von Telemetrie und Profilbildung. Zemala arbeitet bewusst beobachterarm und verifizierbar, um absolute Systemintegrität ohne Fremdkontrolle zu garantieren.
+Im Gegensatz zu Consumer-Lösungen wie Google Home oder Alexa, die auf ständige Cloud-Verbindung, Telemetrie und Datenabfluss ausgelegt sind, operiert Zemala Core als autarkes Betriebssystem-Framework für physische und kritische Umgebungen. Was lokal geschrieben und verifiziert wird, bleibt im lokalen System.
 
-## Kernherausforderungen, die Zemala löst
+## 4. Mitmachen & Entwicklung
 
-* **Energie- und Lade-Infrastruktur** in Bestandsgebäuden (20–30 kW parallele Ladeleistung für Optimus-Kohorten)
-* **Regulatorische Compliance** (EU AI Act High-Risk, Conformity Assessment, Haftungsfragen)
-* **Beobachterarme, stabile Systemsteuerung** ohne Observer-Effect
-* **Skalierbare Deployment-Architektur** für humanoide Systeme
-
-## Aktueller Entwicklungsstand
-
-Das Framework ist bereits so weit vorbereitet, dass der Einstieg sehr niedrigschwellig ist. Pflegeheime oder Investoren mit einer geeigneten Immobilie (ab ca. 300 m²) können direkt in einen Pilot einsteigen. Die notwendigen technischen Grundlagen, Schnittstellen und Steuerungsmechanismen sind bereits implementiert.
-
-## Mitmachen & Kontakt
-
-Die aktive Weiterentwicklung und Diskussion zu Care-Statik findet primär auf X (Twitter) statt.
-
-Du findest das Projekt dort unter **@ZemalaSenzar** (https://x.com/ZEMALASENZAR). Dort kannst du:
-
-* Die aktuellen Entwicklungen live verfolgen
-* Mit dem Entwickler direkt über das Projekt sprechen
-* Fragen stellen und dich in die Diskussion einbringen
-
-Das Projekt lebt von direkter, technischer Kommunikation auf X. Wer ernsthaft mitbauen oder einen Pilot starten möchte, ist dort genau richtig.
+Die aktive technische Weiterentwicklung, Code-Commits und der direkte Austausch zu Care-Static finden über folgende Kanäle statt:
+* **X (Twitter):** [@ZemalaSenzar](https://x.com/ZEMALASENZAR)
+* **Repositories:** GitHub (`rossaalex5-rgb/zemala-core`) & Hugging Face (`Lofoworld/zemala-core`)
