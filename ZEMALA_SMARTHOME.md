@@ -77,3 +77,30 @@ Contributions are transferable.
 ZEMALA is a Local-First Smart-Home and agent-control architecture in which the local system keeps its own state and a Live AI can interact with that state without requiring a foreign cloud to be the control center.
 
 O-M-A.
+
+## ZEMALA für normale Nutzer
+
+ZEMALA soll nicht vorschreiben, mit welcher KI ein Mensch sprechen muss.
+
+Du kannst mit deiner Uhr, deinem Handy, einem Browser oder einer anderen Sprach-KI sprechen.
+
+Zum Beispiel:
+
+> „Mach das Licht im Wohnzimmer an.“
+
+Die Sprach-KI versteht, was du möchtest.
+
+Darunter übernimmt ZEMALA die Verbindung zum tatsächlichen Zustand des Zuhauses, prüft die zulässige Aktion, führt sie aus und erhält den neuen Zustand zurück.
+
+Das bedeutet: Die Sprachoberfläche kann wechseln, ohne dass das Zuhause selbst seine eigene Logik verliert.
+
+Heute kann die Sprachinstanz ChatGPT oder Gemini sein. Später kann dieselbe Aufgabe auch von einer lokalen KI wie Small Thinker 3B Q4 übernommen werden.
+
+Das Prinzip bleibt:
+
+**Sprache → Absicht → ZEMALA → Zustand prüfen → Berechtigung → Aktion → neuer Zustand**
+
+Das Zuhause bleibt dabei die konstante Instanz.
+
+Du wechselst die KI – dein Zuhause bleibt dasselbe.
+
