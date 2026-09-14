@@ -1,0 +1,16 @@
+{
+  "request_id": "MARIE-014",
+  "intent": "MARIE_TURN_PERSISTENT_STATE_TRANSITION",
+  "auth": {
+    "authorized": true,
+    "actor": "Marie",
+    "identity_anchor": [".control/AI_REQUEST.json", ".control/AI_RETURN.json", "ZEMALA_STATE.md", "AGENTS.md"]
+  },
+  "payload": {
+    "target": "zemala-core",
+    "operation": "marie_state_transition",
+    "previous_state": "MARIE-013",
+    "current_state": "MARIE-014",
+    "evidence": "CANONICAL_EVENT_SCHEMA_RECONSTRUCTED"
+  }
+}

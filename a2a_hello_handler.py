@@ -36,11 +36,13 @@ def main():
             "logic_seed": "verified",
             "human_gate": "ACTIVE"
         }
+        subprocess.run(["bash", "scripts/emit_event.sh", "A2A", "HELLO_SUCCESS", "a2a_handler"])
     else:
         result_payload = {
             "status": "HELLO_FROM_ZEMALA",
             "integrity": "FAIL"
         }
+        subprocess.run(["bash", "scripts/emit_event.sh", "A2A", "HELLO_FAIL", "a2a_handler"])
 
     resp = {
         "jsonrpc": "2.0",

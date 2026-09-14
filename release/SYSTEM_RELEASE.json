@@ -1,0 +1,14 @@
+{
+  "system": "ZEMALA-CORE",
+  "environment": "Termux / Snapdragon 888",
+  "timestamp_utc": "2026-09-03T11:15:11Z",
+  "git_head": "43abe9d6",
+  "ledger_entries": 1,
+  "compliance_framework": "EU AI Act Art. 12 & 14",
+  "integrity_bundle": {
+    "master_control_hash": "351f29a67bf310d4615a67c23c1f394dbf8e6a9b18a73c80bd9e19d17dd22ee4",
+    "verify_env_hash": "19b455c9a1e9c73c55396727190edb6111ec4811b59d2a47137f5b06e5ee7853",
+    "ledger_hash": "6273617bf030b76c7766913bb589dca7472c5be8f36297add7ea4cfbed3b1699"
+  },
+  "status": "GOLD_SEALED_PASS"
+}
