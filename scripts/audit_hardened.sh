@@ -14,7 +14,7 @@ if not os.path.exists(ledger_path):
 with open(ledger_path, "r", encoding="utf-8") as f:
     lines = [l.strip() for l in f.readlines() if l.strip()]
 
-print(f"[ZEMALA AUDIT] Total blocks in ledger: {len(lines)}")
+print(f"[ZEMALA AUDIT] Total valid blocks in ledger: {len(lines)}")
 
 for idx, line in enumerate(lines):
     try:
