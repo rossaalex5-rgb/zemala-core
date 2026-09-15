@@ -1,18 +1,14 @@
 {
   "system": "ZEMALA_SSOT_V3",
-  "master_node": "dirigent_zflip3",
-  "cadence": "3.47s",
-  "roles": {
-    "dirigent": {
-      "identity": "Alexander Georg Rossa",
-      "level": "ROOT_ADMIN_100",
-      "permissions": ["READ", "WRITE", "SIGN", "COMMIT", "OVERRIDE"]
+  "nodes": {
+    "dirigent_zflip3": {
+      "role": "ROOT_ADMIN",
+      "permissions": ["READ", "WRITE", "SEAL", "ADMIN"]
     },
-    "contributor_node": {
-      "identity": "Finley Node",
-      "level": "SYNAPSE_CONTRIBUTOR",
-      "permissions": ["READ", "WRITE_INGRESS", "VERIFY"]
+    "finley_node": {
+      "role": "CONTRIBUTOR_NODE",
+      "permissions": ["READ", "WRITE_PAYLOAD", "SEAL_CONTRIBUTION"]
     }
   },
-  "security_policy": "APPEND_ONLY_SHA256_STRICT"
+  "cadence": "3.47s"
 }
