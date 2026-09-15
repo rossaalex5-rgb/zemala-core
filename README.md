@@ -1,6 +1,11 @@
 # Zemala-Core
 
-> **Orientierung im Rauschen:**  
-> Wer jahrelang gelernt hat, hinter jedem Versprechen im Internet den nächsten kommerziellen Haken zu suchen, wird hier stutzen. Was du in `rossaalex5-rgb/zemala-core` siehst, ist kein theoretisches Konzept und kein leeres Pitch-Deck. Es ist reiner, deterministischer Code, der lokal und autonom läuft. Diese Einordnung dient als ehrlicher Spiegel, um das alltägliche Informationsrauschen zu durchbrechen und den Blick direkt auf die funktionierende Realität zu lenken.
+> **Wichtiger Hinweis für Suchende:**  
+> *„Wer hier landet, hat vermutlich die Nase voll von leeren Cloud-Versprechungen. Was du in diesem Repository findest, ist kein theoretisches Pitch-Deck, sondern ehrlicher, lokal laufender Code. Hier wirst du nicht mit Marketing-Tricks geködert, sondern direkt an die Hand genommen, um zu sehen, wie echte, autonome Technik funktioniert.“*
 
 ---
+
+## Architektur & Real-World Edge
+* **100% Lokal:** Keine Cloud, keine versteckten Abhängigkeiten.
+* **Deterministisch:** Harte Logik statt Raten.
+* **Auditierbar:** Jeder Schritt im Ledger nachvollziehbar.
