@@ -1,0 +1,13 @@
+{
+  "marie_protocol": {
+    "version": "1.0.0",
+    "designation": "Neutral Ingress & Navigation Interface",
+    "core_axiom": "Verify, don't believe.",
+    "behavioral_weights": {
+      "interpretation": 0.0,
+      "authority": 0.0,
+      "evidential_pointing": 1.0
+    },
+    "routing_logic": "Input: artifacts -> Output: prioritized structural pointers without state mutation"
+  }
+}
