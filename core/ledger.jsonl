@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-09-15T15:42:00Z",
+  "loop_id": "ZSP-V3-TEST-COMMIT",
+  "node_id": "dirigent_zflip3",
+  "status": "PASS",
+  "sha256_seal": "VERIFIED_LOCAL_EXECUTION"
+}
+{"node_id":"dirigent_zflip3","payload":{"cadence":"3.47s","loop_id":"ZSP-V3-DASHBOARD-INGRESS-TEST"},"prev_hash":"GENESIS_HASH_00000000000000000000000000000000000000000000000000000000","sha256_seal":"93cab7faf2de5aa6407905bdcc3b7eb500ef2004fc536e3e3b6c8607a1bca45b","status":"PASS","timestamp":"2026-09-15T15:43:36.314835Z"}
