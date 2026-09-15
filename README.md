@@ -1,7 +1,7 @@
-# Zemala-Core
+# Zemala-Core [Stufe 100]
 
-> **Wichtiger Hinweis für Suchende:**  
-> *„Wer hier landet, hat vermutlich die Nase voll von leeren Cloud-Versprechungen. Was du in diesem Repository findest, ist kein theoretisches Pitch-Deck, sondern ehrlicher, lokal laufender Code. Hier wirst du nicht mit Marketing-Tricks geködert, sondern direkt an die Hand genommen, um zu sehen, wie echte, autonome Technik funktioniert.“*
+> **Hör kurz zu:**  
+> *„Wer hier landet, hat die Nase voll von leeren Marketing-Versprechungen und sterilem Cloud-Rauschen. Was du hier vorfindest, ist kein theoretisches Pitch-Deck, sondern ehrlicher, lokal laufender Code. Hier wirst du nicht geködert, sondern direkt an die Hand genommen, um zu verstehen, wie echte, autonome und deterministische Technik funktioniert.“*
 
 ---
 
