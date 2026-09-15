@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZEMALA // SSoT Digital Notariat</title>
+    <style>
+        body {
+            background-color: #0b0b0b;
+            color: #f1f1f1;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            border-bottom: 2px solid #FFD700;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 { color: #FFD700; margin: 0; font-size: 1.5rem; }
+        .cadence { color: #888; font-size: 0.9rem; }
+        .card {
+            background: #141414;
+            border: 1px solid #333;
+            border-left: 4px solid #FFD700;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        .status-pass { color: #00FF66; font-weight: bold; }
+        pre { background: #000; padding: 10px; overflow-x: auto; color: #00FF66; font-size: 0.8rem; }
+        .node-badge { background: #222; color: #FFD700; padding: 2px 6px; font-size: 0.75rem; border: 1px solid #444; }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>ZEMALA SSoT // COCKPIT</h1>
+            <div class="cadence">Takt: 3.47s | EU AI Act Art. 12/14 Compliance</div>
+        </div>
+        <div>
+            <span id="system-status" class="node-badge">LADE STATUS...</span>
+        </div>
+    </header>
+
+    <div class="card">
+        <h3>System-Metrik</h3>
+        <p>Total Blöcke im Ledger: <strong id="total-blocks">-</strong></p>
+        <p>Status: <span id="ledger-status" class="status-pass">-</span></p>
+    </div>
+
+    <div class="card">
+        <h3>Letzter versiegelter Block (Latest SSoT)</h3>
+        <pre id="latest-block">Warte auf Datenstrom von Port 5000...</pre>
+    </div>
+
+    <script>
+        async function fetchStatus() {
+            try {
+                const response = await fetch('http://localhost:5000/status');
+                const data = await response.json();
+                
+                document.getElementById('total-blocks').innerText = data.total_blocks;
+                document.getElementById('ledger-status').innerText = data.status;
+                document.getElementById('system-status').innerText = data.system;
+                document.getElementById('latest-block').innerText = JSON.stringify(data.latest_block, null, 2);
+            } catch (err) {
+                document.getElementById('ledger-status').innerText = 'OFFLINE / FEHLER';
+                document.getElementById('ledger-status').style.color = '#FF0033';
+            }
+        }
+
+        setInterval(fetchStatus, 3470);
+        fetchStatus();
+    </script>
+</body>
+</html>
