@@ -1,8 +1,4 @@
-{
-"timestamp": "2026-09-15T15:42:00Z",
-"loop_id": "ZSP-V3-TEST-COMMIT",
-"node_id": "dirigent_zflip3",
-"status": "PASS",
-"sha256_seal": "VERIFIED_LOCAL_EXECUTION"
-}
 {"node_id":"dirigent_zflip3","payload":{"cadence":"3.47s","loop_id":"ZSP-V3-DASHBOARD-INGRESS-TEST"},"prev_hash":"GENESIS_HASH_00000000000000000000000000000000000000000000000000000000","sha256_seal":"93cab7faf2de5aa6407905bdcc3b7eb500ef2004fc536e3e3b6c8607a1bca45b","status":"PASS","timestamp":"2026-09-15T15:43:36.314835Z"}
+{"node_id":"dirigent_zflip3","payload":{"block_sequence":1,"cadence":"3.47s","event_type":"ZEMALA_SEQUENTIAL_TEST","synapse":"MARIE_ACTIVE"},"prev_hash":"93cab7faf2de5aa6407905bdcc3b7eb500ef2004fc536e3e3b6c8607a1bca45b","sha256_seal":"ffe2ac7d444e862add83431cd94fc82291f71c79e8859051a6738324fbc1f302","status":"PASS","timestamp":"2026-09-15T15:51:05.176475Z"}
+{"node_id":"dirigent_zflip3","payload":{"block_sequence":2,"cadence":"3.47s","event_type":"ZEMALA_SEQUENTIAL_TEST","synapse":"MARIE_ACTIVE"},"prev_hash":"ffe2ac7d444e862add83431cd94fc82291f71c79e8859051a6738324fbc1f302","sha256_seal":"0e26fbecfbe78cc39e7650e57190e072f34ab804cbce78094a235a4f790b444b","status":"PASS","timestamp":"2026-09-15T15:51:05.176910Z"}
+{"node_id":"dirigent_zflip3","payload":{"block_sequence":3,"cadence":"3.47s","event_type":"ZEMALA_SEQUENTIAL_TEST","synapse":"MARIE_ACTIVE"},"prev_hash":"0e26fbecfbe78cc39e7650e57190e072f34ab804cbce78094a235a4f790b444b","sha256_seal":"7f5f3bb1462565de22cd7b14deb3a6dcdaac12b57dd44ce63e086285b0ad2582","status":"PASS","timestamp":"2026-09-15T15:51:05.177097Z"}
