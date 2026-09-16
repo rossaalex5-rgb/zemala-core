@@ -33,3 +33,13 @@ Jedes zukünftige visuelle Asset (egal ob von ChatGPT, Meta AI oder internen Pip
 
 3. **Das regulatorische Siegel:**
    - Unverrückbarer Hinweis: *"100% EU AI Act konform – Als einziger Anbieter."*
+
+## Modul D: Wunddokumentation & Mess-Render (Filter-Souveränität)
+- **Konzept:** Abstraktes Diagramm-Poster ohne reales Wundbild (vollkommene Wahrung der Intimsphäre).
+- **Struktur:** Links US-Cloud-Foto-Upload (DSGVO-Risiko) vs. Rechts neutrales 3D-Mess-Render (3,2 cm, Tiefe in mm, Ledger-Status versiegelt).
+- **Architektur:** Observer-Layer (`READ → VERIFY → RENDER`) + Constitutional Gate.
+
+## Modul E: Trinkprotokoll & Der wachsende Baum (Demenz-Assistenz)
+- **Konzept:** Intuitives Bio-Feedback statt nerviger Big-Tech-Tabellen.
+- **Struktur:** Links sterile App-Pop-ups vs. Rechts animierter, wachsender Baum (lokales Edge-Feedback).
+- **Compliance:** 100% EU AI Act konform, keine Cloud-Telemetrie.
