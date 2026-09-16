@@ -10,3 +10,13 @@
 3. **Panic Mode:** "Ein Klick. Endlich Ruhe." (12/12 KI-Instanzen stummgeschaltet).
 4. **Timeline Replay:** "Spul deinen Rechner zurück wie Netflix."
 5. **Public Core vs. Private Runtime:** "Core öffentlich. Runtime privat. Lesen ja. Ausführen nur bei dir."
+
+## Infografik-Module (Pflege & Incident-Chain)
+- **Modul A (Sturz-Detektion & Audit-Trail):** "Sturz erkannt. Hilfe kommt. Nachweisbar." mit Live-Event-Protokoll (09:42 bis 09:47).
+- **Modul B (5-Säulen-Einsatzmatrix):** 
+  1. Sturz / Umkippen
+  2. Längeres Liegen
+  3. Aufstehen in der Nacht
+  4. Orientierung / Weglauf-Tendenz
+  5. Nach einem Vorfall
+- **Compliance-Siegel:** DSGVO-konform, Made in Germany, lokale Edge-Ausführung ohne US-Cloud-Abfluss.
