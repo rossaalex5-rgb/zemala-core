@@ -20,3 +20,16 @@
   4. Orientierung / Weglauf-Tendenz
   5. Nach einem Vorfall
 - **Compliance-Siegel:** DSGVO-konform, Made in Germany, lokale Edge-Ausführung ohne US-Cloud-Abfluss.
+
+## 🛑 DESIGN-MANDAT: DAS GEGENWELT SPLIT-SCREEN-GESETZ (PFLICHT FÜR ALLE ASSETS)
+Jedes zukünftige visuelle Asset (egal ob von ChatGPT, Meta AI oder internen Pipelines generiert) muss zwingend folgendem Aufbau folgen, um die Konkurrenz unmissverständlich zu entlarven:
+
+1. **Der visuelle Split-Screen (Zwingender Kontrast):**
+   - **Links (Die Big-Tech-Gegenwelt):** Zeigt die schmutzige, unsichere Realität (wackelige Rohvideos, unverschlüsselte Cloud-Streams, gläserne Überwachung, US-Server-Zwang).
+   - **Rechts (ZEMALA-Souveränität):** Zeigt die saubere Edge-Lösung (Icons, dezentrale Karten, Würde-Architektur, absolute Privatsphäre).
+
+2. **Die explizite Tech-Abrechnung (Namentliche Nennung):**
+   - Jedes Asset muss unmissverständlich klarstellen, was **Apple, Google, Android und Windows** *nicht* leisten können (z. B. lokale Echtzeit-Ausführung ohne Datenabfluss, EU-AI-Act-konforme dezentrale Architektur).
+
+3. **Das regulatorische Siegel:**
+   - Unverrückbarer Hinweis: *"100% EU AI Act konform – Als einziger Anbieter."*
