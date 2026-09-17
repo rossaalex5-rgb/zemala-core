@@ -1,16 +1,16 @@
 {
     "version": "100.0",
     "takt_intervall": 3.47,
-    "gesamte_takte": 631,
+    "gesamte_takte": 635,
     "matrix_index": 100.0,
     "letzter_hardware_wert": 57.0,
-    "letzte_temperatur": 26.3,
-    "letzter_sha256": "9ed9513b50ac9fd7e36fda25f5b6f10362e0f7b8eb6f947f1ea8e37546dbd720",
-    "letzter_sync_status": "SYNC OK @ Takt 631",
+    "letzte_temperatur": 26.6,
+    "letzter_sha256": "c1412800c8130e6de202bf4bf17a7a66de7fca0d05d42cdc614f9458a15eb4ba",
+    "letzter_sync_status": "SYNC OK @ Takt 635",
     "ketten_status": "VALID",
     "letztes_marie_signal": "SGB XI Pflegeprotokoll: Schichtuebergabe, Medikamentengabe & Notfalldienst dokumentiert",
     "llama_status": "STANDBY (Port 16500)",
     "dashboard_url": "http://127.0.0.1:3447/",
     "system_status": "ZEMALA STUFE 100 - MASTER-CORE VOLLENDET [O-M-A]",
-    "letzte_aktualisierung": 1789665526.9368927
+    "letzte_aktualisierung": 1789665574.7788956
 }
