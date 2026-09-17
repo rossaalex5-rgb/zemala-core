@@ -1,16 +1,16 @@
 {
     "version": "100.0",
     "takt_intervall": 3.47,
-    "gesamte_takte": 77,
+    "gesamte_takte": 78,
     "matrix_index": 100.0,
     "letzter_hardware_wert": 70.0,
     "letzte_temperatur": 30.8,
-    "letzter_sha256": "2d8f56309038cbd9eb7f9f23e473e4a932d4e1b3316679f3b02ff694b894abc7",
-    "letzter_sync_status": "SYNC OK @ Takt 77",
+    "letzter_sha256": "7454914ebb7ffb19413614a06e471b4444cb0581eb8f008cf8589f5e8f2eed3d",
+    "letzter_sync_status": "SYNC OK @ Takt 78",
     "ketten_status": "VALID",
     "letztes_marie_signal": "Aktiv",
     "llama_status": "STANDBY (Port 16500)",
     "dashboard_url": "http://127.0.0.1:3447/",
     "system_status": "ZEMALA STUFE 100 - MASTER-CORE VOLLENDET [O-M-A]",
-    "letzte_aktualisierung": 1789659153.8755279
+    "letzte_aktualisierung": 1789659162.7168448
 }
