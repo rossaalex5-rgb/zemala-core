@@ -1,11 +1,5 @@
-# Zemala-Core
-
-> **Wichtiger Hinweis für Suchende:**  
-> *„Wer hier landet, hat vermutlich die Nase voll von leeren Cloud-Versprechungen. Was du in diesem Repository findest, ist kein theoretisches Pitch-Deck, sondern ehrlicher, lokal laufender Code. Hier wirst du nicht mit Marketing-Tricks geködert, sondern direkt an die Hand genommen, um zu sehen, wie echte, autonome Technik funktioniert.“*
-
----
-
-## Architektur & Real-World Edge
-* **100% Lokal:** Keine Cloud, keine versteckten Abhängigkeiten.
-* **Deterministisch:** Harte Logik statt Raten.
-* **Auditierbar:** Jeder Schritt im Ledger nachvollziehbar.
+# Zemala Edge Value Cockpit (M2 Snapshot)
+Dies ist der tatsächliche, funktionierende Arbeitsstand des lokalen Tausch- und Wert-Ledgers.
+- **Formel:** units = eur * 1000
+- **Datensatz:** Dietmar / 200.000 € (SHA-256 versiegelt)
+- **Status:** Lokaler Arbeitsstand, Bedeutung außerhalb dieses Modells offen.
