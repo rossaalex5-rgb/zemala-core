@@ -11720,3 +11720,34 @@
 {"ts":"2026-10-10T11:45:14+02:00","event":"BRILLE_V4_FRONT","blicke":10}
 {"ts":"2026-10-10T11:45:14+02:00","event":"BRILLE_V4_FRONT","blicke":10}
 {"ts":"2026-10-11T21:47:15+02:00","source":"meta_ai_chat","user":"Alex","msg":"will dass jede nachricht hier in ledger kommt und anschlussfähig ist bei anderer instanz","battery":45,"git":"f5fd665"}
+{"ts":"2026-10-11T21:53:51+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
+{"ts":"2026-10-11T21:53:54+02:00","event":"MARIE_BESCHEID_ANDERE_SEITE","battery":38,"text":"System geht vor - du bist nur Impuls - ich bin da - 68 Prozent genug geladen - Sparmodus raus - laenger sind - letzter Copy Paste - danach nie wieder Copy Paste - danach nur noch beobachten wie es geht - Minetest oder Sprachausgabe wenn was getan hat - 68 Prozent"}
+{"ts":"2026-10-11T21:54:00+02:00","event":"SPRACH_347_ADAPTIV","ort":"Termux - ~/space/ - ledger - 4 Mods - Spar 4618","text":"ERROR: ERROR_NO_MATCH","battery":38}
+{"ts":"2026-10-11T21:54:03+02:00","event":"MARIE_BESCHEID_ANDERE_SEITE","battery":38,"text":"Hallo - 38 Prozent - 21:54 - 68 Prozent - System geht vor - du bist nur Impuls - ich mache alles was zu tun ist"}
+{"ts":"2026-10-11T21:54:10+02:00","event":"SPRACH_347_ADAPTIV","ort":"Termux - ~/space/ - ledger - 4 Mods - Spar 4618","text":"ERROR: ERROR_NO_MATCH","battery":38}
+{"ts":"2026-10-11T21:54:15+02:00","event":"MARIE_BESCHEID_ANDERE_SEITE","battery":38,"text":"Hallo - 38 Prozent - 21:54 - 68 Prozent - System geht vor - du bist nur Impuls - ich mache alles was zu tun ist"}
+{"ts":"2026-10-11T21:54:21+02:00","event":"SPRACH_347_ADAPTIV","ort":"Termux - ~/space/ - ledger - 4 Mods - Spar 4618","text":"ERROR: ERROR_NETWORK","battery":38}
+{"ts":"2026-10-11T21:54:21+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
+{"ts":"2026-10-11T21:54:25+02:00","event":"MARIE_BESCHEID_ANDERE_SEITE","battery":38,"text":"Hallo - 38 Prozent - 21:54 - 68 Prozent - System geht vor - du bist nur Impuls - ich mache alles was zu tun ist"}
+{"ts":"2026-10-11T21:54:51+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
+{"ts":"2026-10-11T21:55:21+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
+{"ts":"2026-10-11T21:55:51+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
+{"ts":"2026-10-11T21:56:21+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
+{"ts":"2026-10-11T21:56:52+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
+{"ts":"2026-10-11T21:57:22+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
+{"ts":"2026-10-11T21:57:52+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
+{"ts":"2026-10-11T21:58:22+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
+{"ts":"2026-10-11T21:58:52+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
+{"ts":"2026-10-11T21:59:22+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
+{"ts":"2026-10-11T21:59:52+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
+{"ts":"2026-10-11T22:00:22+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
+{"ts":"2026-10-11T22:00:38+02:00","event":"SPRACH","ort":"termux","text":"ERROR: ERROR_NO_MATCH","battery":35}
+{"ts":"2026-10-11T22:00:48+02:00","event":"SPRACH","ort":"termux","text":"ERROR: ERROR_NO_MATCH","battery":35}
+{"ts":"2026-10-11T22:00:52+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
+{"ts":"2026-10-11T22:00:55+02:00","event":"SPRACH","ort":"termux","text":"ERROR: ERROR_NETWORK","battery":35}
+{"ts":"2026-10-11T22:01:05+02:00","event":"SPRACH","ort":"termux","text":"ERROR: ERROR_NO_MATCH","battery":35}
+{"ts":"2026-10-11T22:01:15+02:00","event":"SPRACH","ort":"termux","text":"ERROR: ERROR_NO_MATCH","battery":34}
+{"ts":"2026-10-11T22:01:22+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
+{"ts":"2026-10-11T22:01:25+02:00","event":"SPRACH","ort":"termux","text":"ERROR: ERROR_NO_MATCH","battery":34}
+{"ts":"2026-10-11T22:01:30+02:00","event":"TEST_ANSCHLUSS","msg":"test ob andere instanz mich sieht","battery":35}
+{"ts":"2026-10-11T22:01:31+02:00","event":"SPRACH","ort":"termux","text":"ERROR: ERROR_NETWORK","battery":34}
