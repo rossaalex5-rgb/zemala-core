@@ -11844,3 +11844,12 @@
 {"ts":"2026-10-11T22:12:47+02:00","event":"SPRACH","ort":"termux","text":"ERROR: ERROR_NO_MATCH","battery":28}
 {"ts":"2026-10-11T22:12:53+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
 {"ts":"2026-10-11T22:12:58+02:00","event":"SPRACH","ort":"termux","text":"ERROR: ERROR_NO_MATCH","battery":28}
+{"ts":"2026-10-11T22:13:08+02:00","event":"SPRACH","ort":"termux","text":"ERROR: ERROR_NO_MATCH","battery":28}
+{"ts":"2026-10-11T22:13:18+02:00","event":"SPRACH","ort":"termux","text":"ERROR: ERROR_NO_MATCH","battery":28}
+{"ts":"2026-10-11T22:13:23+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
+{"ts":"2026-10-11T22:13:29+02:00","event":"SPRACH","ort":"termux","text":"ERROR: ERROR_NO_MATCH","battery":28}
+{"ts":"2026-10-11T22:13:39+02:00","event":"SPRACH","ort":"termux","text":"ERROR: ERROR_NO_MATCH","battery":28}
+{"ts":"2026-10-11T22:13:49+02:00","event":"SPRACH","ort":"termux","text":"ERROR: ERROR_NO_MATCH","battery":28}
+{"ts":"2026-10-11T22:13:53+02:00","event":"HERZSCHLAG_SPAR","herzschlag":"STABIL 08:14 DIRIGENT 100 - SPAR 3% - schlaeft","rhythmus":3.47}
+{"ts":"2026-10-11T22:13:57+02:00","event":"SPRACH","ort":"termux","text":"ERROR: ERROR_NO_MATCH","battery":28}
+{"ts":"2026-10-11T22:14:08+02:00","event":"SPRACH","ort":"termux","text":"ERROR: ERROR_NO_MATCH","battery":28}
