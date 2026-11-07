@@ -1,0 +1,12 @@
+{
+  "consent": true,
+  "drive": true,
+  "git": true,
+  "max_one": true,
+  "pull_statt_push": true,
+  "kein_offizieller_auftrag": "freiwillige Koordination",
+  "begriffe_nicht_geschuetzt": true,
+  "dsgvo_art6": true,
+  "hinweis": "Reversibel. drive false git false = nur lokal. Freigabe per Chat 02:28 fuer 12 Dateien + 13 Token Runde",
+  "timestamp": "2026-11-06T02:28:00Z"
+}

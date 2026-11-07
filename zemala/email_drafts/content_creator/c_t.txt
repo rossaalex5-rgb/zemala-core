@@ -1,0 +1,15 @@
+Betreff: Reallabor Art.57 - 2800 Termux-Dateien - SSoT Ledger - für c't
+
+Hallo c't Team,
+
+ihr testet Tech, wir leben Tech im Reallabor Art.57 Winsen.
+
+WOW für euch speziell (Architektur + Datenschutz):
+- Lokales Fundament 2800 Termux-Dateien - massive Skalierung lokaler Ausführung vs cloud
+- SSoT observations.jsonl V2.1 - linearer Prozessfluss deterministisch
+- Minetest als sicherer Raum - räumliche Zustandskartierung privatsphärenkonform
+- A2A MCP 5 Instanzen kommunizieren schon untereinander
+
+13.6k Blöcke State100 Flask5001. Kein Sicherheitsdienst - im Austausch mit Sozialläufern.
+
+Alex - Fachwirt Gesundheitswesen

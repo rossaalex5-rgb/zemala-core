@@ -1,0 +1,146 @@
+Hier einmal von der offline App. Iris das Benchmark geht zu wechseln im Parameter und die Modelle, die ich wählen kann
+BenchMark
+Benchmark Information
+Device: SM-F711B
+Android: 13
+Processor: qcom
+Available Threads:8
+Current Model:
+Llama-3.2-3B-lnstruct-Q4_K_L.gguf
+User Threads: 0.0
+Start Benchmark
+Calculating tokens per second.
+
+Models
+Search Hugging-Face Models
+>
+Suggested Models
+Llama-3.2-1B-Instruct-Q6_K_L.gguf
+Download
+Not Downloaded
+Active Model
+Llama-3.2-3B-Instruct-Q4_K_L.gguf
+Load
+Delete
+Set as Default Model
+Size: 1,97 GB
+stablelm-2-1_6b-chat.Q4_K_M.imx.gguf
+Download
+Not Downloaded
+My Models
+No models to show
+
+Parameters
+After changing please Save the changes
+Thread Selection
+Select thread for process, 0 for default
+O
+Temperature
+Adjust randomness (0.0-1.0)
+0,00
+Top P
+Nucleus sampling threshold (0.0 -1.0)
+0,00
+Top K
+Number of tokens to consider (0 - 50)
+Reset Default
+Save
+
+‐-‐----------------------
+
+Dann einmal von der App llam Chat offline. Die Parameter und die Modelle:
+
+Model Management
+Gemma-2B-GGUF
+Preset Models
+Gemma-2B-GGUF
+Google open-source small model
+(~1.66B)
+Phi-2-GGUF
+Microsoft 2.7B efficient model
+(~1.6GB)
+LIama-2-7B-Chat-GGUF
+Meta 7B chat model (~4.1GB)
+T
+TinyLlama-1.1B-Chat-v1.0
+Lightweight chat model, suitable for
+mobile devices (~670MB)
+MythoLogic-Mini-7B
+High-performance 7B small
+inference model (~4GB)
+DeepSeek-Coder-1.3B-GGUF
+Lightweight code model with
+powerful code generation
+capabilities (~800MB)
+DeepSeek-LLM-7B-Chat-GGUF
+DeepSeek company's 7B bilingual
+(Chinese-English) chat model
+quantized version (~4GB)
+
+Settings
+These parameters affect the model's
+performance and memory usage, please adjust
+them carefully according to your device's
+capabilities
+Context Window Size (n_ctx)
+2048
+Determines how much context history the model
+can "remember", larger values increase memory
+usage
+Batch Size (n_batch)
+512
+Larger batch sizes may improve performance
+but increase memory usage
+Thread Count (n_threads)
+Recommended to set to half or fewer of your
+device's CPU cores
+GPU Acceleration Layers (n_gpu_layers)
+O
+Set values greater than 0 on iOS devices to
+enable Metal acceleration
+Generation Parameter Settings
+These parameters affect the creativity and
+diversity of Al responses
+Temperature: 1.50
+
+Settings
+Temperature: 1.50
+Precise
+Creative
+Lower values make responses more
+deterministic and precise, higher values make
+responses more diverse and creative
+Тор-Р:0.90
+Focused
+Diverse
+Controls the range of vocabulary considered
+during generation, smaller values make output
+more predictable
+Maximum Generation Length (n_predict)
+2048
+Maximum number of tokens to generate per
+response
+System Prompt
+System Prompt
+SYSTEMPROMPT MULTIKANAL
+MIT CORE-ANSCHLUSS VERSION
+1.0-OM2 OFFLINE
+The system prompt defines the Al assistant's
+personality and behavior
+
+-------------------------
+
+Und dann von der anderen Llamo app:
+
+Performance Warning
+Llama 3.2 1B requires approximately
+0,8GB of gpu memory (VRAM), but your
+device is estimated to have 0,5GB of gpu
+nemory (VRAM) available. The app may
+become unstable or crash while using this
+model. Consider using a smaller model for
+better stability.
+Cancel
+Understand
+
+‐---------------------
