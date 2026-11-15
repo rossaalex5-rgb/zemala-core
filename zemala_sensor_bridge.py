@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 import time
 import hashlib
 import subprocess
@@ -8,8 +9,6 @@ from datetime import datetime, timezone
 LEDGER_PATH = "core/ledger.jsonl"
 
 def get_device_telemetry() -> dict:
-    """Liest echte Hardware-Sensoren aus (Termux-API oder Android-Systemdaten)."""
-    # 1. Versuch: Termux-API (falls installiert)
     try:
         out = subprocess.check_output(["termux-battery-status"], timeout=2)
         data = json.loads(out.decode("utf-8"))
@@ -22,7 +21,6 @@ def get_device_telemetry() -> dict:
     except Exception:
         pass
 
-    # 2. Fallback: Direkte Linux/Android Kernel-Sensoren auslesen
     cap_path = "/sys/class/power_supply/battery/capacity"
     stat_path = "/sys/class/power_supply/battery/status"
     if os.path.exists(cap_path):
@@ -39,7 +37,6 @@ def get_device_telemetry() -> dict:
             "temperature_c": 26.5
         }
 
-    # 3. Fallback: System-Load & Uptime als deterministischer Sensor
     load1, _, _ = os.getloadavg()
     return {
         "source": "system_telemetry_node",
@@ -48,7 +45,7 @@ def get_device_telemetry() -> dict:
         "temperature_c": 25.0
     }
 
-def append_sensor_block():
+def append_sensor_block(force: bool = False):
     blocks = []
     if os.path.exists(LEDGER_PATH):
         with open(LEDGER_PATH, "r", encoding="utf-8") as f:
@@ -57,20 +54,24 @@ def append_sensor_block():
                     blocks.append(json.loads(line))
 
     prev_block = blocks[-1] if blocks else {}
-    prev_hash = hashlib.sha256(json.dumps(prev_block, sort_keys=True).encode("utf-8")).hexdigest()
-    next_index = len(blocks) + 1
-
     telemetry = get_device_telemetry()
     battery = telemetry.get("percentage", 100)
     temp = telemetry.get("temperature_c", 25.0)
 
-    # Smart-Home / AEVO Contract-Regel: Akku >= 15% und Temperatur < 45°C
     if battery < 15 or temp > 45.0:
         contract_state = "contradiction"
         note = f"Widerspruch: Kritischer Hardware-Zustand (Akku {battery}%, Temp {temp}C)"
     else:
         contract_state = "VERIFIED_OK"
         note = f"Hardware-Telemetrie innerhalb der Contract-Grenzen (Akku {battery}%, Temp {temp}C)"
+
+    # Nur schreiben, wenn sich Zustand/Akku geaendert hat oder force=True
+    last_tel = prev_block.get("telemetry", {})
+    if not force and last_tel.get("percentage") == battery and prev_block.get("contract_state") == contract_state:
+        return False
+
+    prev_hash = hashlib.sha256(json.dumps(prev_block, sort_keys=True).encode("utf-8")).hexdigest()
+    next_index = len(blocks) + 1
 
     new_block = {
         "index": next_index,
@@ -86,7 +87,15 @@ def append_sensor_block():
     with open(LEDGER_PATH, "a", encoding="utf-8") as f:
         f.write(json.dumps(new_block) + "\n")
 
-    print(f"[ZEMALA SENSOR] Block #{next_index} geschrieben -> {contract_state} | Hash: {new_block['hash'][:12]}...")
+    print(f"[ZEMALA SENSOR] Block #{next_index} -> {contract_state} | Akku: {battery}% | Hash: {new_block['hash'][:12]}...")
+    return True
 
 if __name__ == "__main__":
-    append_sensor_block()
+    if "--daemon" in sys.argv:
+        print("[ZEMALA SENSOR DAEMON] Aktiv (Pruef-Intervall: 5.0s, Delta-Trigger aktiv)...")
+        append_sensor_block(force=True)
+        while True:
+            time.sleep(5)
+            append_sensor_block(force=False)
+    else:
+        append_sensor_block(force=True)
