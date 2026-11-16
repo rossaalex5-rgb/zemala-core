@@ -1,7 +1,4 @@
-.env
-vault/
+storage/
 *.log
-pycache/
-.zemala_token
-*.jsonl
-tmp_*
+__pycache__/
+.env

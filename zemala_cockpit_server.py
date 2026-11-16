@@ -1,221 +1,157 @@
-import http.server
-import json
-import os
-import io
-import hashlib
+import http.server, json, os, io, hashlib
+from datetime import datetime, timezone
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-
 PORT = 5000
 LEDGER_PATH = "core/ledger.jsonl"
-
-def evaluate_aevo_contract(blocks: list):
+BAD = ["error", "contradiction", "widerspruch", "fail", "invalid", "mismatch"]
+def _has(b, names):
+    return any(n in b and b[n] not in [None, ""] for n in names)
+def evaluate_aevo_contract(blocks):
     if not blocks:
-        return False, "Ledger ist leer (Warte auf Genesis-Block)"
-    
+        return False, "Ledger ist leer"
     latest = blocks[-1]
-    raw_str = json.dumps(latest, sort_keys=True).lower()
-
-    forbidden_terms = ["error", "contradiction", "widerspruch", "fail", "invalid", "mismatch"]
-    for term in forbidden_terms:
-        if term in raw_str:
-            return False, f"Widerspruch erkannt: '{term}' im Block gefunden"
-
+    for f in ["index", "timestamp", "prev_hash", "hash"]:
+        if f not in latest or latest[f] in [None, ""]:
+            return False, "Unvollstaendig: Feld " + f + " fehlt in Block " + str(latest.get("index", "?"))
+    if not _has(latest, ["author", "Autor", "source", "sensor", "message", "msg", "data", "signal", "note", "telemetry", "battery", "payload"]):
+        return False, "Unvollstaendig: Kein Inhalt in Block " + str(latest.get("index", "?"))
+    if str(latest.get("contract_state", "")).lower() == "contradiction":
+        return False, str(latest.get("note", "Widerspruch im Block")) + " [Block " + str(latest.get("index")) + "]"
+    check = str(latest.get("message", "")) + " " + str(latest.get("note", "")) + " " + str(latest.get("msg", ""))
+    check = check.lower()
+    for term in BAD:
+        if term in check:
+            return False, "Widerspruch erkannt: " + term + " in Block " + str(latest.get("index"))
+    tel = latest.get("telemetry", {})
+    if isinstance(tel, dict) and "percentage" in tel:
+        try:
+            pct = float(tel["percentage"])
+            if pct < 10:
+                return False, "Widerspruch: Kritischer Hardware-Zustand (Akku " + str(pct) + "%) - bitte laden [Block " + str(latest.get("index")) + "]"
+        except:
+            pass
     if len(blocks) >= 2:
         prev = blocks[-2]
-        prev_hash = prev.get("hash") or prev.get("block_hash") or prev.get("sha256")
-        claimed_prev = latest.get("prev_hash") or latest.get("previous_hash") or latest.get("parent_hash")
-        if prev_hash and claimed_prev and prev_hash != claimed_prev:
-            return False, "AEVO-Abweichung: prev_hash stimmt nicht mit Vorgaenger-Block ueberein"
-
-    if len(latest.keys()) >= 2:
-        return True, "AEVO-Contract erfuellt: Verkettung intakt, kein Widerspruch (GOLD)"
-    
-    return False, "Unvollstaendiger Block (Zu wenige Attribute)"
-
-def render_sigil_bytes(seed_text: str, contract_verified: bool = False) -> bytes:
-    hash_hex = hashlib.sha256(seed_text.encode('utf-8')).hexdigest()
-    hash_bytes = bytes.fromhex(hash_hex)
-    
-    extended_bytes = bytearray()
-    counter = 0
-    while len(extended_bytes) < 121:
-        chunk = hashlib.sha256(hash_bytes + counter.to_bytes(4, 'big')).digest()
-        extended_bytes.extend(chunk)
-        counter += 1
-    extended_bytes = extended_bytes[:121]
-
-    grid_size = 11
-    voxels = np.zeros((grid_size, grid_size, 5), dtype=bool)
-    colors = np.empty(voxels.shape, dtype=object)
-
-    relation_colors = {0: '#D9383A', 1: '#2EA043', 2: '#1F6FEB', 3: '#E3B341'}
-    gold_color = '#FFD700'
-
+        expect = hashlib.sha256(json.dumps(prev, sort_keys=True).encode()).hexdigest()
+        if latest.get("prev_hash") != expect:
+            return False, "AEVO-Abweichung: Verkettung stimmt nicht"
+    return True, "Contract eingehalten - Block ist vollstaendig, verkettet, ohne Widerspruch"
+def render_sigil(seed_text, contract_verified=False):
+    hash_hex = hashlib.sha256(seed_text.encode("utf-8")).hexdigest()
+    ext = bytearray()
+    c = 0
+    while len(ext) < 121:
+        ext.extend(hashlib.sha256(hash_hex.encode() + c.to_bytes(4, "big")).digest())
+        c += 1
+    ext = ext[:121]
+    voxels = np.zeros((11, 11, 5), dtype=bool)
+    colors = np.empty((11, 11, 5), dtype=object)
+    rel = {0: "#E03131", 1: "#2EB85C", 2: "#2F6FEB", 3: "#F3C81E"}
+    gold = "#FFD700"
     for idx in range(121):
-        x = idx % grid_size
-        y = idx // grid_size
-        byte_val = extended_bytes[idx]
-
-        if contract_verified:
-            height = 1
-            color = gold_color
-        else:
-            height = (byte_val % 4) + 1
-            color_code = (byte_val >> 2) % 4
-            color = relation_colors[color_code]
-
+        x = idx % 11
+        y = idx // 11
+        b = ext[idx]
+        height = (b % 4) + 1
+        base = rel[(b >> 2) % 4]
         voxels[x, y, :height] = True
-        colors[x, y, :height] = color
-
-    fig = plt.figure(figsize=(8, 6.5), facecolor='#0D1117')
-    ax = fig.add_subplot(111, projection='3d', facecolor='#0D1117')
-    ax.voxels(voxels, facecolors=colors, edgecolor='#161B22', linewidth=0.6)
-    ax.set_box_aspect((11, 11, 3.5))
+        for h in range(height):
+            is_top = (h == height - 1)
+            colors[x, y, h] = gold if (is_top and contract_verified) else base
+    fig = plt.figure(figsize=(8, 6.5), facecolor="#0D1117")
+    ax = fig.add_subplot(111, projection="3d")
+    ax.set_facecolor("#0D1117")
+    ax.voxels(voxels, facecolors=colors, edgecolor="#161B22", linewidth=0.6)
+    ax.set_xlim(0, 11)
+    ax.set_ylim(0, 11)
     ax.set_zlim(0, 5)
     ax.set_axis_off()
     ax.view_init(elev=35, azim=45)
-
-    status_text = "CONTRACT VERIFIZIERT - ZUSTAND: GOLD" if contract_verified else "11x11 SIGIL - WIDERSPRUCH / UNGEPRUEFT"
-    plt.suptitle(f"ZEMALA_SSOT_V3 | {status_text}", color='#FFD700' if contract_verified else 'white', fontsize=12, fontweight='bold', y=0.94)
-    plt.title(f"SHA-256: {hash_hex}", color='#8B949E', fontsize=8, family='monospace', pad=8)
-
-    legend_text = "GOLD = Contract automatisch verifiziert (AEVO-konform)" if contract_verified else "Rot=Herkunft  Gruen=Widerspruch  Blau=Bestaetigung  Gelb=Kausalitaet"
-    fig.text(0.5, 0.05, legend_text, ha='center', color='#C9D1D9', fontsize=9)
-
+    status = "CONTRACT VERIFIZIERT - ZUSTAND: GOLD (4 Farben + Gold-Decke)" if contract_verified else "11x11 SIGIL - AUSGANGSZUSTAND (UNGEPRUEFT)"
+    plt.suptitle("ZEMALA Core V2.3 - " + status, color="white", fontsize=11, fontweight="bold")
+    plt.title("SHA-256: " + hash_hex[:16] + "...", color="#8B949E", fontsize=9, family="monospace")
+    legend = "Unten: Relation (4 Farben) - Oben: GOLD = Zustand funktioniert" if contract_verified else "Rot=Herkunft  Gruen=Widerspruch  Blau=Bestaetigung  Gelb=Kausalitaet"
+    fig.text(0.5, 0.05, legend, ha="center", color="#C9D1D9", fontsize=9)
     buf = io.BytesIO()
-    plt.savefig(buf, format='png', dpi=150, facecolor='#0D1117')
+    plt.savefig(buf, format="png", dpi=150, facecolor="#0D1117")
     plt.close(fig)
-    buf.seek(0)
-    return buf.read()
-
-def get_latest_ledger_data():
+    return buf.getvalue()
+def get_blocks():
     blocks = []
     if os.path.exists(LEDGER_PATH):
-        with open(LEDGER_PATH, "r", encoding="utf-8") as f:
+        with open(LEDGER_PATH, encoding="utf-8") as f:
             for line in f:
                 if line.strip():
                     try:
                         blocks.append(json.loads(line))
-                    except json.JSONDecodeError:
+                    except:
                         pass
     return blocks
-
-class ZemalaCockpitHandler(http.server.BaseHTTPRequestHandler):
-    def log_message(self, format, *args):
-        pass
-
+class H(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
-        try:
-            blocks = get_latest_ledger_data()
-            latest = blocks[-1] if blocks else {"init": "ZEMALA_SSOT_V3_EMPTY"}
-            seed_str = json.dumps(latest, sort_keys=True)
-            is_gold, reason = evaluate_aevo_contract(blocks)
-
-            if self.path == "/status" or self.path == "/":
-                response_data = {
-                    "system": "ZEMALA_SSOT_V3",
-                    "cadence": "3.47s",
-                    "status": "GOLD" if is_gold else "UNVERIFIED",
-                    "contract_verified": is_gold,
-                    "aevo_reason": reason,
-                    "total_blocks": len(blocks),
-                    "latest_block": blocks[-1] if blocks else None
-                }
-                body = json.dumps(response_data, indent=2).encode("utf-8")
-                self.send_response(200)
-                self.send_header("Content-Type", "application/json")
-                self.send_header("Access-Control-Allow-Origin", "*")
-                self.send_header("Content-Length", str(len(body)))
-                self.end_headers()
-                self.wfile.write(body)
-
-            elif self.path.startswith("/sigil.png"):
-                img_bytes = render_sigil_bytes(seed_str, contract_verified=is_gold)
-                self.send_response(200)
-                self.send_header("Content-Type", "image/png")
-                self.send_header("Cache-Control", "no-cache")
-                self.send_header("Content-Length", str(len(img_bytes)))
-                self.end_headers()
-                self.wfile.write(img_bytes)
-
-            elif self.path.startswith("/sigil_raw.png"):
-                img_bytes = render_sigil_bytes(seed_str, contract_verified=False)
-                self.send_response(200)
-                self.send_header("Content-Type", "image/png")
-                self.send_header("Cache-Control", "no-cache")
-                self.send_header("Content-Length", str(len(img_bytes)))
-                self.end_headers()
-                self.wfile.write(img_bytes)
-
-            elif self.path == "/cockpit":
-                badge_color = "#B8860B" if is_gold else "#D9383A"
-                badge_text = "GOLD (VERIFIZIERT)" if is_gold else "UNGEPRÜFT / WIDERSPRUCH"
-                html = f"""<!DOCTYPE html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ZEMALA Auto-Cockpit V2.3</title>
-<style>
-  body {{ background:#0D1117; color:#C9D1D9; font-family:monospace; text-align:center; padding:15px; }}
-  img {{ max-width:100%; border:1px solid #30363D; border-radius:8px; margin-top:10px; }}
-  .badge {{ background:{badge_color}; color:white; padding:4px 10px; border-radius:12px; font-weight:bold; }}
-  .reason {{ background:#161B22; border:1px solid #30363D; padding:8px; border-radius:6px; margin:10px auto; max-width:600px; font-size:12px; }}
-  button {{ background:#1F6FEB; color:white; border:none; padding:10px 16px; border-radius:6px; font-family:monospace; margin:6px; cursor:pointer; }}
-</style></head>
-<body>
-  <h2>ZEMALA_SSOT_V3 AUTO-COCKPIT</h2>
-  <p>Contract: <span id="badge" class="badge">{badge_text}</span> | Blöcke: <b id="bcount">{len(blocks)}</b></p>
-  <div id="reason" class="reason">{reason}</div>
-  <div>
-    <button onclick="forceView('/sigil.png')">Auto-Modus (Live AEVO)</button>
-    <button style="background:#30363D" onclick="forceView('/sigil_raw.png')">Roh-Hash ansehen (4 Farben)</button>
-  </div>
-  <img id="sigil" src="/sigil.png" alt="11x11 Voxel Sigil">
-<script>
-  let lastCount = {len(blocks)};
-  let lastStatus = "{is_gold}";
-  let autoMode = true;
-  function forceView(endpoint) {{
-    autoMode = (endpoint === '/sigil.png');
-    document.getElementById('sigil').src = endpoint + '?t=' + Date.now();
-  }}
-  setInterval(async () => {{
-    try {{
-      const res = await fetch('/status');
-      const data = await res.json();
-      document.getElementById('bcount').innerText = data.total_blocks;
-      document.getElementById('reason').innerText = data.aevo_reason;
-      const badge = document.getElementById('badge');
-      badge.innerText = data.contract_verified ? 'GOLD (VERIFIZIERT)' : 'UNGEPRÜFT / WIDERSPRUCH';
-      badge.style.background = data.contract_verified ? '#B8860B' : '#D9383A';
-      if (autoMode && (data.total_blocks !== lastCount || String(data.contract_verified) !== lastStatus)) {{
-        lastCount = data.total_blocks;
-        lastStatus = String(data.contract_verified);
-        document.getElementById('sigil').src = '/sigil.png?t=' + Date.now();
-      }}
-    }} catch (e) {{}}
-  }}, 3470);
-</script>
-</body></html>""".encode("utf-8")
-                self.send_response(200)
-                self.send_header("Content-Type", "text/html; charset=utf-8")
-                self.send_header("Content-Length", str(len(html)))
-                self.end_headers()
-                self.wfile.write(html)
-
-            else:
-                self.send_response(404)
-                self.end_headers()
-        except Exception as e:
-            err_body = json.dumps({"status": "ERROR", "message": str(e)}).encode("utf-8")
-            self.send_response(500)
+        blocks = get_blocks()
+        latest = blocks[-1] if blocks else {"init": "ZEMALA_SSOT_V3_EMPTY"}
+        is_gold, reason = evaluate_aevo_contract(blocks)
+        seed = json.dumps(latest, sort_keys=True)
+        if self.path in ["/status", "/"]:
+            body = json.dumps({"cadence": "3.47s", "status": "GOLD" if is_gold else "UNVERIFIED", "contract_verified": is_gold, "aevo_reason": reason, "total_blocks": len(blocks), "latest_block": latest}, indent=2).encode()
+            self.send_response(200)
             self.send_header("Content-Type", "application/json")
-            self.send_header("Content-Length", str(len(err_body)))
+            self.send_header("Content-Length", str(len(body)))
             self.end_headers()
-            self.wfile.write(err_body)
-
+            self.wfile.write(body)
+        elif self.path.startswith("/sigil.png"):
+            img = render_sigil(seed, contract_verified=is_gold)
+            self.send_response(200)
+            self.send_header("Content-Type", "image/png")
+            self.send_header("Content-Length", str(len(img)))
+            self.end_headers()
+            self.wfile.write(img)
+        elif self.path.startswith("/sigil_raw.png"):
+            img = render_sigil(seed, contract_verified=False)
+            self.send_response(200)
+            self.send_header("Content-Type", "image/png")
+            self.send_header("Content-Length", str(len(img)))
+            self.end_headers()
+            self.wfile.write(img)
+        elif self.path == "/cockpit":
+            badge = "GOLD" if is_gold else "UNGEPRUEFT / WIDERSPRUCH"
+            html = "<html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>ZEMALA Auto-Cockpit</title><style>body{background:#0D1117;color:#C9D1D9;font-family:monospace;text-align:center;padding:15px} .badge{background:#FFD700;color:black;padding:4px 10px;border-radius:12px;font-weight:bold} input{width:90%;max-width:600px;padding:12px;margin:6px;border-radius:8px;border:1px solid #30363D;background:#161B22;color:white} button{background:#FFD700;color:black;border:none;padding:12px 20px;border-radius:8px;font-weight:bold;cursor:pointer;margin:6px} .box{background:#161B22;border:1px solid #30363D;padding:12px;border-radius:12px;max-width:600px;margin:10px auto;text-align:left}</style></head><body><h2>ZEMALA_SSOT_V3 AUTO-COCKPIT</h2><div>Contract: <span class=\"badge\">" + badge + "</span> | Bloecke: <b id=\"bcount\">" + str(len(blocks)) + "</b></div><p id=\"reason\">" + reason + "</p><div><button onclick=\"forceView()\">Auto-Modus (Live AEVO)</button><button onclick=\"forceRaw()\">Roh-Hash ansehen (4 Farben)</button></div><img id=\"sigil\" src=\"/sigil.png\" style=\"width:100%;max-width:600px\"><div class=\"box\"><h3>Live-Teilnahme: Sag es deinem Smartphone</h3><p>Beispiel: <i>Mach das Licht an</i> - wird zum Block, verkettet, Sigil schaltet um.</p><input id=\"name\" placeholder=\"Dein Name\"><input id=\"msg\" placeholder=\"Nachricht oder Smart-Home-Signal, z.B. Mach das Licht an\"><br><button onclick=\"submitBlock()\">Block ins Ledger schreiben</button><p id=\"result\"></p></div><script>let last=\"\";function forceView(){document.getElementById('sigil').src='/sigil.png?'+Date.now()}function forceRaw(){document.getElementById('sigil').src='/sigil_raw.png?'+Date.now()}async function submitBlock(){const name=document.getElementById('name').value||'Gast';const msg=document.getElementById('msg').value;if(!msg){alert('Bitte Nachricht eingeben');return}const res=await fetch('/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,message:msg})});const data=await res.json();document.getElementById('result').innerText='Block #'+data.index+' geschrieben. Hash: '+data.hash.slice(0,16)+'... Status: '+data.contract_state+' - '+data.aevo_reason;forceView()}setInterval(async()=>{try{const res=await fetch('/status');const data=await res.json();document.getElementById('bcount').innerText=data.total_blocks;document.getElementById('reason').innerText=data.aevo_reason;document.getElementById('badge').innerText=data.contract_verified?'GOLD':'UNGEPRUEFT / WIDERSPRUCH';document.getElementById('sigil').src='/sigil.png?'+Date.now()}catch(e){}},3470)</script></body></html>"
+            body = html.encode()
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+        else:
+            self.send_response(404)
+            self.end_headers()
+    def do_POST(self):
+        if self.path == "/submit":
+            length = int(self.headers.get("Content-Length", 0))
+            data = json.loads(self.rfile.read(length).decode() or "{}")
+            blocks = get_blocks()
+            prev_hash = hashlib.sha256(json.dumps(blocks[-1], sort_keys=True).encode()).hexdigest() if blocks else "GENESIS"
+            entry = {"index": len(blocks) + 1, "timestamp": datetime.now(timezone.utc).isoformat(), "author": data.get("name", "Gast"), "message": data.get("message", ""), "prev_hash": prev_hash, "type": "USER_SUBMIT"}
+            entry["hash"] = hashlib.sha256(json.dumps(entry, sort_keys=True).encode()).hexdigest()
+            os.makedirs("core", exist_ok=True)
+            with open(LEDGER_PATH, "a", encoding="utf-8") as f:
+                f.write(json.dumps(entry) + "\n")
+            is_gold, reason = evaluate_aevo_contract(blocks + [entry])
+            out = {"index": entry["index"], "hash": entry["hash"], "contract_state": "GOLD" if is_gold else "CONTRADICTION", "aevo_reason": reason, "sigil_url": "/sigil.png"}
+            body = json.dumps(out).encode()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+        else:
+            self.send_response(404)
+            self.end_headers()
+    def log_message(self, format, *args):
+        return
 if __name__ == "__main__":
-    server = http.server.HTTPServer(("0.0.0.0", PORT), ZemalaCockpitHandler)
-    print(f"[ZEMALA Auto-Cockpit] Active on port {PORT} with AEVO contract verification (3.47s cadence).")
-    server.serve_forever()
+    http.server.HTTPServer(("0.0.0.0", PORT), H).serve_forever()

@@ -1,0 +1,55 @@
+{
+  "version": "1.0.0",
+  "name": "zemala_manifest",
+  "base_dir": ".",
+  "orchestrator": "zemala_orchestrator.sh",
+  "entry": "STARTEN.sh (dunner Delegator: exec zemala_orchestrator.sh, keine eigenen Checks)",
+  "node_url": "http://localhost:8085/status",
+  "allowed_env_zemala": [],
+  "env_rule": "In Prod ist JEDE Variable mit Prefix ZEMALA_ verboten - gesetzt (auch leer, auch ZEMALA_DEMO=1, auch ZEMALA_PROD=1) = FAIL + NON-COMPLIANT + Exit 1, vor jedem anderen Check (Gate 0). Kein Demo-Modus. Nur Variablennamen werden geloggt, nie Werte. Kein Secret, kein Cloud-Key.",
+  "execution_order": [
+    "env_lock",
+    "manifest_hash_check",
+    "config_scan",
+    "process_scan",
+    "ledger_anchor",
+    "node",
+    "audit_write"
+  ],
+  "execution_order_note": "STARTEN.sh delegiert zu 100% an zemala_orchestrator.sh (keine eigenen Checks, keine Rekursion: der Orchestrator ruft STARTEN.sh NICHT auf). Dadurch laeuft STARTEN nur, wenn Env-Lock + Manifest-Check bestehen - sonst gar nichts. Der Orchestrator fuehrt danach Config, Prozesse, Ledger+Anker, Node, Audit schreiben in genau dieser Reihenfolge aus.",
+  "files": {
+    "verify_ledger.py": {
+      "path": "verify_ledger.py",
+      "sha256": "3ae0284d9ddab4d37088ee3adda332ac75ac6e931720d0c787b2070254cfaccd"
+    },
+    "STARTEN.sh": {
+      "path": "STARTEN.sh",
+      "sha256": "5576c0768ab76c5b9be6e5bdbee3f4f6155b8855b62f0ba6acabf4c9b0679e06"
+    },
+    "evidence/ledger.jsonl": {
+      "path": "evidence/ledger.jsonl",
+      "sha256": "b4247c8d18780d28d076a3a3985b4832a10f537240a5f284c2de2923ae7bdd22"
+    },
+    "evidence/ledger_anchor.json": {
+      "path": "evidence/ledger_anchor.json",
+      "sha256": "08f488919c81c8741960a147c0901b93229da370b4a70a1347505ea85e42ceed"
+    },
+    "zemala_orchestrator.sh": {
+      "path": "zemala_orchestrator.sh",
+      "sha256": "609d0f7f64b0f08692148dbdedd9dd8e9f549a38f17a45338ddaf95a835239a3"
+    }
+  },
+  "audit_requirements": {
+    "status": "COMPLIANT nur wenn alle Checks gruen",
+    "demo": false,
+    "manifest_hash": "muss exakt SHA256 dieser Manifest-Datei sein",
+    "block_count": "muss exakt block_count aus evidence/ledger_anchor.json sein",
+    "head_hash": "muss exakt head_hash aus evidence/ledger_anchor.json sein",
+    "checks_failed": "leer bei COMPLIANT, nicht-leer bei NON-COMPLIANT",
+    "node_skip": "kein Pass mit 'uebersprungen'/'Skip' in Prod",
+    "stale_audit": "Stale Audit wird zu Laufbeginn geloescht; bei FAIL ein frisches NON-COMPLIANT-Audit als Spur."
+  },
+  "trust_note": "Manifest ist Vertrauensanker, wird NICHT aus der geprueften Datei regeneriert. Wer das Manifest selbst auf eine gefaelschte Datei umschreibt, bricht die Kette - deshalb muss das Manifest out-of-band (Git-Commit / publizierter Hash) gesichert werden. Anker darf NIE aus dem geprueften Ledger regeneriert werden (--write-anchor entfernt in verify_ledger.py v3).",
+  "docker_note": "Portabel: Alle Pfade relativ zum Skript-Ordner (SCRIPT_DIR). Kein absoluter Pfad in diesem Manifest. Lokal, im Container und in jedem Clone gilt dieselbe Regel.",
+  "precommit_note": "Pre-Commit: Unmittelbar vor jedem Git Commit validiert pre_commit_check.sh alle 6 Kernartefakte gegen dieses Manifest. Nur bei 100% wird der Commit freigegeben."
+}

@@ -1,0 +1,6 @@
+{
+  "head_hash": "a8875565a600c7d5f0ec46c38551c10abd4b1064680ad7e060a84ebc5d6535e5",
+  "block_count": 12,
+  "ledger_file": "evidence/ledger.jsonl",
+  "note": "Nur einmal aus vertrauenswuerdigem Ledger erzeugen. Danach out-of-band aufbewahren/publizieren - NIE aus der geprueften Datei regenerieren. v3: --write-anchor entfernt, --anchor Pflicht. Gepinnt (Tor 1): evidence/ledger.jsonl relativ zum Skript-Ordner."
+}

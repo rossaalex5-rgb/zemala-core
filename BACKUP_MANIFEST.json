@@ -1,0 +1,95 @@
+{
+  "generated": "2026-11-16T21:43:17Z",
+  "purpose": "Revisionssicheres Backup-Paket Zemala - alle verifizierten Artefakte, Manifeste, Protokolle. In Google Drive Ordner 'Zemala / Revisionssicher' legen, nie überschreiben, nur neue Version mit Datum anhängen.",
+  "drive_status": "NICHT hochgeladen - Drive-Write hier nicht unterstützt (nur lesend). Dieses Manifest macht den manuellen Upload prüfbar.",
+  "drive_folder_suggested": "Zemala / Revisionssicher / 2026-11-16_COMPLIANT",
+  "changelog_head": "39f7191385c6a9f3140aa230eb7d87a011721528134e4857fe7ae0f987b7307b",
+  "audit": {
+    "status": "COMPLIANT",
+    "block_count": 12,
+    "head_hash": "a8875565a600c7d5f0ec46c38551c10abd4b1064680ad7e060a84ebc5d6535e5",
+    "manifest_hash": "a43fd5ca16c4208fe8459f843e5678f91f7bbf377a3e4ede2e727a4ef4e3738b"
+  },
+  "files": {
+    "STARTEN.sh": {
+      "sha256": "5576c0768ab76c5b9be6e5bdbee3f4f6155b8855b62f0ba6acabf4c9b0679e06",
+      "bytes": 798,
+      "status": "VERIFIZIERT - im Paket enthalten"
+    },
+    "verify_ledger.py": {
+      "sha256": "3ae0284d9ddab4d37088ee3adda332ac75ac6e931720d0c787b2070254cfaccd",
+      "bytes": 10980,
+      "status": "VERIFIZIERT - im Paket enthalten"
+    },
+    "zemala_orchestrator.sh": {
+      "sha256": "609d0f7f64b0f08692148dbdedd9dd8e9f549a38f17a45338ddaf95a835239a3",
+      "bytes": 15957,
+      "status": "VERIFIZIERT - im Paket enthalten"
+    },
+    "zemala_manifest.json": {
+      "sha256": "a43fd5ca16c4208fe8459f843e5678f91f7bbf377a3e4ede2e727a4ef4e3738b",
+      "bytes": 3242,
+      "status": "VERIFIZIERT - im Paket enthalten"
+    },
+    "evidence/ledger.jsonl": {
+      "sha256": "b4247c8d18780d28d076a3a3985b4832a10f537240a5f284c2de2923ae7bdd22",
+      "bytes": 3101,
+      "status": "VERIFIZIERT - im Paket enthalten"
+    },
+    "evidence/ledger_anchor.json": {
+      "sha256": "08f488919c81c8741960a147c0901b93229da370b4a70a1347505ea85e42ceed",
+      "bytes": 415,
+      "status": "VERIFIZIERT - im Paket enthalten"
+    },
+    "evidence/ledger_audit.json": {
+      "sha256": "8d1b990c0246bec93a5b0994c51ff1f1771cf0dfe1590cda12d14d4fab38cbc8",
+      "bytes": 1130,
+      "status": "VERIFIZIERT - im Paket enthalten"
+    },
+    "evidence/changelog.jsonl": {
+      "sha256": "875158ff13880e02eccae9a7e4586292a6af0d11980de419443dc9408cf76c49",
+      "bytes": 8213,
+      "status": "VERIFIZIERT - im Paket enthalten"
+    },
+    "CHANGELOG_ZEMALA.md": {
+      "sha256": "c6db06b915d509a281782ec537023a60c179679340f1a427425b72d9fc3f5215",
+      "bytes": 11012,
+      "status": "VERIFIZIERT - im Paket enthalten"
+    },
+    "verify_changelog.py": {
+      "sha256": "0335783cf73cc20fda479462115816488291a3ed817dcc1c65c9c1e8d8170b91",
+      "bytes": 1291,
+      "status": "VERIFIZIERT - im Paket enthalten"
+    },
+    "append_changelog.py": {
+      "sha256": "c483e03e125c48506dd73f33d871829d2d682b255bbffd7fd09300bebb6b755a",
+      "bytes": 2249,
+      "status": "VERIFIZIERT - im Paket enthalten"
+    },
+    "docker_cleanroom_gate.sh": {
+      "sha256": "f21f10693278aae1269fd15de75c6200ca62c4dcc7f9dd61846722f1e257a558",
+      "bytes": 4401,
+      "status": "VERIFIZIERT - im Paket enthalten"
+    },
+    "pre_commit_check.sh": {
+      "sha256": "6eb0875a4b9a61c8cd58a93ec404f1f0ef6cff81ca5faf33011f2fe8926f231a",
+      "bytes": 7145,
+      "status": "VERIFIZIERT - im Paket enthalten"
+    },
+    "install_precommit.sh": {
+      "sha256": "0a69036efc60498b454bc304822aed338070ee61d64c997ca5917cac47409633",
+      "bytes": 646,
+      "status": "VERIFIZIERT - im Paket enthalten"
+    },
+    "PUSH_READY.md": {
+      "sha256": "006f4878811ca2755bffa6d9c4336040a0fcd8462778a7f1440c712ab2ce9755",
+      "bytes": 2822,
+      "status": "VERIFIZIERT - im Paket enthalten"
+    },
+    "Dockerfile": {
+      "sha256": "f562fbc1e8cd33538fe306c233f96d87f76ced8c4c85724be9c3bacec804cb4f",
+      "bytes": 1739,
+      "status": "VERIFIZIERT - im Paket enthalten"
+    }
+  }
+}

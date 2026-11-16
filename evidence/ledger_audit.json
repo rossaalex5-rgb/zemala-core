@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-11-16T21:41:33Z",
+  "status": "COMPLIANT",
+  "compliant": true,
+  "demo": false,
+  "mode": "prod",
+  "env_overrides": [],
+  "ledger_file": "evidence/ledger.jsonl",
+  "verify_script": "verify_ledger.py",
+  "block_count": 12,
+  "head_hash": "a8875565a600c7d5f0ec46c38551c10abd4b1064680ad7e060a84ebc5d6535e5",
+  "manifest_hash": "a43fd5ca16c4208fe8459f843e5678f91f7bbf377a3e4ede2e727a4ef4e3738b",
+  "checks_passed": [
+    "Cloud isolation (Config): Keine persistente Gemini/gcloud/openai Config gefunden",
+    "Cloud isolation (Env): Kein externer API-Key in Env",
+    "Cloud isolation (Prozesse): Kein aktiver Cloud-CLI Prozess gefunden",
+    "Ledger Integrity: Ledger valid + Anker OK",
+    "Node service: reachable (http://localhost:8085/status)"
+  ],
+  "checks_failed": [],
+  "method": "fail-closed: COMPLIANT nur wenn alle Checks gruen. EINE Regel: JEDE ZEMALA_* = FAIL. Prod ist Default, kein Demo-Modus. Env-Lock + Manifest + Config + Prozesse + Ledger/Anker + Node.",
+  "note": "Dieser Report beweist keine historische Existenz vor dem Timestamp. Er beweist nur den Zustand zum Zeitpunkt des Laufs."
+}
