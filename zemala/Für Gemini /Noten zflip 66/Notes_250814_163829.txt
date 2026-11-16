@@ -1,0 +1,63 @@
+Landingpage: KI-Systeme mit messbarem Mehrwert
+Hero-Sektion
+Headline:
+„KI, die Prozesse optimiert – messbar in Zeit, Qualität und Euro“
+Subline:
+„Steigern Sie Effizienz, sparen Kosten und verbessern Kundenzufriedenheit – nachweisbar in jeder Branche.“
+CTA-Button:
+„Jetzt Demo anfordern“
+Sektion 1: Kundenmanagement (KMU-Beispiel)
+Überschrift:
+„Automatisierte Kundeninteraktionen – sofort messbare Ergebnisse“
+Text / Bulletpoints:
+• Verknüpft E-Mail, Chat, Social Media und Kundenfeedback
+• Standardanfragen werden sofort beantwortet, komplexe Fälle erhalten freigabefertige Vorschläge
+• Dringende Anfragen werden automatisch an zuständige Fachkraft gepusht
+• KPIs für Reaktionszeit & Kundenzufriedenheit werden selbstständig optimiert
+• Innerhalb von 3 Monaten Reduktion der Antwortzeiten um 70 %
+• Kosteneinsparung: 1 IT-Mitarbeiter à 5.000 €/Monat → KI übernimmt 80 % → 4.000 € Ersparnis/Monat
+• Umsatzsteigerung: schnellerer Service → 5 % Umsatzplus bei 500.000 € Jahresumsatz → ~25.000 € zusätzlicher Gewinn
+• Nettoeffekt: ~57.000 € Vorteil pro Jahr
+Aha-Effekt:
+„Teilweise oder vollständige Automatisierung erzeugt sofort messbare finanzielle Vorteile.“
+Sektion 2: Gesundheitswesen (HLH-Strukturbude / Klinikbeispiel)
+Überschrift:
+„Patientendaten intelligent verknüpft – Sicherheit, Effizienz und messbare Einsparungen“
+Text / Bulletpoints:
+• Echtzeit-Verknüpfung von Patientendaten, Laborwerten, Medikation, Feedback und Abteilungsressourcen
+• Personalisierte Therapiepläne, automatische Warnungen an Pflegepersonal
+• Kontinuierliche Integration neuer Tests und Therapien
+• Reduktion medizinischer Fehler: ca. 30 %
+• Entlastung von 2 Vollzeitäquivalenten → Kosteneinsparung ~6.000 € / Monat
+• Reaktionszeit & Entscheidungsqualität stark erhöht
+• Innerhalb von 3 Monaten messbare Optimierung von Prozessen und Patientenzufriedenheit
+Aha-Effekt:
+„Mehr Sicherheit für Patienten, weniger Belastung für Mitarbeiter, messbare Einsparungen im Betrieb.“
+Sektion 3: Skalierung auf andere Branchen – messbare Effekte
+Überschrift:
+„Von KMU bis Industrie – direkt messbare Ergebnisse in Euro, Zeit und Qualität“
+Text / Bulletpoints:
+• Einzelhandel: Automatisierte Lagerverwaltung & personalisierte Angebote → 3.000 € Einsparung / Monat, Umsatzsteigerung 2.000 € / Monat
+• Logistik: Optimierung von Lieferketten & Routenplanung → Transportkostenreduzierung 15 %, schnellere Lieferzeiten
+• Finanzen & Versicherungen: Automatisierte Antragsbearbeitung → 2 Mitarbeiter eingespart, Prozessdauer 50 % reduziert
+• Bildung: KI-gestützte Lernpfade → Zeitersparnis 30 %, bessere Lernergebnisse messbar
+Aha-Effekt:
+„Unsere Lösung skaliert direkt – alle Effekte sichtbar in Euro, Zeit und Qualität.“
+Sektion 4: Unsere Arbeitsweise – Fußabdruck-System
+Überschrift:
+„Kontinuierliche Optimierung – proaktiv statt reaktiv“
+Text / Bulletpoints:
+• Lernt aus allen Eingaben und Kanälen
+• Optimiert Prozesse selbstständig
+• Proaktiv: Engpässe werden vermieden
+• Effektmessung in Echtzeit: Zeitersparnis, Kosteneinsparung, Kundenzufriedenheit
+• Normales System vs. Fußabdruck-Bruder: Normale KI hört auf, wenn das Problem gelöst ist. Unser System hört erst auf, wenn Prozesse perfekt laufen und sich selbst verbessern.
+CTA-Button:
+„Mehr erfahren – Ihre Branche entdecken“
+Sektion 5: Abschluss / Kontakt
+Headline:
+„Starten Sie jetzt Ihre Effizienz-Revolution mit KI“
+Text:
+„Vereinbaren Sie eine Demo oder lassen Sie sich individuell beraten. Erleben Sie, wie Ihre Prozesse sofort messbar effizienter werden – in Euro, Zeit und Kundenzufriedenheit.“
+CTA-Button:
+„Demo anfordern“

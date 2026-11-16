@@ -1,0 +1,27 @@
+{
+  "zemala_state_engine": {
+    "cadence": "3.47s",
+    "levels": {
+      "1_orientierung": {
+        "01": "Wahrnehmung",
+        "02": "Einordnung",
+        "03": "Bedeutung"
+      },
+      "2_verarbeitung": {
+        "04": "Analyse",
+        "05": "Rekonstruktion",
+        "06": "Entscheidung"
+      },
+      "3_vollzug": {
+        "07": "Umsetzung",
+        "08": "Dokumentation",
+        "09": "Verifikation"
+      },
+      "4_entwicklung": {
+        "10": "Reflexion",
+        "11": "Verbesserung",
+        "12": "Integration"
+      }
+    }
+  }
+}

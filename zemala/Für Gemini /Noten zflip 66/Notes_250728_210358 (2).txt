@@ -1,0 +1,60 @@
+OpenAI hat Angst, dass ChatGPT für gefährliche Zwecke genutzt wird und stellt einen Plan vor, um das zu verhindern
+Noch kann besteht keine Gefahr, doch es könnte bald so weit sein. OpenAI will, dass ChatGPT vorbereitet ist.
+Jan Stahnke
+24.07.2025 | 16:30 Uhr
+21
+ Der neue Agent von ChatGPT soll laut den eigenen Entwicklern großes Potenzial haben, doch das birgt auch Gefahren. (Bildquelle: Adobe Stock - Roman - Stokkete - rotozey)
+Erst letzte Woche (17. Juli 2025) hat OpenAI den ChatGPT Agent vorgestellt, der diverse komplexe Aufgaben für euch erledigen soll, beispielsweise Reisen buchen.
+Nun hat OpenAI selbst den Agenten als Hochrisiko im Bezug auf Biowaffen, Chemie und Prompt Injections (dazu gleich mehr) eingestuft und will diesen Gefahren vorbeugen. Das haben sie in einem 42 Seiten langen Dokument festgehalten.
+Was kann der Agent überhaupt?
+ChatGPT Agent ist ein KI-Modell von OpenAI. Es kombiniert:
+• Tiefgreifende Recherchen mit mehrstufiger Analyse und hochwertigen Berichten
+• Visuelle Aufgabenbearbeitung über einen integrierten Remote-Browser
+• Codeausführung und Datenanalyse über ein eingebautes Terminal
+• Zugriff auf externe Dienste wie Google Drive per Connector
+Damit hat es deutlich mehr Macht und Entscheidungsfreiheit als bisherige Modelle.
+ChatGPT Agent: Potenzielle Gefahren
+Warum könnte in Zukunft eine Gefahr vom Agent ausgehen? Wir wollen direkt klarstellen: OpenAI sieht momentan keine akute Gefahr. Doch sie stufen das Modell als höchst fähig (High Capability) im biologischen und chemischen Bereich ein. 
+Die High Capability ist im Hause OpenAI dann zutreffend, wenn ein Einsteiger mithilfe des Modells schwere biologische Schäden verursachen könnte.
+Obwohl wir keine definitiven Beweise dafür haben, dass dieses Modell einem Anfänger dabei helfen könnte, schwere biologische Schäden zu verursachen - unsere definierte Schwelle für 'hoch' - haben wir uns für einen vorsorglichen Ansatz entschieden.
+Einfach gesagt: Das Modell ist faktisch noch nicht in der Lage, über den Agenten biologische und chemische Waffen zu bauen. OpenAI behandelt das Modell allerdings so und leitet vorsorglich Maßnahmen ein.
+Neben der Gefahr durch Biowaffen oder Chemie, die laut OpenAI momentan die potenziell größte, das größte Risiko darstellt, nennen sie noch weitere Risikofaktoren:
+• Prompt Injections: Schadcode in Webseiten oder Texten, der unter anderem von Hackern genutzt werden kann, um den Agenten zu manipulieren und ungewollte Aktionen ausführen zu lassen.
+• Fehlverhalten: Der Agent könnte selbstständig falsche Aktionen ausführen oder sensible Daten preisgeben.
+• Missbrauch durch Nutzer:innen: Zum Beispiel bei Finanztransaktionen, Glücksspiel oder dem Ausspähen persönlicher Daten.
+• Jailbreaks: Versuche, die Sicherheitsbarrieren des Modells gezielt zu umgehen.
+
+XMG NEO 16 GameStar-Notebook ELITE Z
+16.0″ Mini LED IPS Display, 2560×1600 px, 300 Hz
+RTX 5090, Ryzen 9 9955HX3D, 32 GB DDR5, 2000 GB SSD
+• Stärkste Laptop-Grafikkarte
+• Sehr schneller X3D-16-Kern-Prozessor
+• Leistungssprung von der 5080 geringer als beim Desktop
+4639 €4429 €
+zu BoostBoxx
+So will OpenAI den Agenten sicherer machen
+Worum geht’s? OpenAI hat das sogenannte Preparedness Framework vorgestellt. Dieses Framework ist ihr Plan, um Risiken durch sehr fähige KI-Modelle zu erkennen, zu verfolgen und zu minimieren, indem sie Safeguards (Schutzmaßnahmen) definieren und umsetzen.
+Die wichtigsten Punkte im Preparedness Framework findet ihr hier:
+Modelltraining: Der Agent wird so trainiert, dass er Anfragen nach Waffen-Assistenz ablehnt und bei Dual-Use-Themen (die sowohl für gute als auch schlechte Zwecke genutzt werden können) keine detaillierten, umsetzbaren Informationen liefert.
+System-Level-Schutz: Es gibt automatisierte Überwachungs- und Filtersysteme, die in Echtzeit gefährliche Anfragen oder Antworten erkennen und blockieren sollen. Dieses zweistufige System prüft Nutzernachrichten, Tool-Aufrufe und die endgültige Modellausgabe.
+Nutzerbestätigungen: Bei sensiblen Aktionen (z.B. Käufen, E-Mails senden) muss der Nutzer die Aktion des Agenten bestätigen, um Fehler oder unbeabsichtigte Handlungen zu verhindern.
+Watch Mode: In sensiblen Kontexten (z.B. bei der Nutzung des visuellen Browsers in E-Mail- oder Bankkonten) wird der Watch Mode aktiviert. Dieser pausiert die Ausführung, wenn der Nutzer inaktiv wird oder die Konversation verlässt, um eine ständige Aufsicht zu gewährleisten.
+Beliebt bei GameStar Tech
+1
+Ein Unternehmen in Barcelona wollte die Vier-Tage-Woche ausprobieren. Am Ende entließ es einen Mitarbeiter, weil er zwei Jobs hatte
+von Nils Raettig
+
+2
+Mein Portemonnaie ist weg: Ich habe das Schreckensszenario 4 Mal mit Absicht erlebt – Wie viele Geldbeutel bekam ich wieder?
+von Nils Raettig
+
+Einschränkungen des Terminal-Netzwerks: Der Zugang des Agents zum Netzwerk über das Terminal-Tool ist eingeschränkt, um das Risiko von ungewollter Datenbeschaffung und anderen Missbräuchen zu minimieren.
+Deaktivierung des Speichers: Die Erinnerungsfunktion von ChatGPT Agent ist vorerst deaktiviert, um das Risiko von Prompt Injections zu reduzieren, die versuchen, Daten aus dem Speicher zu extrahieren.
+Nutzungsrichtlinien und Konten-Sperrung (Usage Policy Enforcement): Nutzer sind an OpenAIs Richtlinien gebunden. Verstöße können zur Sperrung des Kontos führen, und in extremen Fällen können Behörden informiert werden.
+GameStar Tech Talk: Geht KI zu weit?
+Autoplay
+Red Teaming: Externe Experten und interne Teams versuchen, die Sicherheitsvorkehrungen zu durchbrechen (sogenanntes Jailbreaking), um Schwachstellen zu finden, die dann behoben werden können.
+Schnelle Reaktion und Bug Bounty: OpenAI hat Protokolle für die schnelle Erkennung und Behebung von Schwachstellen nach dem Start des Systems etabliert und ein Bug-Bounty-Programm gestartet, das Forschende einlädt, universelle Jailbreaks zu finden.
+Das sollte laut OpenAI fürs erste ausreichen, doch dieses System bleibt flexibel und anpassbar, sodass OpenAI jederzeit gewisse Stellschrauben enger drehen kann.
+Was denkt ihr? Geht OpenAI hier in die richtige Richtung? Schreibt es gerne in die Kommentare
+•

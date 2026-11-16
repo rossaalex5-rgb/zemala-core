@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zemala · Reallabor Allee 18 · EU AI Act Compliance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ─────────────────────────────────── */
+:root {
+  --bg:        #07090F;
+  --bg-2:      #0D1120;
+  --bg-3:      #131929;
+  --bg-4:      #1C2540;
+  --gold:      #C4A35A;
+  --gold-lt:   #E2C17E;
+  --gold-dim:  rgba(196,163,90,0.12);
+  --gold-line: rgba(196,163,90,0.22);
+  --white:     #F2EDE4;
+  --muted:     #6B7A95;
+  --dim:       #2A3350;
+  --green:     #4BB88A;
+  --red:       #D95A5A;
+  --amber:     #E0992A;
+  --radius:    6px;
+  --fs-giant:  clamp(3.5rem, 10vw, 9rem);
+  --fs-hero:   clamp(1.1rem, 2vw, 1.4rem);
+  --fs-label:  0.72rem;
+}
+
+/* ─── RESET ──────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+a { color: var(--gold); text-decoration: none; }
+a:hover { color: var(--gold-lt); }
+img { display: block; max-width: 100%; }
+
+/* ─── UTILITY ────────────────────────────────── */
+.mono { font-family: 'JetBrains Mono', monospace; }
+.serif { font-family: 'Instrument Serif', Georgia, serif; }
+.label {
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-line);
+  border-radius: 3px;
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.tag .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.7); }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ─── NAV ────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  height: 60px;
+  background: rgba(7,9,15,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--gold-line);
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--white);
+  letter-spacing: 0.04em;
+}
+.nav-mark {
+  width: 28px; height: 28px;
+  border: 1.5px solid var(--gold);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+}
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-cta {
+  padding: 7px 18px;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gold);
+  transition: background 0.2s, color 0.2s;
+}
+.nav-cta:hover { background: var(--gold); color: var(--bg); }
+
+@media (max-width: 700px) {
+  .nav-links { display: none; }
+}
+
+/* ─── HERO ───────────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 clamp(1.5rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem);
+  position: relative;
+  overflow: hidden;
+}
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(196,163,90,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(196,163,90,0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+.hero-glow {
+  position: absolute;
+  top: -20%; left: 20%;
+  width: 60%; height: 70%;
+  background: radial-gradient(ellipse, rgba(196,163,90,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-top {
+  position: absolute;
+  top: 90px; left: clamp(1.5rem, 5vw, 4rem);
+  right: clamp(1.5rem, 5vw, 4rem);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.hero-status {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.hero-articles {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.art-badge {
+  padding: 5px 12px;
+  border: 1px solid var(--gold-line);
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+.art-badge.verified::after {
+  content: " ✓";
+  color: var(--green);
+}
+
+.hero-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: var(--fs-giant);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  position: relative;
+  z-index: 1;
+  animation: heroIn 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.hero-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  position: relative;
+  z-index: 1;
+  animation: heroIn 1s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-sub {
+  max-width: 480px;
+  font-size: var(--fs-hero);
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.hero-sub strong { color: var(--white); font-weight: 500; }
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  padding: 12px 26px;
+  background: var(--gold);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-primary:hover { background: var(--gold-lt); transform: translateY(-1px); }
+.btn-outline {
+  padding: 12px 26px;
+  border: 1px solid var(--dim);
+  border-radius: var(--radius);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ─── STATS STRIP ────────────────────────────── */
+#stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--dim);
+  border-bottom: 1px solid var(--dim);
+  background: var(--bg-2);
+}
+.stat-item {
+  padding: 2rem clamp(1rem, 3vw, 2.5rem);
+  border-right: 1px solid var(--dim);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  color: var(--gold);
+  line-height: 1;
+}
+.stat-desc {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.3;
+}
+@media (max-width: 680px) {
+  #stats { grid-template-columns: repeat(2, 1fr); }
+  .stat-item:nth-child(2) { border-right: none; }
+}
+
+/* ─── SECTION BASE ───────────────────────────── */
+section {
+  padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem);
+}
+.section-header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2rem;
+  align-items: start;
+  margin-bottom: clamp(3rem, 5vw, 4.5rem);
+}
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+  padding-top: 6px;
+  letter-spacing: 0.08em;
+}
+.section-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(1.9rem, 4vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.section-title em { font-style: italic; color: var(--gold); }
+.section-lead {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--muted);
+  max-width: 560px;
+  line-height: 1.6;
+}
+
+/* ─── §01 PROBLEM ────────────────────────────── */
+#problem { background: var(--bg); }
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--dim);
+  border: 1px solid var(--dim);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.problem-card {
+  background: var(--bg-2);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.problem-card:nth-child(1) { border-bottom: 1px solid var(--dim); }
+.problem-card:nth-child(2) { border-bottom: 1px solid var(--dim); }
+.prob-art {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+.prob-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--white);
+}
+.prob-text {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.prob-risk {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(217,90,90,0.08);
+  border: 1px solid rgba(217,90,90,0.2);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: var(--red);
+  font-weight: 600;
+}
+.prob-risk::before {
+  content: "⚠";
+  font-size: 0.9rem;
+}
+
+@media (max-width: 680px) {
+  .problem-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── §02 LÖSUNG (COMPLIANCE MAP) ───────────────── */
+#solution { background: var(--bg-2); }
+.map-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--dim);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.map-table thead tr {
+  background: var(--bg-3);
+}
+.map-table th {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--dim);
+}
+.map-table td {
+  padding: 1.25rem 1.25rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--dim);
+  vertical-align: top;
+}
+.map-table tr:last-child td { border-bottom: none; }
+.map-table tr:hover td { background: rgba(196,163,90,0.03); }
+.art-cell {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--gold);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.req-cell { color: var(--muted); line-height: 1.5; }
+.sol-cell { color: var(--white); line-height: 1.5; }
+.status-cell {
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.status-ready { color: var(--green); }
+.status-active { color: var(--amber); }
+
+/* Architecture diagram */
+.arch-wrap {
+  margin-top: 3rem;
+  background: var(--bg-3);
+  border: 1px solid var(--dim);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.arch-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--dim);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.arch-dot { width: 8px; height: 8px; border-radius: 50%; }
+.arch-body {
+  padding: 2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+.arch-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.arch-box {
+  padding: 8px 14px;
+  border: 1px solid var(--gold-line);
+  border-radius: 4px;
+  background: var(--gold-dim);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--gold);
+  text-align: center;
+  white-space: nowrap;
+}
+.arch-label {
+  font-size: 0.62rem;
+  color: var(--muted);
+  text-align: center;
+  white-space: nowrap;
+}
+.arch-arrow {
+  color: var(--dim);
+  font-size: 1rem;
+  padding: 0 6px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 10px;
+}
+
+/* ─── §03 REALLABOR ──────────────────────────── */
+#reallabor { background: var(--bg); }
+.lab-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.lab-hero-card {
+  grid-column: 1 / -1;
+  background: var(--bg-2);
+  border: 1px solid var(--dim);
+  border-radius: 10px;
+  padding: 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: center;
+}
+.lab-headline {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 400;
+  line-height: 1.2;
+}
+.lab-headline em { font-style: italic; color: var(--gold); }
+.lab-body { font-size: 0.9rem; color: var(--muted); margin-top: 1rem; line-height: 1.6; }
+.lab-badge-cluster {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+.lab-card {
+  background: var(--bg-2);
+  border: 1px solid var(--dim);
+  border-radius: 10px;
+  padding: 1.75rem;
+}
+.lab-card-icon {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+.lab-card-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.lab-card-text {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+@media (max-width: 680px) {
+  .lab-grid { grid-template-columns: 1fr; }
+  .lab-hero-card { grid-template-columns: 1fr; }
+  .lab-badge-cluster { align-items: flex-start; }
+}
+
+/* ─── §04 SELF-CHECK ─────────────────────────── */
+#check { background: var(--bg-2); }
+.check-intro {
+  max-width: 560px;
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+}
+.check-wrap {
+  background: var(--bg-3);
+  border: 1px solid var(--dim);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.check-progress-bar {
+  height: 3px;
+  background: var(--dim);
+}
+.check-progress-fill {
+  height: 100%;
+  background: var(--gold);
+  transition: width 0.4s ease;
+  width: 0%;
+}
+.check-body { padding: 2.5rem; }
+.check-counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+.check-question {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--white);
+  line-height: 1.4;
+  margin-bottom: 2rem;
+  min-height: 3.5rem;
+}
+.check-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+.check-btns {
+  display: flex;
+  gap: 12px;
+}
+.check-btn {
+  flex: 1;
+  padding: 14px;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: 1px solid;
+}
+.check-btn-yes {
+  background: rgba(75,184,138,0.1);
+  border-color: rgba(75,184,138,0.3);
+  color: var(--green);
+}
+.check-btn-yes:hover {
+  background: rgba(75,184,138,0.2);
+  border-color: var(--green);
+}
+.check-btn-no {
+  background: rgba(217,90,90,0.08);
+  border-color: rgba(217,90,90,0.25);
+  color: var(--red);
+}
+.check-btn-no:hover {
+  background: rgba(217,90,90,0.15);
+  border-color: var(--red);
+}
+
+/* Result */
+.check-result {
+  padding: 2.5rem;
+  display: none;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.check-result.visible { display: flex; }
+.result-score-ring {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.ring-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 4rem;
+  line-height: 1;
+}
+.ring-num.score-low  { color: var(--green); }
+.ring-num.score-mid  { color: var(--amber); }
+.ring-num.score-high { color: var(--red); }
+.result-verdict { font-size: 1.15rem; font-weight: 600; }
+.result-details {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.result-articles { display: flex; gap: 8px; flex-wrap: wrap; }
+.art-risk {
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+.art-risk.ok  { background: rgba(75,184,138,0.12); color: var(--green); border: 1px solid rgba(75,184,138,0.3); }
+.art-risk.gap { background: rgba(217,90,90,0.1);   color: var(--red);   border: 1px solid rgba(217,90,90,0.3); }
+.result-cta {
+  padding-top: 1rem;
+  border-top: 1px solid var(--dim);
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.restart-link {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 12px 0;
+}
+.restart-link:hover { color: var(--white); }
+
+/* ─── §05 KONTAKT ─────────────────────────────── */
+#contact { background: var(--bg); }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.contact-block {
+  padding: 1.5rem;
+  background: var(--bg-2);
+  border: 1px solid var(--dim);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.contact-block .c-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.contact-block .c-val {
+  font-size: 0.9rem;
+  color: var(--white);
+  font-weight: 500;
+}
+.contact-block .c-sub {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.contact-qual {
+  padding: 1.5rem;
+  background: var(--bg-2);
+  border: 1px solid var(--dim);
+  border-left: 3px solid var(--gold);
+  border-radius: 8px;
+}
+.qual-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+.qual-list li {
+  font-size: 0.85rem;
+  color: var(--muted);
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+.qual-list li::before {
+  content: "—";
+  color: var(--gold);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+}
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.field-group label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+.field-group input,
+.field-group select,
+.field-group textarea {
+  background: var(--bg-2);
+  border: 1px solid var(--dim);
+  border-radius: var(--radius);
+  padding: 11px 14px;
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
+  outline: none;
+  width: 100%;
+}
+.field-group input:focus,
+.field-group select:focus,
+.field-group textarea:focus {
+  border-color: var(--gold);
+}
+.field-group input::placeholder,
+.field-group textarea::placeholder { color: var(--muted); }
+.field-group select option { background: var(--bg-3); }
+.field-group textarea { resize: vertical; min-height: 100px; }
+.form-submit {
+  padding: 14px;
+  background: var(--gold);
+  border: none;
+  border-radius: var(--radius);
+  color: var(--bg);
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s;
+}
+.form-submit:hover { background: var(--gold-lt); }
+.form-note {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (max-width: 680px) {
+  .contact-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+}
+
+/* ─── FOOTER ─────────────────────────────────── */
+footer {
+  padding: 2rem clamp(1.5rem, 5vw, 4rem);
+  border-top: 1px solid var(--dim);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background: var(--bg);
+}
+.footer-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.footer-brand strong { color: var(--gold); }
+.footer-integrity {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  opacity: 0.5;
+  letter-spacing: 0.1em;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-mark">Z</div>
+    <span>Zemala</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#problem">Das Problem</a></li>
+    <li><a href="#solution">Die Lösung</a></li>
+    <li><a href="#reallabor">Reallabor</a></li>
+    <li><a href="#check">Self-Check</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Kontakt</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-top">
+    <div class="hero-status">
+      <span class="tag"><span class="dot"></span> Aktiv · Wilster, SH · Art. 62 EU AI Act</span>
+    </div>
+    <div class="hero-articles">
+      <span class="art-badge verified">Art. 12</span>
+      <span class="art-badge verified">Art. 13</span>
+      <span class="art-badge verified">Art. 14</span>
+      <span class="art-badge verified">Art. 62</span>
+      <span class="art-badge verified">§ 16 SGB VIII</span>
+    </div>
+  </div>
+
+  <div>
+    <h1 class="hero-title">Compliance entsteht als<br><em>Nebenprodukt</em><br>der Architektur</h1>
+
+    <div class="hero-row">
+      <p class="hero-sub">
+        <strong>Zemala</strong> macht AI Act-Compliance für KMUs und Behörden greifbar:
+        nicht als Papierprojekt, sondern als lückenlose, technisch erzwungene Beweiskette —
+        lokal, auditierbar, rekonstruierbar.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('check').scrollIntoView({behavior:'smooth'})">
+          Compliance-Check starten
+        </button>
+        <button class="btn-outline" onclick="document.getElementById('reallabor').scrollIntoView({behavior:'smooth'})">
+          Zum Reallabor →
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div id="stats">
+  <div class="stat-item reveal">
+    <div class="stat-num">0</div>
+    <div class="label">Datenlecks</div>
+    <div class="stat-desc">Local-First Architektur.<br>Kein Cloud-Zwang.</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num mono">1.00</div>
+    <div class="label">Human Oversight Index</div>
+    <div class="stat-desc">Menschliche Letztentscheidung<br>technisch verankert (Art. 14).</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">SHA‑256</div>
+    <div class="label">Unveränderlichkeit</div>
+    <div class="stat-desc">Manipulationssichere<br>Prozess-Auditierung.</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">Art. 62</div>
+    <div class="label">Regulatory Sandbox</div>
+    <div class="stat-desc">Physisches Reallabor in<br>Wilster, Schleswig-Holstein.</div>
+  </div>
+</div>
+
+<!-- §01 PROBLEM -->
+<section id="problem">
+  <div class="section-header reveal">
+    <div class="section-num">§ 01</div>
+    <div>
+      <h2 class="section-title">Was der EU AI Act<br>von Ihnen <em>fordert</em></h2>
+      <p class="section-lead">
+        Seit August 2024 gilt der AI Act. Wer KI einsetzt, ist Betreiber — und trägt die Verantwortung.
+        Die Pflichten sind konkret, die Fristen laufen, die Bußgelder sind real.
+      </p>
+    </div>
+  </div>
+
+  <div class="problem-grid reveal">
+    <div class="problem-card">
+      <div class="prob-art">Art. 12 · Aufzeichnungspflicht</div>
+      <div class="prob-title">Automatische Protokollierung</div>
+      <div class="prob-text">
+        KI-Systeme müssen Ereignisse automatisch aufzeichnen — über die gesamte Betriebsdauer.
+        Logs müssen mindestens 6 Monate aufbewahrt werden. „Wir haben nichts dokumentiert" ist kein Argument.
+      </div>
+      <div class="prob-risk">Bis zu 15 Mio. € oder 3 % Jahresumsatz bei Verstoß</div>
+    </div>
+    <div class="problem-card">
+      <div class="prob-art">Art. 13 · Transparenz</div>
+      <div class="prob-title">Erklärbare Entscheidungen</div>
+      <div class="prob-text">
+        Betreiber müssen KI-Entscheidungen nachvollziehbar machen. Wer nicht erklären kann, wie ein
+        System zu einem Ergebnis kam, riskiert Haftung — gerade in sensiblen Bereichen wie Soziales oder Gesundheit.
+      </div>
+      <div class="prob-risk">Blackbox-KI erfüllt diese Anforderung nicht</div>
+    </div>
+    <div class="problem-card">
+      <div class="prob-art">Art. 14 · Menschliche Aufsicht</div>
+      <div class="prob-title">Human Oversight erzwingen</div>
+      <div class="prob-text">
+        Für Hochrisiko-KI muss die menschliche Letztentscheidung technisch sichergestellt sein.
+        Autonome Systeme, die unkontrolliert im Hintergrund agieren, sind nicht konform.
+      </div>
+      <div class="prob-risk">Gilt für KI im Bildungs-, Sozial- und Verwaltungsbereich</div>
+    </div>
+    <div class="problem-card">
+      <div class="prob-art">Art. 4 · KI-Kompetenz (seit Feb. 2025)</div>
+      <div class="prob-title">Arbeitgeberpflicht Schulung</div>
+      <div class="prob-text">
+        Arbeitgeber müssen sicherstellen, dass Mitarbeitende über ausreichende KI-Kompetenz verfügen —
+        von der Chatbot-Nutzung bis zur KI-Entwicklung. Dokumentation ist Pflicht.
+      </div>
+      <div class="prob-risk">Bereits in Kraft. Keine Übergangsfrist mehr.</div>
+    </div>
+  </div>
+</section>
+
+<!-- §02 LÖSUNG -->
+<section id="solution">
+  <div class="section-header reveal">
+    <div class="section-num">§ 02</div>
+    <div>
+      <h2 class="section-title">Die Zemala-Antwort:<br>Compliance als <em>Architektur</em></h2>
+      <p class="section-lead">
+        Während andere über Compliance reden, erzwingt Zemala sie technisch.
+        Jede Anforderung des AI Acts wird nicht dokumentiert — sie wird gebaut.
+      </p>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <table class="map-table">
+      <thead>
+        <tr>
+          <th>Artikel</th>
+          <th>Anforderung</th>
+          <th>Zemala-Lösung</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="art-cell">Art. 12<br>Protokollierung</td>
+          <td class="req-cell">Automatische Aufzeichnung aller KI-Ereignisse, manipulationssicher, 6 Monate Retention.</td>
+          <td class="sol-cell">Append-Only JSONL-Ledger mit SHA-256-Versiegelung. Jedes Ereignis erhält einen kryptografischen Zeitstempel, bevor es die lokale Hardware verlässt.</td>
+          <td class="status-cell status-ready">● Bereit</td>
+        </tr>
+        <tr>
+          <td class="art-cell">Art. 13<br>Transparenz</td>
+          <td class="req-cell">Entscheidungen müssen für Betreiber nachvollziehbar und erklärbar sein.</td>
+          <td class="sol-cell">IFR-Pipeline (Integration → Fortführung → Rekursion): Strikte Trennung von Event, Zustand und Interpretation. Jede Entscheidung ist deterministisch rekonstruierbar.</td>
+          <td class="status-cell status-ready">● Bereit</td>
+        </tr>
+        <tr>
+          <td class="art-cell">Art. 14<br>Aufsicht</td>
+          <td class="req-cell">Technische Sicherstellung menschlicher Letztentscheidung bei Hochrisiko-KI.</td>
+          <td class="sol-cell">HMI-Vollzug mit Human Oversight Index 1.00: Das System erzwingt manuelle Freigaben durch den Dirigenten. Kein autonomer Prozess ohne explizite Genehmigung.</td>
+          <td class="status-cell status-ready">● Bereit</td>
+        </tr>
+        <tr>
+          <td class="art-cell">Art. 4<br>Kompetenz</td>
+          <td class="req-cell">Schulung und dokumentierte KI-Kompetenz aller beteiligten Mitarbeitenden.</td>
+          <td class="sol-cell">AEVO-Logik: Projektleitung ist zertifizierter Ausbilder (AdA/IHK). Strukturierte KI-Kompetenz-Workshops mit Dokumentationslogik nach Art. 4.</td>
+          <td class="status-cell status-ready">● Bereit</td>
+        </tr>
+        <tr>
+          <td class="art-cell">Art. 62<br>Sandbox</td>
+          <td class="req-cell">Regulatorische Testumgebungen für die Erprobung innovativer KI-Systeme unter behördlicher Begleitung.</td>
+          <td class="sol-cell">Reallabor Allee 18 in Wilster: Physische Regulatory Sandbox nach Art. 62. Behördlich geprüft, kommunal verankert, scientific begleitet.</td>
+          <td class="status-cell status-active">● Aktiv</td>
+        </tr>
+        <tr>
+          <td class="art-cell">DSGVO<br>Local-First</td>
+          <td class="req-cell">Datenminimierung, Privacy by Design, Zweckbindung — besonders bei sensiblen Sozialdaten.</td>
+          <td class="sol-cell">Ausschließlich lokale Datenverarbeitung auf eigenen Endgeräten. Kein Cloud-Zwang. Sensible Daten verlassen den geschützten Standort nicht (§ 65 SGB VIII konform).</td>
+          <td class="status-cell status-ready">● Bereit</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Architecture Flow -->
+  <div class="arch-wrap reveal" style="margin-top: 2rem;">
+    <div class="arch-header">
+      <div class="arch-dot" style="background:#E05858"></div>
+      <div class="arch-dot" style="background:#E0992A; margin-left:4px;"></div>
+      <div class="arch-dot" style="background:#4BB88A; margin-left:4px;"></div>
+      <span class="label" style="margin-left:1rem;">Systemarchitektur · Zemala Ledger Flow</span>
+    </div>
+    <div class="arch-body">
+      <div class="arch-node">
+        <div class="arch-box">INPUT</div>
+        <div class="arch-label">Nutzer/System</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <div class="arch-box">CONNECTOR</div>
+        <div class="arch-label">HTTP / File / CB</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <div class="arch-box">EXECUTOR</div>
+        <div class="arch-label">Local Runtime</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <div class="arch-box">EVENT EMIT</div>
+        <div class="arch-label">Structured JSON</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <div class="arch-box">LEDGER</div>
+        <div class="arch-label">Append-Only JSONL</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <div class="arch-box">SHA-256</div>
+        <div class="arch-label">Hash / Timestamp</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <div class="arch-box">REPLAY</div>
+        <div class="arch-label">Rekonstruktion</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <div class="arch-box">AUDIT REPORT</div>
+        <div class="arch-label">Art. 12/13/14 ✓</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §03 REALLABOR -->
+<section id="reallabor">
+  <div class="section-header reveal">
+    <div class="section-num">§ 03</div>
+    <div>
+      <h2 class="section-title">Reallabor Allee 18<br><em>Wilster</em>, Schleswig-Holstein</h2>
+      <p class="section-lead">
+        Eine physische Regulatory Sandbox nach Art. 62 EU AI Act — im ländlichen Raum,
+        mit kommunaler Einbindung, für reale Bedingungen.
+      </p>
+    </div>
+  </div>
+
+  <div class="lab-grid">
+    <div class="lab-hero-card reveal">
+      <div>
+        <h3 class="lab-headline">Digitale Souveränität,<br>geboren <em>vor Ort</em> —<br>nicht in der Cloud</h3>
+        <p class="lab-body">
+          Das Reallabor in der Allee 18, Wilster, ist kein Konzept. Es ist eine erschlossene Gewerbeimmobilie,
+          aktiv im Betrieb, behördlich geprüft. Hier entstehen auditierbare KI-Prozesse unter Realbedingungen —
+          haushaltsneutral für die Kommune, datenschutzkonform für alle Beteiligten.
+        </p>
+        <p class="lab-body" style="margin-top:0.75rem;">
+          Am 01.06.2026 wurde das Prüfbegehren durch das Ordnungsamt der Stadt Wilster an das
+          Landesjugendamt Schleswig-Holstein weitergeleitet. Der administrative Weg ist frei.
+        </p>
+      </div>
+      <div class="lab-badge-cluster">
+        <span class="tag"><span class="dot"></span> Aktiv seit 2025</span>
+        <span class="tag">Art. 62 EU AI Act</span>
+        <span class="tag">§ 16 SGB VIII</span>
+        <span class="tag">Local-First</span>
+      </div>
+    </div>
+
+    <div class="lab-card reveal">
+      <div class="lab-card-icon">⚡</div>
+      <div class="lab-card-title">Segment Alpha — Digitale Testumgebung</div>
+      <div class="lab-card-text">
+        Hochmoderne Infrastruktur zur Erprobung lokaler LLM-Systeme auf mobilen ARM-Plattformen.
+        Termux/llama.cpp-Umgebung, vollständig cloudunabhängig. KI läuft auf dem Gerät des Nutzers —
+        nicht auf fremden Servern.
+      </div>
+    </div>
+
+    <div class="lab-card reveal">
+      <div class="lab-card-icon">🛡</div>
+      <div class="lab-card-title">Segment Beta — Sozialpädagogischer Schutzraum</div>
+      <div class="lab-card-text">
+        Betreute E-Sports-Pädagogik und Medienkompetenz-Workshops für Jugendliche im ländlichen Raum.
+        Prävention nach § 16 SGB VIII in Kooperation mit lokalen Behörden und PHK Meyhoff.
+      </div>
+    </div>
+
+    <div class="lab-card reveal">
+      <div class="lab-card-icon">📋</div>
+      <div class="lab-card-title">Segment Gamma — Administration & Auditierung</div>
+      <div class="lab-card-text">
+        Physisches Kontrollzentrum für das zweistufige Ledger-Verfahren: dynamischer Gemini-Loop
+        (Echtzeit-Protokollierung) + statisches GitHub-Repository (kryptografisch versiegelt, SHA-256).
+      </div>
+    </div>
+
+    <div class="lab-card reveal">
+      <div class="lab-card-icon">💰</div>
+      <div class="lab-card-title">Finanzierung &amp; Haushaltsneutralität</div>
+      <div class="lab-card-text">
+        Betriebskosten ca. 3.950–7.750 €. Finanzierung über EU-Förderprogramme für Regulatory Sandboxes,
+        Bundesmittel für Prävention und Digitalisierungszuschüsse SH. Keine Belastung des Kommunalhaushalts.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §04 SELF-CHECK -->
+<section id="check">
+  <div class="section-header reveal">
+    <div class="section-num">§ 04</div>
+    <div>
+      <h2 class="section-title">Ihr Compliance-<em>Check</em></h2>
+      <p class="section-lead">
+        8 Fragen. 3 Minuten. Sie sehen sofort, wo Handlungsbedarf besteht
+        und welche AI Act-Artikel für Ihr Unternehmen relevant sind.
+      </p>
+    </div>
+  </div>
+
+  <div class="check-wrap reveal">
+    <div class="check-progress-bar">
+      <div class="check-progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="check-body" id="checkBody">
+      <div class="check-counter" id="checkCounter">Frage 1 von 8</div>
+      <div class="check-meta" id="checkMeta"></div>
+      <div class="check-question" id="checkQuestion">Setzt Ihr Unternehmen oder Ihre Organisation KI-Systeme ein (auch Chatbots, Empfehlungssysteme, automatisierte Entscheidungen)?</div>
+      <div class="check-btns">
+        <button class="check-btn check-btn-yes" onclick="answer(true)">✓ Ja</button>
+        <button class="check-btn check-btn-no"  onclick="answer(false)">✗ Nein / Noch nicht</button>
+      </div>
+    </div>
+
+    <div class="check-result" id="checkResult">
+      <div class="result-score-ring">
+        <div class="ring-num" id="resultNum">0</div>
+        <div>
+          <div class="result-verdict" id="resultVerdict"></div>
+          <div class="label" style="margin-top:4px;">Compliance-Score</div>
+        </div>
+      </div>
+      <div class="result-details" id="resultDetails"></div>
+      <div>
+        <div class="label" style="margin-bottom:8px;">Betroffene Artikel</div>
+        <div class="result-articles" id="resultArticles"></div>
+      </div>
+      <div class="result-cta">
+        <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+          Kontakt aufnehmen →
+        </button>
+        <button class="restart-link" onclick="resetCheck()">Check neu starten</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §05 KONTAKT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <div class="section-num">§ 05</div>
+    <div>
+      <h2 class="section-title">Gespräch<br><em>aufnehmen</em></h2>
+      <p class="section-lead">
+        Ob Behörde, KMU oder technischer Partner — sprechen Sie uns direkt an.
+        Wir antworten innerhalb von 48 Stunden.
+      </p>
+    </div>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <div class="contact-block">
+        <div class="c-label">Projektleitung</div>
+        <div class="c-val">Alexander Georg Rossa</div>
+        <div class="c-sub">Kaufmann im Gesundheitswesen (IHK) · Ausbilder AdA (AEVO)</div>
+      </div>
+      <div class="contact-block">
+        <div class="c-label">Standort</div>
+        <div class="c-val">Allee 18, 25554 Wilster</div>
+        <div class="c-sub">Schleswig-Holstein, Deutschland</div>
+      </div>
+      <div class="contact-block">
+        <div class="c-label">Rechtlicher Rahmen</div>
+        <div class="c-val">Regulatory Sandbox · Art. 62 EU AI Act</div>
+        <div class="c-sub">Geprüft durch Ordnungsamt Wilster · Weiterleitung an Landesjugendamt SH</div>
+      </div>
+      <div class="contact-qual">
+        <div class="label">Nachgewiesene Qualifikationen</div>
+        <ul class="qual-list">
+          <li>Kaufmann im Gesundheitswesen IHK (03.01.2019)</li>
+          <li>Ausbilder-Eignungsverordnung AdA / IHK (08.06.2017)</li>
+          <li>Zertifizierte Tragfähigkeitsprüfung (x-group, Berlin)</li>
+          <li>100h Gründungsberatung (Agentur für Arbeit)</li>
+          <li>Zertifizierte Pflegeassistenz (AGS, 260h)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="contact-form reveal">
+      <div class="form-row">
+        <div class="field-group">
+          <label>Name *</label>
+          <input type="text" placeholder="Max Mustermann">
+        </div>
+        <div class="field-group">
+          <label>Organisation</label>
+          <input type="text" placeholder="Unternehmen / Behörde">
+        </div>
+      </div>
+      <div class="field-group">
+        <label>E-Mail *</label>
+        <input type="email" placeholder="kontakt@organisation.de">
+      </div>
+      <div class="field-group">
+        <label>Anliegen</label>
+        <select>
+          <option value="">Bitte wählen…</option>
+          <option>KMU · AI Act Compliance Beratung</option>
+          <option>Behörde · Kooperationsanfrage</option>
+          <option>Technischer Partner · Integration</option>
+          <option>Förderung · Finanzierung</option>
+          <option>Presse / Forschung</option>
+          <option>Sonstiges</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Nachricht</label>
+        <textarea placeholder="Beschreiben Sie kurz Ihr Anliegen oder Ihre aktuelle Situation…"></textarea>
+      </div>
+      <button class="form-submit" onclick="handleSubmit(event)">Nachricht senden</button>
+      <p class="form-note">Ihre Daten werden lokal verarbeitet und nicht an Dritte weitergegeben.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <strong>Zemala</strong> · Mit Sorgfalt und Liebe e.K. · Reallabor Allee 18 · 25554 Wilster
+  </div>
+  <div class="footer-integrity mono">
+    ZEMALA SYSTEM INTEGRITY // HYGIENESTUFE 100 // O-M-A.
+  </div>
+</footer>
+
+<script>
+/* ─── SCROLL REVEAL ────────────────────────────── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      // stagger children
+      const kids = e.target.querySelectorAll('.reveal');
+      kids.forEach((k, i) => {
+        k.style.transitionDelay = (i * 0.08) + 's';
+        k.classList.add('visible');
+      });
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ─── COMPLIANCE SELF-CHECK ────────────────────── */
+const questions = [
+  {
+    q: "Setzt Ihr Unternehmen oder Ihre Organisation KI-Systeme ein (auch Chatbots, Empfehlungssysteme, automatisierte Entscheidungen)?",
+    art: "Art. 3 · Definition KI-System",
+    articles: []
+  },
+  {
+    q: "Werden durch Ihre KI automatisierte Entscheidungen getroffen, die Personen betreffen (z.B. Kundenbewertungen, Personalauswahl, Kreditvergabe)?",
+    art: "Art. 6 · Hochrisiko-KI Klassifizierung",
+    articles: ["Art. 6"]
+  },
+  {
+    q: "Haben Sie eine lückenlose, automatische Protokollierung aller KI-gestützten Vorgänge und Entscheidungen eingerichtet?",
+    art: "Art. 12 · Aufzeichnungspflichten",
+    articles: ["Art. 12"]
+  },
+  {
+    q: "Können Entscheidungen Ihres KI-Systems jederzeit nachvollzogen und erklärt werden (z.B. durch Entscheidungsverläufe oder Audit-Logs)?",
+    art: "Art. 13 · Transparenz & Erklärbarkeit",
+    articles: ["Art. 13"]
+  },
+  {
+    q: "Ist eine wirksame menschliche Aufsicht über alle KI-Prozesse technisch sichergestellt — mit Möglichkeit zum manuellen Eingriff?",
+    art: "Art. 14 · Menschliche Aufsicht",
+    articles: ["Art. 14"]
+  },
+  {
+    q: "Haben alle Mitarbeitenden, die mit KI-Systemen arbeiten, eine dokumentierte Schulung zur KI-Kompetenz erhalten?",
+    art: "Art. 4 · KI-Kompetenzvermittlung (seit Feb. 2025)",
+    articles: ["Art. 4"]
+  },
+  {
+    q: "Ist Ihre KI-Infrastruktur datenschutzkonform gestaltet — insbesondere hinsichtlich Datenminimierung und Zweckbindung nach DSGVO?",
+    art: "DSGVO Art. 5 · Datenminimierung",
+    articles: ["DSGVO"]
+  },
+  {
+    q: "Verfügen Sie über ein vollständiges KI-Inventar, das alle eingesetzten Systeme, deren Zweck und Risikokategorie dokumentiert?",
+    art: "Art. 11 · Technische Dokumentation",
+    articles: ["Art. 11"]
+  }
+];
+
+let current = 0;
+let yesCount = 0;
+let missingArticles = [];
+
+function answer(isYes) {
+  if (isYes) {
+    yesCount++;
+  } else {
+    const arts = questions[current].articles;
+    arts.forEach(a => { if (!missingArticles.includes(a)) missingArticles.push(a); });
+  }
+  current++;
+  if (current < questions.length) {
+    showQuestion(current);
+  } else {
+    showResult();
+  }
+}
+
+function showQuestion(idx) {
+  const q = questions[idx];
+  const pct = ((idx / questions.length) * 100).toFixed(0);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('checkCounter').textContent = `Frage ${idx + 1} von ${questions.length}`;
+  document.getElementById('checkMeta').textContent = q.art;
+  document.getElementById('checkQuestion').textContent = q.q;
+}
+
+function showResult() {
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('checkBody').style.display = 'none';
+  const res = document.getElementById('checkResult');
+  res.classList.add('visible');
+
+  const score = Math.round((yesCount / questions.length) * 100);
+  const numEl = document.getElementById('resultNum');
+  numEl.textContent = score + '%';
+
+  let verdict, details, cls;
+  if (score >= 75) {
+    verdict = "Gute Ausgangslage";
+    details = "Ihre Organisation hat bereits wesentliche Grundlagen gelegt. Eine strukturierte Überprüfung der verbleibenden Lücken und die Formalisierung Ihrer Dokumentation sind der nächste Schritt.";
+    cls = 'score-low';
+    numEl.style.color = 'var(--green)';
+  } else if (score >= 40) {
+    verdict = "Handlungsbedarf erkennbar";
+    details = "In mehreren Bereichen bestehen Lücken, die zu regulatorischen Risiken führen können. Besonders die in rot markierten Artikel sollten zeitnah adressiert werden. Das Reallabor Allee 18 kann als Testumgebung unterstützen.";
+    cls = 'score-mid';
+    numEl.style.color = 'var(--amber)';
+  } else {
+    verdict = "Hohes Compliance-Risiko";
+    details = "Ihr System erfüllt derzeit wesentliche Anforderungen des EU AI Acts nicht. Bei einer Prüfung durch die Bundesnetzagentur (BNetzA) drohen Sanktionen. Wir empfehlen ein strukturiertes Erstgespräch.";
+    cls = 'score-high';
+    numEl.style.color = 'var(--red)';
+  }
+
+  document.getElementById('resultVerdict').textContent = verdict;
+  document.getElementById('resultDetails').textContent = details;
+
+  const allArts = ["Art. 4", "Art. 11", "Art. 12", "Art. 13", "Art. 14", "DSGVO"];
+  const artContainer = document.getElementById('resultArticles');
+  artContainer.innerHTML = '';
+  allArts.forEach(a => {
+    const span = document.createElement('span');
+    span.className = 'art-risk ' + (missingArticles.includes(a) ? 'gap' : 'ok');
+    span.textContent = missingArticles.includes(a) ? a + ' ✗' : a + ' ✓';
+    artContainer.appendChild(span);
+  });
+}
+
+function resetCheck() {
+  current = 0; yesCount = 0; missingArticles = [];
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('checkResult').classList.remove('visible');
+  document.getElementById('checkBody').style.display = 'block';
+  showQuestion(0);
+}
+
+/* ─── FORM SUBMIT ──────────────────────────────── */
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target;
+  btn.textContent = "✓ Nachricht empfangen — wir melden uns!";
+  btn.style.background = "var(--green)";
+  btn.disabled = true;
+}
+
+/* Init */
+showQuestion(0);
+</script>
+</body>
+</html>

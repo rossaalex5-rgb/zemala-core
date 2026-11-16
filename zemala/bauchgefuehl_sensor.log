@@ -1,0 +1,4 @@
+{"time": "2026-11-01T23:54:07.905431+00:00", "ctx": "Uebergabe nach Ludwig", "payload": "Prio1 E1 Hotel 10 Zimmer §6 SOG SH §22 KdU", "integrity": "aeffb6802c2b", "ok": true, "errors": [], "ludwig": "OK"}
+{"time": "2026-11-01T23:54:07.905748+00:00", "ctx": "Uebergabe nach Ludwig", "payload": "Prio2 E2 Puff->Heim §75", "integrity": "01bb2bdd6c3a", "ok": true, "errors": [], "ludwig": "OK"}
+{"time": "2026-11-01T23:54:07.905858+00:00", "ctx": "Uebergabe nach Ludwig", "payload": "Prio3 E3 LAsD AföVO §45a", "integrity": "2fb2d3ff47a2", "ok": true, "errors": [], "ludwig": "OK"}
+{"time": "2026-11-01T23:54:07.905935+00:00", "ctx": "Uebergabe nach Ludwig", "payload": "Prio4 E4 Content Creator ALLE", "integrity": "603429f7a788", "ok": true, "errors": [], "ludwig": "OK"}

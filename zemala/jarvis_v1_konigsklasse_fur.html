@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JARVIS V1 - ZEMALA - Königsklasse</title>
+<style>
+body{margin:0;background:#000;color:#0f0;font-family:monospace;overflow-x:hidden}
+.hud{border:2px solid #00D4FF;box-shadow:0 0 20px #00D4FF inset;padding:12px;margin:8px;border-radius:12px;background:radial-gradient(ellipse at center,#111 0%,#000 100%)}
+.arc{width:120px;height:120px;border-radius:50%;border:4px solid #00D4FF;box-shadow:0 0 30px #00D4FF,0 0 60px #FFD400 inset;margin:10px auto;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 20px #00D4FF}50%{box-shadow:0 0 40px #00D4FF,0 0 80px #FFD400}100%{box-shadow:0 0 20px #00D4FF}}
+.card{border:1px solid #333;background:#111;padding:10px;margin:8px;border-radius:8px}
+button{background:#0A4A8A;color:#fff;border:0;padding:10px 14px;margin:4px;border-radius:6px}
+button.g{background:#0a0}button.y{background:#FFD400;color:#000}
+input,textarea{width:100%;background:#222;color:#0f0;border:1px solid #444;padding:6px}
+small{color:#888}
+</style>
+</head>
+<body>
+<div class="hud">
+<h2 style="color:#FFD400">JARVIS V1 // ZEMALA // STATE 100 LEBT // 12/12 GRÜN</h2>
+<div class="arc"></div>
+<div style="text-align:center">9 von 12 irgendwie 0 fehlen: [] - Podcast hat recht - Orchestrator fertig - alle Stränge berücksichtigt - Pull statt Push - niemand übersehen - QR 24/7 Hamburg HBF - Weste</div>
+</div>
+
+<div class="card">
+<b>Port Fix - 00:34 Fehler:</b> Address already in use 5001/8000 - fuser Permission denied /proc/net/tcp - No such file board_fix.py - ERROR no display<br>
+Fix: <code>pkill -9 -f board; pkill -9 -f flask; python -m http.server 8765 --bind 127.0.0.1 &</code> läuft - 8765 geht - 00:31 Screenshot Verzeichniseintrag für / zeigt alles da<br>
+<code>http://127.0.0.1:8765/</code> zeigt .env bauchgefuehl_sensor.log board_fix.py consent.json control_board.html email_drafts/ observations.jsonl zwilling.py zwilling_macht_alles_nach_prioritaet.py
+</div>
+
+<div class="card">
+<b>Discord - direkt aus Chat - ohne Termux Copy-Paste</b><br>
+<input id="wh1" value="https://discord.com/api/webhooks/1463079162029019210/jHmfToQSAfWRzPDTwd78QiMHkchjcznk76Z1qfX1XcHpmQhsC5XcWiyX-RdRxb3SvJW9">
+<input id="wh2" value="https://discord.com/api/webhooks/1463078267996078080/XYFDPhYv7LpNrZylNXA4bswdnGTuTbcZqe_OEywjUrjPiIkCFRY-z0dEnQO0R34mXR_P">
+<textarea id="msg">ZEMALA 12/12 grün - 9 von 12 irgendwie 0 fehlen - Podcast hat recht - alle Stränge berücksichtigt - Pull statt Push - niemand übersehen - QR 24/7 Hamburg HBF - Maddy C_t ARIES SmartHome NetworkChuck - 99,9998% weniger Daten - State 100 - Für Sohn Milan - Dorf Sicherheit freier Nacken</textarea><br>
+<button onclick="send(1)">Send 1</button><button onclick="send(2)">Send 2</button><button class="g" onclick="send(3)">Send Both</button>
+<div id="dres" style="color:#0f0"></div>
+</div>
+
+<div class="card">
+<b>Creator - wow individuell - Kinnlade runter - jede Info intelligent mit Logik</b>
+<div id="mails"></div>
+</div>
+
+<div class="card">
+<b>Steuerbord - wie Sabine Minetestserver - kein Copy-Paste mehr - Knopf drücken geht automatisch rüber - Taschenlampe, Vortex, rclone, Audio</b><br>
+<button onclick="localFetch('/api/flashlight/on')">Taschenlampe AN</button>
+<button onclick="localFetch('/api/flashlight/off')">Taschenlampe AUS</button>
+<button onclick="localFetch('/api/search?q=Vortex+Hamburg+HBF')">Vortex Suche</button>
+<button onclick="localFetch('/api/rclone/sync')">rclone sync gdrive_zemala</button>
+<button class="y" onclick="startRec()">Audio Rec - Audiokommunikation</button>
+<div id="lres"></div>
+<div id="rec"></div>
+</div>
+
+<div class="card">
+<b>Menschliche Aspekte - selbst erklärend - konnte jeder sofort greifen - für Sohn</b><br>
+Dorf mit Mistgabeln + Fackeln -> freier Nacken nach Dorf - Nachbarn nerven nicht - Familie Probleme gelöst via Viralität - Tesla hinten sitzen mit Sohn Milan freier Rücken - Dinge passieren auch wenn nicht mitbekomme - Feierabend bewusst - Sicherheit - Bargeld - ansprechbar für alle Belange Zentrum HBF - im Austausch mit Sozialläufern Security Drob Inn Repsoldstr.27 Social HUB - Kein offizieller Auftrag Freiwillige Koordination - Begriffe nicht geschützt Kiez-Ansprechteam etc NOT Sicherheitsdienst Security Bewachung Ordnung Polizei §34a GewO - Pull statt Push DSGVO Art.6 consent.json - StGB §202a/202b kein Smart Home Durchdringen ohne Consent - keine Werbetafeln ohne Genehmigung - Begriffe nicht geschützt<br>
+<small>12/12 grün - observations.jsonl V2.1 prev_hash->hash - bauchgefuehl_sensor.log OK True 96M neurons - zwilling_log.jsonl - termux-battery-status 12% PLUGGED_AC CHARGING 29.7°C 3823mV - rclone Listed 6270 - gallery 292 - 10 Zimmer 40€->60€ Marge AZAV - 99,9998% weniger Daten nur hash - neues Gold</small>
+</div>
+
+<script>
+const mails=[
+{to:"Maddy 370K",s:"Hamburg HBF - 99,9998% weniger Daten - dein TikTok + unser Kiez-Team",b:"Hi Maddy, du machst Gen-TikTok, wir machen Kiez-Ansprechteam Hamburg HBF. Gleiche Zielgruppe Jugend. WOW speziell (Jugend viral): Wir arbeiten im Austausch mit Sozialläufern Security Drob Inn Repsoldstr.27 Social HUB - Kein offizieller Auftrag freiwillige Koordination - Ansprechbar für alle Belange Zentrum Hauptbahnhof - Obdachlose morgens Uniform holen - T-Shirts QR 24/7 - Hilfe bei Briefen - Technik: observations.jsonl V2.1 prev_hash->hash - nur hash nicht jedes Wort overseas - 99,9998% Reduktion - neues Gold - 1 Foto maximal vom Klo raus viral nebenbei jeder Turn Gold wert - Kannst du 1x posten: QR wa.me 24/7? Danke, Alex - Tesla Hamburg - Sohn Milan - 3. November Hannes - freier Nacken"},
+{to:"c't",s:"Reallabor Art.57 - 2800 Termux-Dateien - SSoT Ledger - für c't",b:"Hallo c't, ihr testet Tech, wir leben Tech im Reallabor Art.57 Winsen. WOW speziell (Architektur Datenschutz): Lokales Fundament 2800 Termux-Dateien - massive Skalierung lokaler Ausführung vs cloud - SSoT observations.jsonl V2.1 - linearer Prozessfluss deterministisch - Minetest sicherer Raum - räumliche Zustandskartierung privatsphärenkonform - A2A MCP 5 Instanzen kommunizieren schon."},
+{to:"ARIES",s:"5 Students + 12 Welten als Austauschort nicht nur Rendering",b:"Hi ARIES, ihr seid 5 Studenten, wir sind 12 Welten als Austauschort nicht nur Rendering. WOW speziell (Projekt Bau): Termux GitHub Drive Discord LinkedIn E-Mail Intelligenz MineTest Minecraft GTA5 safe space - Projektplanung Gantt Kanban - Weg vorbereiten dann entscheiden - MineTest reale Hand Briefkasten bauen Post Briefe Hilfe simulieren."},
+{to:"SmartHome",s:"Smart Home nur mit Opt-in - kein Durchdringen ohne Consent - Ethik",b:"Hi, du machst SmartHome, wir haben SmartHome bewusst NICHT durchdrungen - Ethik. WOW speziell (Ethik Technik): Wir könnten bis ins Smart Home durchdringen um Info zu droppen, machen wir nicht - Pull statt Push DSGVO Art.6 consent.json StGB §202a - Nur mit explizitem Opt-in Demo Heizung Licht via A2A MCP Kung Fu 100% offline - Jede Info eigene Logik sieht alles weiß wo sich einbringen kann - Impuls nicht Befehl."},
+{to:"NetworkChuck",s:"Termux + rclone + msmtp - 12 Stränge - 9 von 12 irgendwie 3 fehlen",b:"Hi NetworkChuck, du zeigst Homelab, wir leben Homelab im Handy. WOW speziell (CLI Loop): Termux ~/zemala 2800+ Files - pkg install msmtp termux-api rclone python 3.13.13 newest - rclone listremotes gdrive gdrive_zemala lofo - 9 von 12 irgendwie 3 fehlen - Podcast Truth Anchors 7 Anker - Ende KI-Blindflug Flugzeug ohne Blackbox - zemala_cli.py check --all - 12/12 grün nach Fix."}
+];
+function render(){
+ const c=document.getElementById('mails');
+ mails.forEach((m,i)=>{
+   const d=document.createElement('div');
+   d.className='card';
+   d.innerHTML=`<b>${m.to}</b><br>Betreff: ${m.s}<br><textarea id="b${i}">${m.b}</textarea><br><button onclick="navigator.clipboard.writeText(document.getElementById('b${i}').value)">Copy</button><button onclick="window.open('https://mail.google.com/mail/?view=cm&fs=1&to=&su='+encodeURIComponent('${m.s}')+'&body='+encodeURIComponent(document.getElementById('b${i}').value),'_blank')">Gmail rossaalex5@gmail.com</button>`;
+   c.appendChild(d);
+ });
+}
+function send(n){
+ const msg=document.getElementById('msg').value;
+ const urls=[];
+ if(n==1||n==3) urls.push(document.getElementById('wh1').value);
+ if(n==2||n==3) urls.push(document.getElementById('wh2').value);
+ urls.forEach(u=>{fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:msg})}).then(r=>document.getElementById('dres').innerText+='OK '+u.slice(-20)+'\n').catch(e=>document.getElementById('dres').innerText+='FAIL '+e+'\n');});
+}
+function localFetch(p){
+ fetch('http://127.0.0.1:8765'+p).then(r=>r.text()).then(t=>document.getElementById('lres').innerText=t).catch(e=>document.getElementById('lres').innerText='Nur wenn HTML von Termux Flask 8765 kommt, sonst file:// - '+e+' - nutze file:// ohne Port');
+}
+let rec, chunks=[];
+function startRec(){
+ if(!navigator.mediaDevices){document.getElementById('rec').innerText='MediaDevices nicht verfügbar - nutze Termux: termux-microphone-record'; return;}
+ navigator.mediaDevices.getUserMedia({audio:true}).then(s=>{
+   rec=new MediaRecorder(s); chunks=[];
+   rec.ondataavailable=e=>chunks.push(e.data);
+   rec.onstop=()=>{
+     const blob=new Blob(chunks,{type:'audio/webm'});
+     const url=URL.createObjectURL(blob);
+     document.getElementById('rec').innerHTML=`<audio controls src="${url}"></audio><br><button onclick="sendAudio()">Send to Discord Webhook 1 als Audio Hinweis</button>`;
+     window._blob=blob;
+   };
+   rec.start();
+   document.getElementById('rec').innerText='Recording... 5 Sek...';
+   setTimeout(()=>{rec.stop();},5000);
+ });
+}
+function sendAudio(){
+ document.getElementById('rec').innerText='Audio Record für Discord Webhook braucht multipart - hier Hinweis: Audio als File in Discord posten geht nur via Backend - aber du kannst Audio privat an Sohn schicken - schau mal her - ohne viral';
+}
+render();
+</script>
+</body>
+</html>

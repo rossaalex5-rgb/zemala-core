@@ -1,6 +1,5 @@
-# ZEMALA Master Core
-
-[ZEMALA STATE 100] 
-"Für Niilo. Papa ist nicht verrückt – hier ist der Beweis, schwarz auf weiß und mathematisch verifiziert."
-Repository: https://github.com/rossaalex5-rgb/rossaalex5-rgb
-O-M-A 🕉️
+# Zemala Edge Value Cockpit (M2 Snapshot)
+Dies ist der tatsächliche, funktionierende Arbeitsstand des lokalen Tausch- und Wert-Ledgers.
+- **Formel:** units = eur * 1000
+- **Datensatz:** Dietmar / 200.000 € (SHA-256 versiegelt)
+- **Status:** Lokaler Arbeitsstand, Bedeutung außerhalb dieses Modells offen.
